@@ -1,0 +1,1492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>async_example_program.async_example_worker.ExampleWorker</title>
+    <meta name="generator" content="pydoctor 23.9.0"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="readthedocstheme.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default mainnavbar">
+      
+  
+  <div class="container-fluid">
+
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+        <span class="navbar-brand">
+          <a href="https://github.com/ycc140/async_example_program" class="projecthome">async_example_program</a> <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <div id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" type="search" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" autocomplete="off" />
+            
+            <span class="input-group-btn">
+              <a style="display: none;" class="btn btn-default" id="search-clear-button" title="Clear" onclick="clearSearch()"><img src="fonts/x-circle.svg" alt="Clear" /></a>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help" /></a>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+    
+        <!-- Side navigation -->
+      <div class="sidebarcontainer">
+        <nav class="sidebar">
+  
+
+  <div>
+
+      <div class="thingTitle">
+        <span>Class</span>
+        <code class="thisobject"><a href="async_example_program.async_example_worker.ExampleWorker.html" class="internal-link" title="This class"><wbr></wbr>Example<wbr></wbr>Worker</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        
+        
+
+        <div class="childrenKindTitle">Methods</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__init__" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.__init__">__init__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#notify" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.notify">notify</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#start" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.start">start</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#stop" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.stop">stop</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_archive_active_cache" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._archive_active_cache">_archive<wbr></wbr>_active<wbr></wbr>_cache</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_handle_send_response" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._handle_send_response">_handle<wbr></wbr>_send<wbr></wbr>_response</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_message_broker" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._message_broker">_message<wbr></wbr>_broker</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_process_file_found" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._process_file_found">_process<wbr></wbr>_file<wbr></wbr>_found</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_process_new_params" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._process_new_params">_process<wbr></wbr>_new<wbr></wbr>_params</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_process_report_request" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._process_report_request">_process<wbr></wbr>_report<wbr></wbr>_request</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_prune_state_content" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._prune_state_content">_prune<wbr></wbr>_state<wbr></wbr>_content</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_report_error" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._report_error">_report<wbr></wbr>_error</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_restore_active_cache" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._restore_active_cache">_restore<wbr></wbr>_active<wbr></wbr>_cache</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_schedule_dump_check" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._schedule_dump_check">_schedule<wbr></wbr>_dump<wbr></wbr>_check</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_schedule_state_pruning" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._schedule_state_pruning">_schedule<wbr></wbr>_state<wbr></wbr>_pruning</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_send_message" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._send_message">_send<wbr></wbr>_message</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_send_offline_messages" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._send_offline_messages">_send<wbr></wbr>_offline<wbr></wbr>_messages</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+
+        <div class="childrenKindTitle">Attributes</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#cache_mgr" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.cache_mgr">cache<wbr></wbr>_mgr</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#ini" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.ini">ini</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#mq_buffer" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.mq_buffer">mq<wbr></wbr>_buffer</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#mq_mgr" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.mq_mgr">mq<wbr></wbr>_mgr</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#program" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.program">program</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#received_files" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.received_files">received<wbr></wbr>_files</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#scheduler" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.scheduler">scheduler</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#searcher" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.searcher">searcher</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#work_queue" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.work_queue">work<wbr></wbr>_queue</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div><div>
+
+      <div class="thingTitle">
+        <span>Module</span>
+        <code><a href="async_example_program.async_example_worker.html" class="internal-link" title="The parent of this class">async<wbr></wbr>_example<wbr></wbr>_worker</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        <div class="childrenKindTitle">Classes</div>
+        <ul>
+    
+    <li class=" thisobject">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="async_example_program.async_example_worker.ExampleWorker.html" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker"><wbr></wbr>Example<wbr></wbr>Worker</a></code>
+            </div>
+        
+
+    </li>
+</ul>
+
+        
+         
+
+        
+         
+
+        <div class="childrenKindTitle">Variables</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="async_example_program.async_example_worker.html#PREFIXES" class="internal-link" title="async_example_program.async_example_worker.PREFIXES">PREFIXES</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div>
+
+</nav>
+        <!-- No sidebar toggle for read the docs theme, the sidebar is always
+          visible when the screen is width enough.
+        -->
+      </div>
+
+    </nav>
+    
+    <div class="container-fluid">
+
+      <div id="main" class="">
+        
+
+        
+
+        <div id="search-results-container" style="display: none;">
+        
+          <div id="search-buttons">
+            <span class="label label-default" id="search-docstrings-button">
+            <label class="checkbox-inline">
+              <input type="checkbox" id="toggle-search-in-docstrings-checkbox" value="false" onclick="toggleSearchInDocstrings()">
+                search in docstrings
+              </input>
+            </label>
+            </span>
+            
+          </div>
+          
+          <noscript>
+              <h1>Cannot search: JavaScript is not supported/enabled in your browser.</h1>
+          </noscript>
+  
+          <div class="hint" id="search-help-box">
+            <p class="rst-last">
+        
+              Search bar offers the following options:
+              <ul>   
+                  <li>
+                    <strong>Term presence.</strong> The below example searches for documents that 
+                      must contain “foo”, might contain “bar” and must not contain “baz”: <code>+foo bar -baz</code>
+                  </li> 
+  
+                  <li>
+                    <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”: <code>foo*</code>
+                  </li> 
+  
+                  <li>
+                    <strong>Search in specific fields.</strong> The following search matches all objects 
+                    in "twisted.mail" that matches “search”: <code>+qname:twisted.mail.* +search</code>
+  
+                    <p>
+                      Possible fields: 'name', 'qname' (fully qualified name), 'docstring', and 'kind'.
+                      Last two fields are only applicable if "search in docstrings" is enabled.
+                    </p>
+                  </li>
+  
+                  <li>
+                    <strong>Fuzzy matches.</strong> The following search matches all documents 
+                    that have a word within 1 edit distance of “foo”: <code>foo~1</code>
+                  </li>
+              </ul>
+  
+            </p>
+          </div>
+  
+          <div id="search-status"> </div>
+  
+          <div class="warning" id="search-warn-box" style="display: none;">
+            <p class="rst-last"><span id="search-warn"></span></p>
+          </div>
+  
+          <table id="search-results">
+            <!-- Filled dynamically by JS -->
+          </table>
+          
+          <div style="margin-top: 8px;">
+            <p>Results provided by <a href="https://lunrjs.com">Lunr.js</a></p>
+          </div>
+        </div>
+
+        <div class="page-header">
+          <h1 class="class"><code><code><a href="index.html" class="internal-link">async_example_program</a></code><wbr></wbr>.<code><a href="async_example_program.async_example_worker.html" class="internal-link" title="async_example_program.async_example_worker">async_example_worker</a></code><wbr></wbr>.<code><a href="async_example_program.async_example_worker.ExampleWorker.html" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker">ExampleWorker</a></code></code></h1>
+          <div id="showPrivate">
+            <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+          </div>
+        </div>
+
+        <div class="categoryHeader">
+          class documentation
+        </div>
+
+        <div class="extrasDocstring">
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">ExampleWorker</span>: <a href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L44" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.__init__">ExampleWorker(ini, program)</a></code></p>
+          <p><a href="classIndex.html#async_example_program.async_example_worker.ExampleWorker">View In Hierarchy</a></p>
+        </div>
+
+        <div class="moduleDocstring">
+          <div><p>This worker class demonstrates how to use resources like RabbitMQ and Watchdog
+asynchronously. It also demonstrates the usage of internal message brokers to
+control the work by using JSON messages as events. It also demonstrates the
+usage of scheduling reoccurring events.</p>
+<dl class="rst-docutils">
+<dt>The following environment variable dependencies exist:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li>ENVIRONMENT</li>
+</ul>
+</dd>
+<dt>The following secret dependencies exist:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li>mongoPwd</li>
+</ul>
+</dd>
+<dt>The following jobs are scheduled:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li><em>_schedule_dump_check()</em>: runs every five seconds.</li>
+<li><em>_schedule_state_pruning()</em>: runs at midnight every day.</li>
+</ul>
+</dd>
+</dl>
+<p>RabbitMQ is used for receiving and sending messages to external services.
+Messages that are to be sent to the RabbitMQ will be stored offline if
+the communication goes down and will be re-sent when the communication
+is re-established.</p>
+<dl class="rst-docutils">
+<dt>Subscribe for the following RabbitMQ message topic(s):</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li>'File.ReportRequest.&lt;SERVER&gt;'</li>
+</ul>
+</dd>
+<dt>Sends RabbitMQ messages with the following topic(s):</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li>'File.Report.&lt;server&gt;'</li>
+<li>'File.Detected.&lt;server&gt;'</li>
+<li>'Error.Message.&lt;server&gt;'</li>
+</ul>
+</dd>
+</dl>
+</div>
+        </div>
+
+        <div id="splitTables">
+          <table class="children sortable" id="id14">
+  
+  
+  <tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__init__" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.__init__">__init__</a></code></td>
+    <td>The class constructor.</td>
+  </tr><tr class="method">
+    
+    <td>Async Method</td>
+    <td><code><a href="#notify" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.notify">notify</a></code></td>
+    <td>Send msgType messages to the broker.</td>
+  </tr><tr class="method">
+    
+    <td>Async Method</td>
+    <td><code><a href="#start" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.start">start</a></code></td>
+    <td>Start the used resources in a controlled way.</td>
+  </tr><tr class="method">
+    
+    <td>Async Method</td>
+    <td><code><a href="#stop" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.stop">stop</a></code></td>
+    <td>Stop the used resources in a controlled way.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#cache_mgr" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.cache_mgr">cache<wbr></wbr>_mgr</a></code></td>
+    <td>Handles archiving and restoring cache data that needs to survive a program restart.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#ini" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.ini">ini</a></code></td>
+    <td>Ini file configuration parameters.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#mq_buffer" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.mq_buffer">mq<wbr></wbr>_buffer</a></code></td>
+    <td>Handle the storing and retrieving of messages when the external communication goes up and down.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#mq_mgr" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.mq_mgr">mq<wbr></wbr>_mgr</a></code></td>
+    <td>Handle messages being sent to or received from RabbitMQ.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#program" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.program">program</a></code></td>
+    <td>Current program name, used by logging and RabbitMQ.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#received_files" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.received_files">received<wbr></wbr>_files</a></code></td>
+    <td>Keeping track of received files during the day.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#scheduler" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.scheduler">scheduler</a></code></td>
+    <td>Handles dump checks and pruning of received_files cache.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#searcher" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.searcher">searcher</a></code></td>
+    <td>Reports new files detected in specified directories.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#work_queue" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker.work_queue">work<wbr></wbr>_queue</a></code></td>
+    <td>Used for transferring a message between interested parties.</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
+    <td><code><a href="#_archive_active_cache" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._archive_active_cache">_archive<wbr></wbr>_active<wbr></wbr>_cache</a></code></td>
+    <td>Archive active cache(s).</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
+    <td><code><a href="#_handle_send_response" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._handle_send_response">_handle<wbr></wbr>_send<wbr></wbr>_response</a></code></td>
+    <td>Handle send response, good or bad.</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
+    <td><code><a href="#_message_broker" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._message_broker">_message<wbr></wbr>_broker</a></code></td>
+    <td>Broker messages between interested parties using a queue.</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
+    <td><code><a href="#_process_file_found" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._process_file_found">_process<wbr></wbr>_file<wbr></wbr>_found</a></code></td>
+    <td>Trigger a new workflow by sending a FileDetected message.</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
+    <td><code><a href="#_process_new_params" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._process_new_params">_process<wbr></wbr>_new<wbr></wbr>_params</a></code></td>
+    <td>Update affected resources with the changed Ini parameters.</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
+    <td><code><a href="#_process_report_request" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._process_report_request">_process<wbr></wbr>_report<wbr></wbr>_request</a></code></td>
+    <td>Process FileReportRequest message..</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
+    <td><code><a href="#_prune_state_content" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._prune_state_content">_prune<wbr></wbr>_state<wbr></wbr>_content</a></code></td>
+    <td>Report received_files content, then clear it for today's content.</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
+    <td><code><a href="#_report_error" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._report_error">_report<wbr></wbr>_error</a></code></td>
+    <td>Log error with context and failure data, then send it to RabbitMQ.</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
+    <td><code><a href="#_restore_active_cache" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._restore_active_cache">_restore<wbr></wbr>_active<wbr></wbr>_cache</a></code></td>
+    <td>Restore active cache(s).</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
+    <td><code><a href="#_schedule_dump_check" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._schedule_dump_check">_schedule<wbr></wbr>_dump<wbr></wbr>_check</a></code></td>
+    <td>Handle DUMP request in a separate task, if needed.</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
+    <td><code><a href="#_schedule_state_pruning" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._schedule_state_pruning">_schedule<wbr></wbr>_state<wbr></wbr>_pruning</a></code></td>
+    <td>Start received_files pruning in a separate task, if needed.</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
+    <td><code><a href="#_send_message" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._send_message">_send<wbr></wbr>_message</a></code></td>
+    <td>Send a msgType message to RabbitMQ.</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
+    <td><code><a href="#_send_offline_messages" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker._send_offline_messages">_send<wbr></wbr>_offline<wbr></wbr>_messages</a></code></td>
+    <td>Send pending offline messages to the RabbitMQ server.</td>
+  </tr>
+</table>
+          
+
+            
+        </div>
+
+        <div id="childList">
+          <div class="basemethod">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, ini: <code>AsyncExampleProgIni</code>, program: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L100">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#__init__" title="async_example_program.async_example_worker.ExampleWorker.__init__">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>The class constructor.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">ini:</span><code>AsyncExampleProgIni</code></td><td class="fieldArgDesc">Ini file configuration parameters.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">program:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">Program name, used by logging and RabbitMQ.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker.notify">
+    
+  </a>
+  <a name="notify">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">notify</span><span class="function-signature">(self, msg: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L441">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#notify" title="async_example_program.async_example_worker.ExampleWorker.notify">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Send msgType messages to the broker.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">msg:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></td><td class="fieldArgDesc">A msgType message.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker.start">
+    
+  </a>
+  <a name="start">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">start</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L451">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#start" title="async_example_program.async_example_worker.ExampleWorker.start">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Start the used resources in a controlled way.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker.stop">
+    
+  </a>
+  <a name="stop">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">stop</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L477">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#stop" title="async_example_program.async_example_worker.ExampleWorker.stop">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Stop the used resources in a controlled way.</p>
+<p>Note that this method can't be async</p>
+</div>
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker.cache_mgr">
+    
+  </a>
+  <a name="cache_mgr">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">cache_mgr</span>: <code><a href="async_example_program.tools.async_cache_manager.AsyncCacheManager.html" class="internal-link" title="async_example_program.tools.async_cache_manager.AsyncCacheManager">AsyncCacheManager</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L91">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#cache_mgr" title="async_example_program.async_example_worker.ExampleWorker.cache_mgr">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Handles archiving and restoring cache data that needs to
+survive a program restart.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker.ini">
+    
+  </a>
+  <a name="ini">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">ini</span>: <code><a href="async_example_program.async_example_ini_core.AsyncExampleProgIni.html" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni">AsyncExampleProgIni</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L75">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#ini" title="async_example_program.async_example_worker.ExampleWorker.ini">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Ini file configuration parameters.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker.mq_buffer">
+    
+  </a>
+  <a name="mq_buffer">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">mq_buffer</span>: <code><a href="async_example_program.tools.async_offline_buffer.AsyncOfflineBuffer.html" class="internal-link" title="async_example_program.tools.async_offline_buffer.AsyncOfflineBuffer">AsyncOfflineBuffer</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L85">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#mq_buffer" title="async_example_program.async_example_worker.ExampleWorker.mq_buffer">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Handle the storing and retrieving of messages when the external
+communication goes up and down.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker.mq_mgr">
+    
+  </a>
+  <a name="mq_mgr">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">mq_mgr</span>: <code><a href="async_example_program.tools.async_rabbit_client.AsyncRabbitClient.html" class="internal-link" title="async_example_program.tools.async_rabbit_client.AsyncRabbitClient">AsyncRabbitClient</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L89">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#mq_mgr" title="async_example_program.async_example_worker.ExampleWorker.mq_mgr">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Handle messages being sent to or received from RabbitMQ.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker.program">
+    
+  </a>
+  <a name="program">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">program</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L77">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#program" title="async_example_program.async_example_worker.ExampleWorker.program">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Current program name, used by logging and RabbitMQ.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker.received_files">
+    
+  </a>
+  <a name="received_files">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">received_files</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L79">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#received_files" title="async_example_program.async_example_worker.ExampleWorker.received_files">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Keeping track of received files during the day.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker.scheduler">
+    
+  </a>
+  <a name="scheduler">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">scheduler</span>: <tt class="rst-docutils literal">apscheduler.schedulers.asyncio.AsyncIOScheduler</tt> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L83">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#scheduler" title="async_example_program.async_example_worker.ExampleWorker.scheduler">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Handles dump checks and pruning of received_files cache.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker.searcher">
+    
+  </a>
+  <a name="searcher">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">searcher</span>: <code><a href="async_example_program.tools.async_file_searcher.AsyncFileSearcher.html" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher">AsyncFileSearcher</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L94">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#searcher" title="async_example_program.async_example_worker.ExampleWorker.searcher">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Reports new files detected in specified directories.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker.work_queue">
+    
+  </a>
+  <a name="work_queue">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">work_queue</span>: <code><a href="https://docs.python.org/3/library/asyncio-queue.html#asyncio.Queue" class="intersphinx-link">asyncio.Queue</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L81">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#work_queue" title="async_example_program.async_example_worker.ExampleWorker.work_queue">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Used for transferring a message between interested parties.</p></div>
+    
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker._archive_active_cache">
+    
+  </a>
+  <a name="_archive_active_cache">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_archive_active_cache</span><span class="function-signature">(self, dump: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L148">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_archive_active_cache" title="async_example_program.async_example_worker.ExampleWorker._archive_active_cache">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Archive active cache(s).</p>
+<p>When <em>dump=True</em> the archive filename uses a <em>"dump_"</em>
+prefix when saving the file.</p>
+<p>Note that you are currently limited to what YAML handles
+when it comes to what data types you can archive.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">dump:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Dump status (default: False).</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker._handle_send_response">
+    
+  </a>
+  <a name="_handle_send_response">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_handle_send_response</span><span class="function-signature">(self, success: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code>, msg: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>, topic: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L232">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_handle_send_response" title="async_example_program.async_example_worker.ExampleWorker._handle_send_response">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Handle send response, good or bad.</p>
+<p>If the communication is down, the message is stored offline.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">success:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Message transmission status.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">msg:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></td><td class="fieldArgDesc">A msgType message.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">topic:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">A subscription topic.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker._message_broker">
+    
+  </a>
+  <a name="_message_broker">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_message_broker</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L376">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_message_broker" title="async_example_program.async_example_worker.ExampleWorker._message_broker">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Broker messages between interested parties using a queue.</p>
+<dl class="rst-docutils">
+<dt>Received message types are:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li>Stop</li>
+<li>LinkUp</li>
+<li>FileFound</li>
+<li>ChangedIniParams</li>
+<li>FileReportRequest</li>
+</ul>
+</dd>
+<dt>Sent message types are:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li>FileReport</li>
+<li>FileDetected</li>
+<li>ErrorMessage</li>
+</ul>
+</dd>
+</dl>
+</div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker._process_file_found">
+    
+  </a>
+  <a name="_process_file_found">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_process_file_found</span><span class="function-signature">(self, msg: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L317">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_process_file_found" title="async_example_program.async_example_worker.ExampleWorker._process_file_found">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Trigger a new workflow by sending a FileDetected message.</p>
+<p>Example msg data:</p>
+<pre class="rst-literal-block">
+{"msgType": "FileFound", "type": "detected",
+ "file": "D:/Prod/Pre/ExampleProgram/In/AAAA_invoices.txt"}
+</pre>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">msg:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></td><td class="fieldArgDesc">A FileFound message.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker._process_new_params">
+    
+  </a>
+  <a name="_process_new_params">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_process_new_params</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L275">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_process_new_params" title="async_example_program.async_example_worker.ExampleWorker._process_new_params">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Update affected resources with the changed Ini parameters.</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker._process_report_request">
+    
+  </a>
+  <a name="_process_report_request">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_process_report_request</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L347">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_process_report_request" title="async_example_program.async_example_worker.ExampleWorker._process_report_request">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Process FileReportRequest message..</p>
+<p>Example msg data:</p>
+<pre class="rst-literal-block">
+{"msgType": "FileReportRequest"}
+</pre>
+</div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker._prune_state_content">
+    
+  </a>
+  <a name="_prune_state_content">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_prune_state_content</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L297">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_prune_state_content" title="async_example_program.async_example_worker.ExampleWorker._prune_state_content">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Report received_files content, then clear it for today's content.</p>
+<p>This method needs to be called at midnight since <em>self.received_files</em>
+should only contain files for the current day.</p>
+</div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker._report_error">
+    
+  </a>
+  <a name="_report_error">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_report_error</span><span class="function-signature">(self, error: <code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code>)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L130">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_report_error" title="async_example_program.async_example_worker.ExampleWorker._report_error">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Log error with context and failure data, then send it to RabbitMQ.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">error:</span><code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code></td><td class="fieldArgDesc">Current exception.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker._restore_active_cache">
+    
+  </a>
+  <a name="_restore_active_cache">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_restore_active_cache</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L180">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_restore_active_cache" title="async_example_program.async_example_worker.ExampleWorker._restore_active_cache">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Restore active cache(s).</p>
+<dl class="rst-docutils">
+<dt>Currently handled active cache types:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li>dict</li>
+<li>list</li>
+</ul>
+</dd>
+</dl>
+<p>Note: this method will restore the saved state to the class
+attribute that was specified when it was archived.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Raises</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/exceptions.html#RuntimeError" class="intersphinx-link">RuntimeError</a></code></td><td>When archived cache name is not found.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker._schedule_dump_check">
+    
+  </a>
+  <a name="_schedule_dump_check">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_schedule_dump_check</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L288">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_schedule_dump_check" title="async_example_program.async_example_worker.ExampleWorker._schedule_dump_check">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Handle DUMP request in a separate task, if needed.</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker._schedule_state_pruning">
+    
+  </a>
+  <a name="_schedule_state_pruning">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_schedule_state_pruning</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L367">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_schedule_state_pruning" title="async_example_program.async_example_worker.ExampleWorker._schedule_state_pruning">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Start received_files pruning in a separate task, if needed.</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker._send_message">
+    
+  </a>
+  <a name="_send_message">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_send_message</span><span class="function-signature">(self, msg: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L253">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_send_message" title="async_example_program.async_example_worker.ExampleWorker._send_message">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Send a msgType message to RabbitMQ.</p>
+<p>The message topic is automatically created here with the help
+of the PREFIXES constant.</p>
+<p>Handle File and Error message types.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">msg:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></td><td class="fieldArgDesc">A msgType message.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.async_example_worker.ExampleWorker._send_offline_messages">
+    
+  </a>
+  <a name="_send_offline_messages">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_send_offline_messages</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/81fab12d66423ed0cd5a834ba3e263e6e282a5ad/async_example_worker.py#L217">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_send_offline_messages" title="async_example_program.async_example_worker.ExampleWorker._send_offline_messages">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Send pending offline messages to the RabbitMQ server.</p></div>
+  </div>
+</div>
+        </div>
+      
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+    <hr />
+    
+    
+    <div class="container">
+      <a href="index.html">API Documentation</a> for <a href="https://github.com/ycc140/async_example_program" class="projecthome">async_example_program</a>,
+    generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+      23.9.0 at 1970-01-01 00:00:00.
+    </div>
+    
+    <script src="ajax.js" type="text/javascript"></script>
+    <script src="searchlib.js" type="text/javascript"></script>
+    <script src="search.js" type="text/javascript"></script>
+  
+  </footer>
+  
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>
