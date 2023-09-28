@@ -1,0 +1,15 @@
+repos:
+  - repo: local
+    hooks:
+      - id: keyword-substitution
+        name: keyword-substitution
+        entry: git_pre_commit_hook
+        language: system
+        stages: [ commit, merge-commit ]
+        types: [ text ]
+      - id: post-commit-local
+        name: post-commit-local
+        entry: git_post_commit_hook
+        language: system
+        always_run: true
+        stages: [ post-commit, post-merge ]

@@ -1,0 +1,10 @@
+aio-pika==9.3.0
+aiofiles==23.2.1
+apscheduler==3.10.4
+loguru==0.7.2
+pydantic==2.4.2
+pydantic-settings==2.0.3
+pywin32==306
+pyyaml==6.0.1
+pytz==
+watchdog==3.0.0
