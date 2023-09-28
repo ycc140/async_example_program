@@ -155,3 +155,4 @@ cython_debug/
 # own stuff
 .build
 certs/
+apidocs/
