@@ -1,6 +1,7 @@
+# noinspection StructuralWrap
 """
-.. image:: /design/async_template_prog.png
+.. image:: /static/async_template_prog.png
    :width: 95%
 
-This async template program contains number of goodies when you are building a lot of microservice programs.
+This async template program contains a number of goodies when you are building a lot of microservice programs.
 """
