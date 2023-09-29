@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-28 20:42:35
-       $Rev: 1
+      $Date: 2023-09-29 02:11:37
+       $Rev: 7
 """
 
 # BUILTIN modules
@@ -29,6 +29,7 @@ from tools.local_log_handler import logger
 
 # Constants
 CONTENT_TYPE = 'application/json'
+""" Defines JSON as the content type. """
 
 
 # -----------------------------------------------------------------------------
