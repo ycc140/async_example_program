@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-29 03:15:49
-       $Rev: 11
+      $Date: 2023-09-29 05:23:58
+       $Rev: 12
 """
 
 # BUILTIN modules
@@ -294,11 +294,11 @@ class ExampleWorker:
     # ----------------------------------------------------------
     # Unique for this program.
     #
-    async def _prune_state_content(self):
+    async def _prune_cache_content(self):
         """ Report received_files content, then clear it for today's content.
 
-        This method needs to be called at midnight since *self.received_files*
-        should only contain files for the current day.
+        This method needs to be called at midnight since the detected files
+        cache should only contain files for the current day.
         """
         try:
             data = {'msgType': 'FileReport',
@@ -384,7 +384,7 @@ class ExampleWorker:
         """ Start received_files pruning in a separate task, if needed. """
 
         if self.detected_files:
-            await asyncio.create_task(self._prune_state_content())
+            await asyncio.create_task(self._prune_cache_content())
 
     # ---------------------------------------------------------
     # required in every program (but content changes).

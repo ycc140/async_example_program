@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-29 02:09:35
-       $Rev: 6
+      $Date: 2023-09-29 05:23:58
+       $Rev: 12
 """
 
 # BUILTIN modules
@@ -29,6 +29,16 @@ DEFAULT = 'DEFAULT'
 """ Defaults section name. """
 PLATFORM = sys.platform
 """ Current platform. """
+
+
+# -----------------------------------------------------------------------------
+#
+class IniValidationError(Exception):
+    """
+    This exception will be raised when an error occurs
+    during validation if the INI file.
+    """
+    pass
 
 
 # -----------------------------------------------------------------------------
@@ -179,7 +189,7 @@ class AsyncIniFileParser(ConfigParser):
 
         except ValueError as why:
             self.error.append(f'{why}')
-            raise RuntimeError(self.error)
+            raise IniValidationError(self.error)
 
     # ----------------------------------------------------------
     #
@@ -221,7 +231,7 @@ class AsyncIniFileParser(ConfigParser):
         :param validation_model: Pydantic BaseModel.
         :param sections: List of used section names (except DEFAULT).
         :param read_ini: Read ini file (default is True).
-        :raise RuntimeError: When missing or corrupt, Ini parameters are detected.
+        :raise IniValidationError: When missing or corrupt, Ini parameters are detected.
         """
 
         if read_ini:
@@ -247,7 +257,7 @@ class AsyncIniFileParser(ConfigParser):
                 self.error.append(f'<{key}> parameter is incorrect')
 
         if self.error:
-            raise RuntimeError(self.error)
+            raise IniValidationError(self.error)
 
         self._validate_params(validation_model, sections)
 

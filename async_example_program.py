@@ -7,8 +7,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-29 02:14:07
-       $Rev: 9
+      $Date: 2023-09-29 05:23:58
+       $Rev: 12
 """
 
 # BUILTIN modules
@@ -22,7 +22,7 @@ from tools.exceptions import error_message_of, error_text_of
 from tools.local_log_handler import path_of, LogHandler, logger
 
 # Local program modules
-from async_example_ini_core import AsyncExampleProgIni
+from async_example_ini_core import AsyncExampleProgIni, IniValidationError
 from async_example_worker import ExampleWorker, asyncio, Path, AsyncIOScheduler
 
 
@@ -185,7 +185,7 @@ class AsyncExampleProgram:
             if self.ini.changed_worker_parameters:
                 await self.worker.notify({'msgType': 'ChangedIniParams'})
 
-        except RuntimeError:
+        except IniValidationError:
             await self._fatal_ini_error_stop(self.ini.error)
 
         except AttributeError as why:
@@ -291,11 +291,12 @@ class AsyncExampleProgram:
             pass
 
         # Handle INI file errors, either initial or during execution.
-        except RuntimeError:
+        except IniValidationError:
             await self._fatal_ini_error_stop(self.ini.error)
 
         # The initial RabbitMQ connection failed, so no point
         # in generating a traceback and sending an ErrorMessage.
+        # When restore cache is out-of-sync, you'll get a ValueError.
         except (ValueError, ConnectionError) as why:
             await self._fatal_error_dump(error=why, suppress=True)
 

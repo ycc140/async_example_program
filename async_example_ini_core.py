@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-28 20:42:35
-       $Rev: 1
+      $Date: 2023-09-29 05:23:58
+       $Rev: 12
 """
 
 # BUILTIN modules
@@ -15,7 +15,9 @@ import os
 from typing import Callable, Optional, List
 
 # Tools modules
-from tools.async_ini_file_parser import PLATFORM, AsyncIniFileParser
+from tools.async_ini_file_parser import (PLATFORM,
+                                         AsyncIniFileParser,
+                                         IniValidationError)
 
 # Local program modules
 from async_example_ini_models import ConfigModel, Win32Model, LinuxModel
@@ -141,7 +143,7 @@ class AsyncExampleProgIni(AsyncIniFileParser):
 
         # This needs to be the last block (log semantic validation errors).
         if self.error:
-            raise RuntimeError(self.error)
+            raise IniValidationError(self.error)
 
     # ---------------------------------------------------------
     # Required by every program.
