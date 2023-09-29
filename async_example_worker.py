@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-29 05:23:58
-       $Rev: 12
+      $Date: 2023-09-29 16:02:37
+       $Rev: 13
 """
 
 # BUILTIN modules
@@ -187,7 +187,7 @@ class ExampleWorker:
         Note: this method will restore the saved state to the class
         attribute that was specified when it was archived.
 
-        :raise RuntimeError: When archived cache name is not found.
+        :raise ValueError: When archived cache name is not found.
         """
         items = await self.cache_mgr.restore_cache()
 
