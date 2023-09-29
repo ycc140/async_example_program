@@ -156,3 +156,5 @@ cython_debug/
 .build
 certs/
 apidocs/
+requirements-compile.in
+requirements-compile.txt
