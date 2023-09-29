@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-28 20:42:35
-       $Rev: 1
+      $Date: 2023-09-29 03:00:57
+       $Rev: 10
 """
 
 # BUILTIN modules
@@ -25,10 +25,10 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from tools.configurator import config
 from tools.local_log_handler import logger
 from tools.exceptions import error_message_of
-from tools.file_utilities import check_for_command
 from tools.async_cache_manager import AsyncCacheManager
 from tools.async_file_searcher import AsyncFileSearcher
 from tools.async_offline_buffer import AsyncOfflineBuffer
+from tools.file_utilities import check_for_command, calculate_md5
 from tools.async_rabbit_client import AsyncRabbitClient, RabbitParams
 
 # Local program modules
@@ -76,8 +76,8 @@ class ExampleWorker:
     :type ini: `AsyncExampleProgIni`
     :ivar program: Current program name, used by logging and RabbitMQ.
     :type program: `str`
-    :ivar received_files: Keeping track of received files during the day.
-    :type received_files: `dict`
+    :ivar detected_files: Keeping track of received files during the day.
+    :type detected_files: `dict`
     :ivar work_queue: Used for transferring a message between interested parties.
     :type work_queue: `asyncio.Queue`
     :ivar scheduler: Handles dump checks and pruning of received_files cache.
@@ -113,7 +113,7 @@ class ExampleWorker:
         self.program = program
 
         # Unique parameters.
-        self.received_files = {}
+        self.detected_files = {}
 
         # Initiate objects.
         self.work_queue = asyncio.Queue()
@@ -168,7 +168,7 @@ class ExampleWorker:
 
         # Initiate data for one or more active cache(s) that needs archiving.
         items = {name_of(item): item for item in [
-            self.received_files
+            self.detected_files
         ] if item}
 
         await self.cache_mgr.archive_cache(items, dump)
@@ -206,7 +206,7 @@ class ExampleWorker:
                           f'{attribute_name}" is NOT defined in the worker '
                           f'class! Stop the app, rename the file on disk to'
                           f'match the new attribute name and restart the app.')
-                raise RuntimeError(errmsg)
+                raise ValueError(errmsg)
 
         # Remove the files when the restore was successful.
         await self.cache_mgr.clear_restored_cache()
@@ -303,10 +303,10 @@ class ExampleWorker:
         try:
             data = {'msgType': 'FileReport',
                     'service': self.program, 'state': 'daily', 'server': config.server,
-                    'data': json.dumps(self.received_files, ensure_ascii=False)}
+                    'data': json.dumps(self.detected_files, ensure_ascii=False)}
             await self.work_queue.put(data)
 
-            self.received_files.clear()
+            self.detected_files.clear()
 
         except BaseException as why:
             await self._report_error(why)
@@ -316,6 +316,13 @@ class ExampleWorker:
     #
     async def _process_file_found(self, msg: dict):
         """ Trigger a new workflow by sending a FileDetected message.
+
+        If a duplicate file is detected, it's considered an error, so
+        it's logged and the file is moved to the *error_path* directory.
+
+        When it's a unique file, it's added to the detection cache, a
+        *FileDetected* message is sent, and the file is moved to the
+        *out_path* directory.
 
         Example msg data::
 
@@ -327,16 +334,26 @@ class ExampleWorker:
 
         try:
             infile = Path(msg['file'])
-            outfile = Path(self.ini.out_path) / infile.name
-            shutil.move(infile, outfile)
+            crc = await calculate_md5(infile)
+            duplicate = self.detected_files.get(crc)
+            dest_path = (self.ini.error_path if duplicate else self.ini.out_path)
 
-            data = {'msgType': 'FileDetected', 'file': str(outfile)}
-            await self.work_queue.put(data)
+            if duplicate:
+                errmsg = (f"Checksum {crc} already exists for received file "
+                          f"{infile.name} => [{duplicate['when']}, "
+                          f"{duplicate['name']}]")
+                logger.error(errmsg)
 
-            # Keep track of received files.
-            data = {'size': outfile.stat().st_size,
-                    'when': time.strftime("%Y-%m-%d %X")}
-            self.received_files.setdefault(outfile.name, []).append(data)
+            else:
+                self.detected_files[crc] = {'name': str(infile),
+                                            'size': infile.stat().st_size,
+                                            'when': time.strftime("%Y-%m-%d %X")}
+
+                data = {'msgType': 'FileDetected', 'file': str(infile)}
+                await self.work_queue.put(data)
+
+            dest_file = Path(dest_path, infile.name)
+            shutil.move(infile, dest_file)
 
         except BaseException as why:
             await self._report_error(why)
@@ -353,9 +370,9 @@ class ExampleWorker:
         """
 
         try:
-            data = {'msgType': 'FileReport',
+            data = {'msgType': 'FileReport', 'server': config.server,
                     'service': self.program, 'state': 'requested',
-                    'data': json.dumps(self.received_files), 'server': config.server}
+                    'data': self.detected_files}
             await self.work_queue.put(data)
 
         except BaseException as why:
@@ -367,7 +384,7 @@ class ExampleWorker:
     async def _schedule_state_pruning(self):
         """ Start received_files pruning in a separate task, if needed. """
 
-        if self.received_files:
+        if self.detected_files:
             await asyncio.create_task(self._prune_state_content())
 
     # ---------------------------------------------------------
@@ -420,7 +437,7 @@ class ExampleWorker:
 
                 # A new file is detected in the supervised context.
                 elif msg['msgType'] == 'FileFound':
-                    await self._process_file_found(msg)
+                    await asyncio.create_task(self._process_file_found(msg))
 
                 # The main program detected updated worker INI file parameters.
                 elif msg['msgType'] == 'ChangedIniParams':

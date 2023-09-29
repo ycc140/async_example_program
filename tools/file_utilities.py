@@ -6,15 +6,20 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-28 20:42:35
-       $Rev: 1
+      $Date: 2023-09-29 03:00:57
+       $Rev: 10
 """
 
 # BUILTIN modules
 import sys
+import hashlib
 import subprocess
+from typing import Union
 from pathlib import Path
 from ctypes import windll
+
+# Third party modules
+import aiofiles
 
 # Constants
 OPEN_EXISTING = 3
@@ -92,3 +97,28 @@ def is_file_available(filename: str) -> bool:
         result = True
 
     return result
+
+
+# ---------------------------------------------------------
+#
+async def calculate_md5(filename: Union[Path, str]) -> str:
+    """
+    Calculate the MD5 checksum (see Internet RFC 1321) for the
+    specified filename and return the result as a hex string.
+
+    :param filename: Name of input file.
+    :return: MD5 checksum in hexadecimal format (containing only hexadecimal digits).
+    """
+
+    async with aiofiles.open(filename, 'rb') as hdl:
+        md5_sum = hashlib.md5()
+
+        while True:
+
+            if data := await hdl.read(100000):
+                md5_sum.update(data)
+
+            else:
+                break
+
+        return md5_sum.hexdigest()
