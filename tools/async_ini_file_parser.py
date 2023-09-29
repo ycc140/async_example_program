@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-28 20:42:35
-       $Rev: 1
+      $Date: 2023-09-29 02:09:35
+       $Rev: 6
 """
 
 # BUILTIN modules
@@ -19,7 +19,6 @@ from configparser import ConfigParser, ExtendedInterpolation, NoOptionError
 
 # Third party modules
 import aiofiles
-from pydantic import BaseModel
 
 # Local modules
 from .secrets_manager import SecretsManager
@@ -47,13 +46,22 @@ class AsyncIniFileParser(ConfigParser):
 
 
     :ivar filename: Name if ini file.
+    :type filename: `str`
     :ivar default_paths: Default paths defined.
+    :type default_paths: `list`
     :ivar default_params: Default parameters defined.
-    :ivar supervise_change: Supervise parameter change when the program is running.
+    :type default_params: `list`
+    :ivar supervise_change:
+        Supervise parameter change when the program is running.
+    :type supervise_change: `bool`
     :ivar error: Validation errors.
+    :type error: `list`
     :ivar status: Parameter change status when supervision is active.
+    :type status: `dict`
     :ivar valid_params: Validated INI file parameters.
+    :type valid_params: ``pydantic.BaseModel``
     :ivar file_timestamp: Timestamp for last ini file modification.
+    :type file_timestamp: `float`
     """
 
     # ----------------------------------------------------------
@@ -65,22 +73,21 @@ class AsyncIniFileParser(ConfigParser):
         :param name: Name of ini file.
         :param default_paths: Default paths.
         :param default_params: Default parameters.
-        :param supervise_change: Supervise parameter change
-            (default is True).
+        :param supervise_change: Supervise parameter change (default is True).
         """
         super().__init__(interpolation=ExtendedInterpolation())
 
         # Input parameters.
-        self.filename: str = f'{name}'
-        self.default_paths: list = default_paths
-        self.default_params: list = default_params
-        self.supervise_change: bool = supervise_change
+        self.filename = f'{name}'
+        self.default_paths = default_paths
+        self.default_params = default_params
+        self.supervise_change = supervise_change
 
         # Unique parameters.
         self.error = []
         self.status = {}
         self.valid_params = None
-        self.file_timestamp: float = os.path.getmtime(self.filename)
+        self.file_timestamp = os.path.getmtime(self.filename)
 
     # ---------------------------------------------------------
     #
@@ -168,7 +175,7 @@ class AsyncIniFileParser(ConfigParser):
                     params[section] = self._add_section_parameters(section)
 
             # Do a pydantic parameter type and structure validation.
-            self.valid_params: BaseModel = validation_model(**params)
+            self.valid_params = validation_model(**params)
 
         except ValueError as why:
             self.error.append(f'{why}')
