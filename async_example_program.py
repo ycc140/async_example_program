@@ -7,8 +7,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-28 20:42:35
-       $Rev: 1
+      $Date: 2023-09-29 02:14:07
+       $Rev: 9
 """
 
 # BUILTIN modules
@@ -296,7 +296,7 @@ class AsyncExampleProgram:
 
         # The initial RabbitMQ connection failed, so no point
         # in generating a traceback and sending an ErrorMessage.
-        except ConnectionError as why:
+        except (ValueError, ConnectionError) as why:
             await self._fatal_error_dump(error=why, suppress=True)
 
         # Handle all unhandled exceptions that reach here as fatal.
