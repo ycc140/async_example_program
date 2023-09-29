@@ -94,6 +94,16 @@
         
 
         
+            <div class="itemName"><code><a href="#calculate_md5" class="internal-link" title="async_example_program.tools.file_utilities.calculate_md5">calculate<wbr></wbr>_md5</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#check_for_command" class="internal-link" title="async_example_program.tools.file_utilities.check_for_command">check<wbr></wbr>_for<wbr></wbr>_command</a></code>
             </div>
         
@@ -420,7 +430,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <a href="https://github.com/ycc140/async_example_program/tree/1cbfa32054e284402513e0ad10a91ffbaed8fd43/tools/file_utilities.py" class="sourceLink">(source)</a>
+          <a href="https://github.com/ycc140/async_example_program/tree/9398b7738b0c6c30cd37a9213820f9a91adec04a/tools/file_utilities.py" class="sourceLink">(source)</a>
           <p></p>
         </div>
 
@@ -430,8 +440,8 @@
 <pre class="rst-literal-block">
   $Repo: async_example_program
 $Author: Anders Wiklund
-  $Date: 2023-09-28 20:42:35
-   $Rev: 1
+  $Date: 2023-09-29 03:00:57
+   $Rev: 10
 </pre>
 </div>
         </div>
@@ -441,6 +451,11 @@ $Author: Anders Wiklund
   
   
   <tr class="function">
+    
+    <td>Async Function</td>
+    <td><code><a href="#calculate_md5" class="internal-link" title="async_example_program.tools.file_utilities.calculate_md5">calculate<wbr></wbr>_md5</a></code></td>
+    <td>Calculate the MD5 checksum (see Internet RFC 1321) for the specified filename and return the result as a hex string.</td>
+  </tr><tr class="function">
     
     <td>Function</td>
     <td><code><a href="#check_for_command" class="internal-link" title="async_example_program.tools.file_utilities.check_for_command">check<wbr></wbr>_for<wbr></wbr>_command</a></code></td>
@@ -481,6 +496,34 @@ $Author: Anders Wiklund
           <div class="basefunction">
   
   
+  <a name="async_example_program.tools.file_utilities.calculate_md5">
+    
+  </a>
+  <a name="calculate_md5">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">calculate_md5</span><span class="function-signature">(filename: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" class="intersphinx-link">Path</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code>) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/9398b7738b0c6c30cd37a9213820f9a91adec04a/tools/file_utilities.py#L104">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#calculate_md5" title="async_example_program.tools.file_utilities.calculate_md5">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Calculate the MD5 checksum (see Internet RFC 1321) for the
+specified filename and return the result as a hex string.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">filename:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" class="intersphinx-link">Path</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc">Name of input file.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">MD5 checksum in hexadecimal format (containing only hexadecimal digits).</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
   <a name="async_example_program.tools.file_utilities.check_for_command">
     
   </a>
@@ -491,7 +534,7 @@ $Author: Anders Wiklund
     
     
     <span class="py-keyword">def</span> <span class="py-defname">check_for_command</span><span class="function-signature">(command: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>) -&gt; <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1cbfa32054e284402513e0ad10a91ffbaed8fd43/tools/file_utilities.py#L32">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/9398b7738b0c6c30cd37a9213820f9a91adec04a/tools/file_utilities.py#L37">
       
       (source)
     </a>
@@ -520,7 +563,7 @@ $Author: Anders Wiklund
     
     
     <span class="py-keyword">def</span> <span class="py-defname">is_file_available</span><span class="function-signature">(filename: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>) -&gt; <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1cbfa32054e284402513e0ad10a91ffbaed8fd43/tools/file_utilities.py#L50">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/9398b7738b0c6c30cd37a9213820f9a91adec04a/tools/file_utilities.py#L55">
       
       (source)
     </a>
@@ -558,7 +601,7 @@ system primitives.</p>
   <div class="functionHeader">
     
     <span class="py-defname">FILE_ATTRIBUTE_NORMAL</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1cbfa32054e284402513e0ad10a91ffbaed8fd43/tools/file_utilities.py#L26">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/9398b7738b0c6c30cd37a9213820f9a91adec04a/tools/file_utilities.py#L31">
       
       (source)
     </a>
@@ -585,7 +628,7 @@ system primitives.</p>
   <div class="functionHeader">
     
     <span class="py-defname">FILE_SHARE_READ</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1cbfa32054e284402513e0ad10a91ffbaed8fd43/tools/file_utilities.py#L24">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/9398b7738b0c6c30cd37a9213820f9a91adec04a/tools/file_utilities.py#L29">
       
       (source)
     </a>
@@ -612,7 +655,7 @@ system primitives.</p>
   <div class="functionHeader">
     
     <span class="py-defname">GENERIC_WRITE</span> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1cbfa32054e284402513e0ad10a91ffbaed8fd43/tools/file_utilities.py#L22">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/9398b7738b0c6c30cd37a9213820f9a91adec04a/tools/file_utilities.py#L27">
       
       (source)
     </a>
@@ -639,7 +682,7 @@ system primitives.</p>
   <div class="functionHeader">
     
     <span class="py-defname">OPEN_EXISTING</span>: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1cbfa32054e284402513e0ad10a91ffbaed8fd43/tools/file_utilities.py#L20">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/9398b7738b0c6c30cd37a9213820f9a91adec04a/tools/file_utilities.py#L25">
       
       (source)
     </a>
