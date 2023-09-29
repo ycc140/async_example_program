@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-29 03:00:57
-       $Rev: 10
+      $Date: 2023-09-29 03:15:49
+       $Rev: 11
 """
 
 # BUILTIN modules
@@ -326,8 +326,7 @@ class ExampleWorker:
 
         Example msg data::
 
-          {"msgType": "FileFound", "type": "detected",
-           "file": "D:/Prod/Pre/ExampleProgram/In/AAAA_invoices.txt"}
+          {"msgType": "FileFound", "file": "D:/Prod/Pre/Incoming/AKFAIN12.DAT"}
 
         :param msg: A FileFound message.
         """
