@@ -113,6 +113,16 @@
         
 
         
+            <div class="itemName"><code><a href="#HEALTH_TEMPLATE" class="internal-link" title="async_example_program.async_example_worker.HEALTH_TEMPLATE">HEALTH<wbr></wbr>_TEMPLATE</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#PREFIXES" class="internal-link" title="async_example_program.async_example_worker.PREFIXES">PREFIXES</a></code>
             </div>
         
@@ -300,7 +310,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <a href="https://github.com/ycc140/async_example_program/tree/f88b1b25352f28ce8b69428be5091ffad934b46a/async_example_worker.py" class="sourceLink">(source)</a>
+          <a href="https://github.com/ycc140/async_example_program/tree/9480b39ba6c28d84093acd0fa8445411724d1d7e/async_example_worker.py" class="sourceLink">(source)</a>
           <p></p>
         </div>
 
@@ -310,8 +320,8 @@
 <pre class="rst-literal-block">
   $Repo: async_example_program
 $Author: Anders Wiklund
-  $Date: 2023-09-29 16:02:37
-   $Rev: 13
+  $Date: 2023-10-01 06:15:18
+   $Rev: 14
 </pre>
 </div>
         </div>
@@ -328,6 +338,11 @@ $Author: Anders Wiklund
   </tr><tr class="constant">
     
     <td>Constant</td>
+    <td><code><a href="#HEALTH_TEMPLATE" class="internal-link" title="async_example_program.async_example_worker.HEALTH_TEMPLATE">HEALTH<wbr></wbr>_TEMPLATE</a></code></td>
+    <td>Health report template for current program.</td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
     <td><code><a href="#PREFIXES" class="internal-link" title="async_example_program.async_example_worker.PREFIXES">PREFIXES</a></code></td>
     <td>Send message prefixes.</td>
   </tr>
@@ -341,6 +356,37 @@ $Author: Anders Wiklund
           <div class="baseconstant">
   
   
+  <a name="async_example_program.async_example_worker.HEALTH_TEMPLATE">
+    
+  </a>
+  <a name="HEALTH_TEMPLATE">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">HEALTH_TEMPLATE</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/9480b39ba6c28d84093acd0fa8445411724d1d7e/async_example_worker.py#L41">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#HEALTH_TEMPLATE" title="async_example_program.async_example_worker.HEALTH_TEMPLATE">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Health report template for current program.</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">ExampleWorker.scheduler</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">AsyncFileSearcher.observer</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">AsyncRabbitClient.connection</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">ExampleWorker._message_broker</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">AsyncFileSearcher._message_broker</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>}</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
   <a name="async_example_program.async_example_worker.PREFIXES">
     
   </a>
@@ -350,7 +396,7 @@ $Author: Anders Wiklund
   <div class="functionHeader">
     
     <span class="py-defname">PREFIXES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/f88b1b25352f28ce8b69428be5091ffad934b46a/async_example_worker.py#L38">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/9480b39ba6c28d84093acd0fa8445411724d1d7e/async_example_worker.py#L39">
       
       (source)
     </a>
@@ -363,7 +409,7 @@ $Author: Anders Wiklund
   <div class="functionBody">
     
     <div><p>Send message prefixes.</p></div>
-    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">File</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">Error</span><span class="rst-variable-quote">'</span>]</code></pre></td></tr></table>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">Health</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">File</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">Error</span><span class="rst-variable-quote">'</span>]</code></pre></td></tr></table>
   </div>
 </div>
         </div>
