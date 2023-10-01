@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-01 06:25:21
-       $Rev: 15
+      $Date: 2023-10-01 06:40:59
+       $Rev: 16
 """
 
 # BUILTIN modules
@@ -200,6 +200,20 @@ class ExampleWorker:
 
         for key, value in msg['resources'].items():
             self.health_report[key] = value
+
+    # ----------------------------------------------------------
+    # required in every program (but content is changed).
+    #
+    async def _process_linkup_message(self):
+        """ Send pending offline messages and start subscription(s). """
+        _ = asyncio.create_task(self._send_offline_messages())
+
+        keys = ['Health.Request.*']
+        _ = asyncio.create_task(
+            self.mq_mgr.start_topic_subscription(keys, permanent=False))
+
+        keys = [f'File.ReportRequest.{config.server}']
+        _ = asyncio.create_task(self.mq_mgr.start_topic_subscription(keys))
 
     # ---------------------------------------------------------
     # Optional, needed when active cache(s) need to survive a
@@ -487,10 +501,11 @@ class ExampleWorker:
             - FileReport
             - FileDetected
             - ErrorMessage
+            - HealthResponse
         """
 
         try:
-            logger.trace('Starting BROKER task...')
+            logger.trace('Starting main BROKER task...')
 
             while True:
                 msg = await self.work_queue.get()
@@ -507,21 +522,14 @@ class ExampleWorker:
 
                 # Message types that are sent to RabbitMQ.
                 if msg['msgType'] in (
-                        'FileReport', 'FileDetected', 'ErrorMessage', 'HealthResponse'
+                        'FileReport', 'FileDetected',
+                        'ErrorMessage', 'HealthResponse'
                 ):
                     await self._send_message(msg)
 
                 # Send pending messages and start subscription(s).
                 elif msg['msgType'] == 'LinkUp':
-                    _ = asyncio.create_task(self._send_offline_messages())
-
-                    keys = ['Health.Request.*']
-                    _ = asyncio.create_task(
-                        self.mq_mgr.start_topic_subscription(keys, permanent=False))
-
-                    keys = [f'File.ReportRequest.{config.server}']
-                    _ = asyncio.create_task(
-                        self.mq_mgr.start_topic_subscription(keys))
+                    await self._process_linkup_message()
 
                 # A new file is detected in the supervised context.
                 elif msg['msgType'] == 'FileFound':
@@ -543,10 +551,10 @@ class ExampleWorker:
                 elif msg['msgType'] == 'FileReportRequest':
                     await self._process_report_request()
 
-            logger.trace('Stopped BROKER task')
+            logger.trace('Stopped main BROKER task')
 
         except asyncio.CancelledError:
-            logger.trace('Operator cancelled BROKER task')
+            logger.trace('Operator cancelled main BROKER task')
 
     # ----------------------------------------------------------
     # required in every program.
