@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-01 06:15:18
-       $Rev: 14
+      $Date: 2023-10-01 06:25:21
+       $Rev: 15
 """
 
 # BUILTIN modules
@@ -183,7 +183,8 @@ class ExampleWorker:
         await self.mq_mgr.status_of()
         await self.searcher.notify(msg)
 
-        # Execute a coroutine after a delay independently.
+        # Give all reporting modules some time to submit
+        # their health status before creating the report.
         _ = asyncio.create_task(delay(self._create_health_response(), 1))
 
     # ----------------------------------------------------------
