@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-28 20:42:35
-       $Rev: 1
+      $Date: 2023-10-01 06:15:18
+       $Rev: 14
 """
 
 # BUILTIN modules
@@ -215,11 +215,23 @@ class AsyncFileSearcher:
 
     # ---------------------------------------------------------
     #
+    async def _process_status_request(self):
+        """ Process health status request. """
+
+        msg = {'msgType': 'StatusResponse',
+               'resources': {'AsyncFileSearcher._message_broker': True,
+                             'AsyncFileSearcher.observer': self.observer.is_alive()}}
+        self.out_queue.put_nowait(msg)
+
+    # ---------------------------------------------------------
+    #
     async def _message_broker(self):
         """ Broker messages between interested parties using a queue.
 
         Handled message types are:
-          'Stop', 'FileFound'.
+          - Stop
+          - FileFound
+          - StatusRequest
         """
 
         try:
@@ -232,6 +244,10 @@ class AsyncFileSearcher:
                 if msg['msgType'] == 'Stop':
                     break
 
+                # Health status request.
+                elif msg['msgType'] == 'StatusRequest':
+                    await self._process_status_request()
+
                 # A new file is detected in the supervised context.
                 elif msg['msgType'] == 'FileFound':
                     await self._process_file_found(msg)
@@ -241,13 +257,22 @@ class AsyncFileSearcher:
         except CancelledError:
             logger.trace('Operator cancelled searcher BROKER task')
 
+    # ----------------------------------------------------------
+    #
+    async def notify(self, msg: dict):
+        """ Send msgType messages to the broker.
+
+        :param msg: A msgType message.
+        """
+        self.work_queue.put_nowait(msg)
+
     # ---------------------------------------------------------
     #
     async def start(self):
         """ Start the used resources in a controlled way. """
 
         # Start asyncio tasks.
-        _ = [create_task(self._message_broker())]
+        _ = create_task(self._message_broker())
 
         # Start a normal python thread enveloped in an asyncio task.
         event_loop = get_event_loop()

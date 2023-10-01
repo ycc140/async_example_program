@@ -6,23 +6,24 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-29 16:02:37
-       $Rev: 13
+      $Date: 2023-10-01 06:15:18
+       $Rev: 14
 """
 
 # BUILTIN modules
 import time
-import json
 import shutil
 import asyncio
-from typing import Union
+import datetime
 from pathlib import Path
+from typing import Union
 
 # Third party modules
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 # Tools modules
 from tools.configurator import config
+from tools.async_utilities import delay
 from tools.local_log_handler import logger
 from tools.exceptions import error_message_of
 from tools.async_cache_manager import AsyncCacheManager
@@ -35,8 +36,14 @@ from tools.async_rabbit_client import AsyncRabbitClient, RabbitParams
 from async_example_ini_core import AsyncExampleProgIni
 
 # Constants
-PREFIXES = ['File', 'Error']
+PREFIXES = ['Health', 'File', 'Error']
 """ Send message prefixes. """
+HEALTH_TEMPLATE = {'ExampleWorker.scheduler': False,
+                   'AsyncFileSearcher.observer': False,
+                   'AsyncRabbitClient.connection': False,
+                   'ExampleWorker._message_broker': False,
+                   'AsyncFileSearcher._message_broker': False}
+""" Health report template for current program. """
 
 
 # -----------------------------------------------------------------------------
@@ -78,6 +85,8 @@ class ExampleWorker:
     :type program: `str`
     :ivar detected_files: Keeping track of received files during the day.
     :type detected_files: `dict`
+    :ivar health_report: Keep track of health status when a request arrives.
+    :type health_report: `dict`
     :ivar work_queue: Used for transferring a message between interested parties.
     :type work_queue: `asyncio.Queue`
     :ivar scheduler: Handles dump checks and pruning of received_files cache.
@@ -114,6 +123,7 @@ class ExampleWorker:
 
         # Unique parameters.
         self.detected_files = {}
+        self.health_report = None
 
         # Initiate objects.
         self.work_queue = asyncio.Queue()
@@ -137,6 +147,58 @@ class ExampleWorker:
         # Trigger sending error message.
         msg = error_message_of(error, self.program, 'DUMP')
         await self.work_queue.put(msg)
+
+    # ----------------------------------------------------------
+    # required in every program.
+    #
+    async def _create_health_response(self):
+        """ Create the program health response and send it. """
+
+        data = {'msgType': 'HealthResponse',
+                'server': config.server, 'timestamp': time.time(),
+                'service': self.program, 'resources': self.health_report,
+                'status': all(key for key in self.health_report.values())}
+        await self.work_queue.put(data)
+
+        # Reset parameter since the report have been sent.
+        self.health_report = None
+
+    # ----------------------------------------------------------
+    # required in every program (but content is changed).
+    #
+    async def _process_health_request(self):
+        """ Process HealthRequest message..
+
+        Example msg data::
+
+          {"msgType": "HealthRequest"}
+        """
+
+        self.health_report = HEALTH_TEMPLATE.copy()
+        self.health_report |= {'ExampleWorker._message_broker': True,
+                               'ExampleWorker.scheduler': self.scheduler.running}
+
+        # Trigger status reports from used resources.
+        msg = {'msgType': 'StatusRequest'}
+        await self.mq_mgr.status_of()
+        await self.searcher.notify(msg)
+
+        # Execute a coroutine after a delay independently.
+        _ = asyncio.create_task(delay(self._create_health_response(), 1))
+
+    # ----------------------------------------------------------
+    # required in every program.
+    #
+    async def _process_status_response(self, msg: dict):
+        """ Process StatusResponse message..
+
+        Example msg data::
+
+          {"msgType": "StatusResponse", "resources": {...}}
+        """
+
+        for key, value in msg['resources'].items():
+            self.health_report[key] = value
 
     # ---------------------------------------------------------
     # Optional, needed when active cache(s) need to survive a
@@ -289,24 +351,43 @@ class ExampleWorker:
         """ Handle DUMP request in a separate task, if needed. """
 
         if check_for_command('dump'):
-            await asyncio.create_task(self._archive_active_cache(dump=True))
+            _ = asyncio.create_task(self._archive_active_cache(dump=True))
 
     # ----------------------------------------------------------
     # Unique for this program.
     #
     async def _prune_cache_content(self):
-        """ Report received_files content, then clear it for today's content.
-
-        This method needs to be called at midnight since the detected files
-        cache should only contain files for the current day.
         """
-        try:
-            data = {'msgType': 'FileReport',
-                    'service': self.program, 'state': 'daily', 'server': config.server,
-                    'data': json.dumps(self.detected_files, ensure_ascii=False)}
-            await self.work_queue.put(data)
+        Make a daily report of received_files that is older than today and
+        remove the reported files from the cache.
 
-            self.detected_files.clear()
+        This method is normally called at midnight since the detected files
+        cache should only contain files for the current day.
+
+        When a program is started, we also have to make sure that all files
+        older than today are reported and pruned from the current day file
+        cache.
+        """
+
+        try:
+            report = {}
+            today = datetime.date.today()
+            detected_files = self.detected_files.copy()
+
+            for key, item in detected_files.items():
+                file_age = today - item['when'].date()
+
+                if file_age.days > 0:
+                    item['when'] = item['when'].strftime("%Y-%m-%d %X")
+                    report[key] = item
+                    del self.detected_files[key]
+
+            if report:
+                logger.info('Daily report contains {cnt} pruned files', cnt=len(report))
+                msg = {'msgType': 'FileReport', 'state': 'daily',
+                       'server': config.server, 'data': report,
+                       'service': self.program}
+                await self.work_queue.put(msg)
 
         except BaseException as why:
             await self._report_error(why)
@@ -346,7 +427,7 @@ class ExampleWorker:
             else:
                 self.detected_files[crc] = {'name': str(infile),
                                             'size': infile.stat().st_size,
-                                            'when': time.strftime("%Y-%m-%d %X")}
+                                            'when': datetime.datetime.now()}
 
                 data = {'msgType': 'FileDetected', 'file': str(infile)}
                 await self.work_queue.put(data)
@@ -384,7 +465,7 @@ class ExampleWorker:
         """ Start received_files pruning in a separate task, if needed. """
 
         if self.detected_files:
-            await asyncio.create_task(self._prune_cache_content())
+            _ = asyncio.create_task(self._prune_cache_content())
 
     # ---------------------------------------------------------
     # required in every program (but content changes).
@@ -396,6 +477,8 @@ class ExampleWorker:
             - Stop
             - LinkUp
             - FileFound
+            - HealthRequest
+            - StatusResponse
             - ChangedIniParams
             - FileReportRequest
 
@@ -423,20 +506,33 @@ class ExampleWorker:
 
                 # Message types that are sent to RabbitMQ.
                 if msg['msgType'] in (
-                        'FileReport', 'FileDetected', 'ErrorMessage'
+                        'FileReport', 'FileDetected', 'ErrorMessage', 'HealthResponse'
                 ):
                     await self._send_message(msg)
 
+                # Send pending messages and start subscription(s).
                 elif msg['msgType'] == 'LinkUp':
-                    await asyncio.create_task(self._send_offline_messages())
+                    _ = asyncio.create_task(self._send_offline_messages())
+
+                    keys = ['Health.Request.*']
+                    _ = asyncio.create_task(
+                        self.mq_mgr.start_topic_subscription(keys, permanent=False))
 
                     keys = [f'File.ReportRequest.{config.server}']
-                    await asyncio.create_task(
+                    _ = asyncio.create_task(
                         self.mq_mgr.start_topic_subscription(keys))
 
                 # A new file is detected in the supervised context.
                 elif msg['msgType'] == 'FileFound':
-                    await asyncio.create_task(self._process_file_found(msg))
+                    _ = asyncio.create_task(self._process_file_found(msg))
+
+                # External message from RabbitMQ,
+                elif msg['msgType'] == 'HealthRequest':
+                    await self._process_health_request()
+
+                # Status reports from active resources.
+                elif msg['msgType'] == 'StatusResponse':
+                    await self._process_status_response(msg)
 
                 # The main program detected updated worker INI file parameters.
                 elif msg['msgType'] == 'ChangedIniParams':
@@ -470,11 +566,15 @@ class ExampleWorker:
         await self._restore_active_cache()
 
         # Start queue blocking tasks.
-        _ = [asyncio.create_task(self._message_broker())]
+        _ = asyncio.create_task(self._message_broker())
 
         # Start tasks and threads.
         await self.mq_mgr.start()
         await self.searcher.start()
+
+        # Make sure we start fresh every day (files older
+        # than today are reported and removed from the cache).
+        await self._schedule_state_pruning()
 
         # Start scheduling the dump command detection.
         self.scheduler.add_job(self._schedule_dump_check,

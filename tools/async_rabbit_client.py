@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-29 02:11:37
-       $Rev: 7
+      $Date: 2023-10-01 06:15:18
+       $Rev: 14
 """
 
 # BUILTIN modules
@@ -309,6 +309,15 @@ class AsyncRabbitClient:
             result = False
 
         return result
+
+    # ----------------------------------------------------------
+    #
+    async def status_of(self):
+        """ Send RabbitMQ connection status on the response queue. """
+        status = self.connection and self.connection.connected.is_set()
+        msg = {'msgType': 'StatusResponse',
+               'resources': {'AsyncRabbitClient.connection': status}}
+        self.resp_queue.put_nowait(msg)
 
     # ---------------------------------------------------------
     #
