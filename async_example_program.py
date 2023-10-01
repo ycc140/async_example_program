@@ -7,8 +7,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-29 05:23:58
-       $Rev: 12
+      $Date: 2023-10-01 06:59:06
+       $Rev: 17
 """
 
 # BUILTIN modules
@@ -44,10 +44,9 @@ class AsyncExampleProgram:
     both Windows and Linux platforms.
 
     **macOS caveat**:
-      #. You have to add some code (in \
-         *tools/file_utilities.is_file_available()*) that handles file \
-         availability if not **lsof** is available.
-      #. You also have to add a **[darwin]** platform block to the INI file.
+      1. You have to add some code in *tools/file_utilities.is_file_available()*
+         that handles file availability if not **lsof** is available.
+      2. You also have to add a **[darwin]** platform block in the INI file.
 
     The following environment variable dependencies exist:
       - ENVIRONMENT (on all servers)
@@ -68,13 +67,17 @@ class AsyncExampleProgram:
     be sent to the RabbitMQ will be stored offline if the communication goes down and
     will be re-sent when the communication is re-established.
 
-    Subscribe for the following message topics:
-      - 'File.ReportRequest.<SERVER>'
+    Subscribe temporarily for the following RabbitMQ message topic(s):
+      - Health.Request.*
 
-    Sends MQ messages with the following topic(s):
-      - 'File.Report.<server>'
-      - 'File.Detected.<server>'
-      - 'Error.Message.<server>'
+    Subscribe permanently for the following RabbitMQ message topic(s):
+      - File.ReportRequest.<SERVER>
+
+    Sends RabbitMQ messages with the following topic(s):
+      - File.Report.<server>
+      - File.Detected.<server>
+      - Error.Message.<server>
+      - Health.Response.<server>
 
 
     :ivar error: Program exit error status.

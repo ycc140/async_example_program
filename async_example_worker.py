@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-01 06:40:59
-       $Rev: 16
+      $Date: 2023-10-01 06:59:06
+       $Rev: 17
 """
 
 # BUILTIN modules
@@ -70,13 +70,17 @@ class ExampleWorker:
     the communication goes down and will be re-sent when the communication
     is re-established.
 
-    Subscribe for the following RabbitMQ message topic(s):
-      - 'File.ReportRequest.<SERVER>'
+    Subscribe temporary for the following RabbitMQ message topic(s):
+      - Health.Request.*
+
+    Subscribe permanently for the following RabbitMQ message topic(s):
+      - File.ReportRequest.<SERVER>
 
     Sends RabbitMQ messages with the following topic(s):
-      - 'File.Report.<server>'
-      - 'File.Detected.<server>'
-      - 'Error.Message.<server>'
+      - File.Report.<server>
+      - File.Detected.<server>
+      - Error.Message.<server>
+      - Health.Response.<server>
 
 
     :ivar ini: Ini file configuration parameters.
