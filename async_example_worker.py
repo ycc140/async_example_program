@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-01 06:59:06
-       $Rev: 17
+      $Date: 2023-10-02 10:33:57
+       $Rev: 18
 """
 
 # BUILTIN modules
@@ -492,7 +492,7 @@ class ExampleWorker:
     async def _message_broker(self):
         """ Broker messages between interested parties using a queue.
 
-        Received message types are:
+        Handled received message types are:
             - Stop
             - LinkUp
             - FileFound
@@ -501,7 +501,7 @@ class ExampleWorker:
             - ChangedIniParams
             - FileReportRequest
 
-        Sent message types are:
+        Handled sent message types are:
             - FileReport
             - FileDetected
             - ErrorMessage
@@ -526,8 +526,8 @@ class ExampleWorker:
 
                 # Message types that are sent to RabbitMQ.
                 if msg['msgType'] in (
-                        'FileReport', 'FileDetected',
-                        'ErrorMessage', 'HealthResponse'
+                        'HealthResponse', 'ErrorMessage',
+                        'FileDetected', 'FileReport',
                 ):
                     await self._send_message(msg)
 

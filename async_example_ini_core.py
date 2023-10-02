@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-29 05:23:58
-       $Rev: 12
+      $Date: 2023-10-02 10:33:57
+       $Rev: 18
 """
 
 # BUILTIN modules
@@ -35,8 +35,6 @@ class AsyncExampleProgIni(AsyncIniFileParser):
 
         :param name: Name of ini file.
         """
-
-        # Unique parameters.
         default_paths = []
         default_params = ['log_level', 'document_types', 'schedules']
 
@@ -52,7 +50,6 @@ class AsyncExampleProgIni(AsyncIniFileParser):
         The verification checks that all parameters exist
         and that specified path exists.
         """
-
         required_params = ['offline_path', 'in_path', 'out_path', 'error_path']
 
         for key in required_params:
