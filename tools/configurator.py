@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-28 20:42:35
-       $Rev: 1
+      $Date: 2023-10-05 21:05:06
+       $Rev: 19
 """
 
 # BUILTIN modules
@@ -86,6 +86,8 @@ class Common(BaseSettings):
 
     :ivar model_config: Fixed name used by the BaseSettings class.
     :ivar exchange: RabbitMQ topic exchange name.
+    :ivar extendedTopics:
+        Messages that require the program name as part of the topic.
     :ivar logSeverity: RabbitMQ link status log level mappings.
     :ivar serviceApiKey: Microservices API key.
     :ivar env: Defined environment variable ENVIRONMENT.
@@ -98,6 +100,7 @@ class Common(BaseSettings):
 
     # Constants.
     exchange: str = 'topic_routing'
+    extendedTopics: set = {'HealthResponse', 'ErrorMessage'}
     logSeverity: dict = {'LinkUp': 'info', 'LinkDown': 'warning'}
 
     # Secrets depending parameters.

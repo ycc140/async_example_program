@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-02 10:33:57
-       $Rev: 18
+      $Date: 2023-10-05 21:05:06
+       $Rev: 19
 """
 
 # BUILTIN modules
@@ -16,16 +16,16 @@ import shutil
 import asyncio
 import datetime
 from pathlib import Path
-from typing import Union
+from typing import Union, Optional
 
 # Third party modules
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 # Tools modules
+from tools import exceptions
 from tools.configurator import config
 from tools.async_utilities import delay
 from tools.local_log_handler import logger
-from tools.exceptions import error_message_of
 from tools.async_cache_manager import AsyncCacheManager
 from tools.async_file_searcher import AsyncFileSearcher
 from tools.async_offline_buffer import AsyncOfflineBuffer
@@ -38,17 +38,17 @@ from async_example_ini_core import AsyncExampleProgIni
 # Constants
 PREFIXES = ['Health', 'File', 'Error']
 """ Send message prefixes. """
-HEALTH_TEMPLATE = {'ExampleWorker.scheduler': False,
-                   'AsyncFileSearcher.observer': False,
+HEALTH_TEMPLATE = {'AsyncFileSearcher.observer': False,
                    'AsyncRabbitClient.connection': False,
-                   'ExampleWorker._message_broker': False,
-                   'AsyncFileSearcher._message_broker': False}
+                   'AsyncExampleWorker.scheduler': False,
+                   'AsyncFileSearcher._message_broker': False,
+                   'AsyncExampleWorker._message_broker': False}
 """ Health report template for current program. """
 
 
 # -----------------------------------------------------------------------------
 #
-class ExampleWorker:
+class AsyncExampleWorker:
     """
     This worker class demonstrates how to use resources like RabbitMQ and Watchdog
     asynchronously. It also demonstrates the usage of internal message brokers to
@@ -57,9 +57,11 @@ class ExampleWorker:
 
     The following environment variable dependencies exist:
       - ENVIRONMENT
+      - HOSTNAME (on Linux servers only - set by OS)
+      - COMPUTERNAME (on Windows servers only - set by OS)
 
     The following secret dependencies exist:
-      - mongoPwd
+      - mongo_pwd
 
     The following jobs are scheduled:
       - *_schedule_dump_check()*: runs every five seconds.
@@ -71,7 +73,7 @@ class ExampleWorker:
     is re-established.
 
     Subscribe temporary for the following RabbitMQ message topic(s):
-      - Health.Request.*
+      - Health.Request
 
     Subscribe permanently for the following RabbitMQ message topic(s):
       - File.ReportRequest.<SERVER>
@@ -79,8 +81,8 @@ class ExampleWorker:
     Sends RabbitMQ messages with the following topic(s):
       - File.Report.<server>
       - File.Detected.<server>
-      - Error.Message.<server>
-      - Health.Response.<server>
+      - Error.Message.AsyncExampleProgram.<server>
+      - Health.Response.AsyncExampleProgram.<server>
 
 
     :ivar ini: Ini file configuration parameters.
@@ -141,16 +143,28 @@ class ExampleWorker:
     # ----------------------------------------------------------
     # Required in every program.
     #
-    async def _report_error(self, error: Exception):
+    async def _report_error(self, error: Exception, state: str = 'DUMP',
+                            extra: Optional[str] = None):
         """ Log error with context and failure data, then send it to RabbitMQ.
 
         :param error: Current exception.
+        @param state: Error message state.
+        @param extra: Additional error text.
         """
-        logger.exception('Unhandled exception =>')
+        errmsg = exceptions.error_text_of(error, extra=extra)
+
+        if state == 'DUMP':
+            traceback = True
+            logger.opt(exception=error).error(f'{errmsg} => ')
+
+        else:
+            traceback = False
+            logger.error('{err}', err=errmsg)
 
         # Trigger sending error message.
-        msg = error_message_of(error, self.program, 'DUMP')
-        await self.work_queue.put(msg)
+        msg = exceptions.error_message_of(error, program=self.program,
+                                          state=state, include_traceback=traceback)
+        self.work_queue.put_nowait(msg)
 
     # ----------------------------------------------------------
     # required in every program.
@@ -177,10 +191,10 @@ class ExampleWorker:
 
           {"msgType": "HealthRequest"}
         """
-
+        loc = self.__class__.__name__
         self.health_report = HEALTH_TEMPLATE.copy()
-        self.health_report |= {'ExampleWorker._message_broker': True,
-                               'ExampleWorker.scheduler': self.scheduler.running}
+        self.health_report |= {f'{loc}._message_broker': True,
+                               f'{loc}.scheduler': self.scheduler.running}
 
         # Trigger status reports from used resources.
         msg = {'msgType': 'StatusRequest'}
@@ -212,7 +226,7 @@ class ExampleWorker:
         """ Send pending offline messages and start subscription(s). """
         _ = asyncio.create_task(self._send_offline_messages())
 
-        keys = ['Health.Request.*']
+        keys = ['Health.Request']
         _ = asyncio.create_task(
             self.mq_mgr.start_topic_subscription(keys, permanent=False))
 
@@ -342,7 +356,8 @@ class ExampleWorker:
         :param msg: A msgType message.
         """
 
-        msg_type = msg['msgType']
+        msg_type = (f"{msg['msgType']}.{self.program}"
+                    if msg['msgType'] in config.extendedTopics else msg['msgType'])
         key = next(prefix for prefix in PREFIXES if msg_type.startswith(prefix))
         topic = f"{'.'.join(msg_type.partition(key)[1:])}.{config.server}"
         result = await self.mq_mgr.publish_message(msg, topic)

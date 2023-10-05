@@ -7,8 +7,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-01 06:59:06
-       $Rev: 17
+      $Date: 2023-10-05 21:05:06
+       $Rev: 19
 """
 
 # BUILTIN modules
@@ -23,7 +23,7 @@ from tools.local_log_handler import path_of, LogHandler, logger
 
 # Local program modules
 from async_example_ini_core import AsyncExampleProgIni, IniValidationError
-from async_example_worker import ExampleWorker, asyncio, Path, AsyncIOScheduler
+from async_example_worker import AsyncExampleWorker, asyncio, Path, AsyncIOScheduler
 
 
 # ---------------------------------------------------------------------
@@ -54,9 +54,7 @@ class AsyncExampleProgram:
       - COMPUTERNAME (on Windows servers only - set by OS)
 
     The following secret dependencies exist:
-      - service_api_key
-      - mongo_url_{environment}
-      - rabbit_url_{environment}
+      - mongo_pwd
 
     The following jobs are scheduled:
       - *_schedule_ini_check()*: runs every five seconds.
@@ -68,7 +66,7 @@ class AsyncExampleProgram:
     will be re-sent when the communication is re-established.
 
     Subscribe temporarily for the following RabbitMQ message topic(s):
-      - Health.Request.*
+      - Health.Request
 
     Subscribe permanently for the following RabbitMQ message topic(s):
       - File.ReportRequest.<SERVER>
@@ -76,8 +74,8 @@ class AsyncExampleProgram:
     Sends RabbitMQ messages with the following topic(s):
       - File.Report.<server>
       - File.Detected.<server>
-      - Error.Message.<server>
-      - Health.Response.<server>
+      - Error.Message.AsyncExampleProgram.<server>
+      - Health.Response.AsyncExampleProgram.<server>
 
 
     :ivar error: Program exit error status.
@@ -91,7 +89,7 @@ class AsyncExampleProgram:
     :ivar log: Handle colored and dynamic filter logging.
     :type log: `LogHandler`
     :ivar worker:  Handles the bulk of the work for this program.
-    :type worker: `ExampleWorker`
+    :type worker: `AsyncExampleWorker`
     :ivar ini: Handles INI file parameters for this program.
     :type ini: `AsyncExampleProgIni`
     """
@@ -132,13 +130,13 @@ class AsyncExampleProgram:
         :param suppress: Suppress traceback dump and sending ErrorMessage.
         """
         self.error = True
+        errmsg = error_text_of(error)
 
         if suppress:
-            errmsg = error_text_of(error, include_traceback=False)
-            logger.error(errmsg)
+            logger.error('{err}', err=errmsg)
 
         else:
-            logger.exception('Unhandled exception =>')
+            logger.opt(exception=error).error(f'{errmsg} => ')
 
             # Trigger sending error message.
             msg = error_message_of(error, self.program, 'FATAL')
@@ -213,7 +211,7 @@ class AsyncExampleProgram:
         logger.success('Starting server on {name}...', name=config.server)
 
         # Initialize and start the worker processing.
-        self.worker = ExampleWorker(self.ini, self.program)
+        self.worker = AsyncExampleWorker(self.ini, self.program)
         await self.worker.start()
 
         # Start looking for INI file changes.
@@ -309,6 +307,7 @@ class AsyncExampleProgram:
 
         # Make sure we get a graceful program exit.
         finally:
+            await asyncio.sleep(0.5)
             await self.exit_prog()
 
 

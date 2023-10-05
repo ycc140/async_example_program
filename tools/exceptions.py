@@ -6,16 +6,20 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-28 20:42:35
-       $Rev: 1
+      $Date: 2023-10-05 21:05:06
+       $Rev: 19
 """
 
 # BUILTIN modules
 import sys
 import time
 import inspect
-import traceback
 from pathlib import Path
+from typing import Optional
+
+# Third party modules
+# noinspection PyProtectedMember
+from loguru._better_exceptions import ExceptionFormatter
 
 # Tools modules
 from tools.configurator import config
@@ -64,22 +68,41 @@ def traceback_text_of(error: Exception) -> str:
     :param error: Current exception.
     :return: Exception traceback as a string.
     """
-    return ''.join(traceback.format_exception(error))
+    elems = (type(error), error, error.__traceback__)
+    return ''.join(ExceptionFormatter(encoding='utf8').format_exception(*elems))
 
 
 # ---------------------------------------------------------
 #
-def error_text_of(error: Exception, include_traceback: bool) -> str:
+def has_traceback_frames(error: Exception) -> bool:
+    """ Return exception traceback frame status.
+
+    :param error: Current exception.
+    :return: Does exception contain traceback frames?.
+    """
+    return bool(error.__traceback__)
+
+
+# ---------------------------------------------------------
+#
+def error_text_of(error: Exception, include_traceback: bool = False,
+                  extra: Optional[str] = None) -> str:
     """ Return exception context and error text.
 
     When include_traceback=True, an exception traceback is attached to the text.
 
     :param error: Current exception.
     :param include_traceback: Include traceback status.
+    :param extra: Additional error text.
     :return: Exception context and error text (+ eventual traceback).
     """
-    errmsg = (f'{traceback_text_of(error)}' if include_traceback else f'{error}')
-    return f'{get_exception_context()}: {errmsg}'
+    reason = f'{error}'
+    errmsg = (f'{extra} => {reason}' if extra else f'{reason}')
+    traceback = include_traceback and has_traceback_frames(error)
+    suffix = (f'{errmsg}\n{traceback_text_of(error)}'
+              if traceback else f'{error}')
+
+    return f'{get_exception_context()}: {suffix}'
 
 
 # ---------------------------------------------------------
