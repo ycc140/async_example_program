@@ -124,6 +124,16 @@
         
 
         
+            <div class="itemName"><code><a href="#has_traceback_frames" class="internal-link" title="async_example_program.tools.exceptions.has_traceback_frames">has<wbr></wbr>_traceback<wbr></wbr>_frames</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#traceback_text_of" class="internal-link" title="async_example_program.tools.exceptions.traceback_text_of">traceback<wbr></wbr>_text<wbr></wbr>_of</a></code>
             </div>
         
@@ -430,7 +440,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <a href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/exceptions.py" class="sourceLink">(source)</a>
+          <a href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py" class="sourceLink">(source)</a>
           <p></p>
         </div>
 
@@ -440,8 +450,8 @@
 <pre class="rst-literal-block">
   $Repo: async_example_program
 $Author: Anders Wiklund
-  $Date: 2023-09-28 20:42:35
-   $Rev: 1
+  $Date: 2023-10-05 21:05:06
+   $Rev: 19
 </pre>
 </div>
         </div>
@@ -465,6 +475,11 @@ $Author: Anders Wiklund
     <td>Function</td>
     <td><code><a href="#get_exception_context" class="internal-link" title="async_example_program.tools.exceptions.get_exception_context">get<wbr></wbr>_exception<wbr></wbr>_context</a></code></td>
     <td>Return Exception context (filename, location and line number).</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#has_traceback_frames" class="internal-link" title="async_example_program.tools.exceptions.has_traceback_frames">has<wbr></wbr>_traceback<wbr></wbr>_frames</a></code></td>
+    <td>Return exception traceback frame status.</td>
   </tr><tr class="function">
     
     <td>Function</td>
@@ -501,7 +516,7 @@ $Author: Anders Wiklund
     
     
     <span class="py-keyword">def</span> <span class="py-defname">error_message_of</span><span class="function-signature">(error: <code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code>, program: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, state: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, include_traceback: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/exceptions.py#L87">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py#L110">
       
       (source)
     </a>
@@ -530,8 +545,8 @@ is attached to the description.</p>
   <div class="functionHeader">
     
     
-    <span class="py-keyword">def</span> <span class="py-defname">error_text_of</span><span class="function-signature">(error: <code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code>, include_traceback: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code>) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/exceptions.py#L72">
+    <span class="py-keyword">def</span> <span class="py-defname">error_text_of</span><span class="function-signature">(error: <code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code>, include_traceback: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>, extra: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py#L88">
       
       (source)
     </a>
@@ -545,7 +560,7 @@ is attached to the description.</p>
     
     <div><p>Return exception context and error text.</p>
 <p>When include_traceback=True, an exception traceback is attached to the text.</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">error:</span><code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code></td><td class="fieldArgDesc">Current exception.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">include<wbr></wbr>_traceback:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Include traceback status.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">Exception context and error text (+ eventual traceback).</td></tr></table></div>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">error:</span><code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code></td><td class="fieldArgDesc">Current exception.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">include<wbr></wbr>_traceback:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Include traceback status.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">extra:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc">Additional error text.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">Exception context and error text (+ eventual traceback).</td></tr></table></div>
   </div>
 </div><div class="basefunction">
   
@@ -560,7 +575,7 @@ is attached to the description.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">get_exception_context</span><span class="function-signature">() -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/exceptions.py#L34">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py#L38">
       
       (source)
     </a>
@@ -583,6 +598,33 @@ python library or from any of the imported site-packages.</p>
 </div><div class="basefunction">
   
   
+  <a name="async_example_program.tools.exceptions.has_traceback_frames">
+    
+  </a>
+  <a name="has_traceback_frames">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">has_traceback_frames</span><span class="function-signature">(error: <code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code>) -&gt; <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py#L77">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#has_traceback_frames" title="async_example_program.tools.exceptions.has_traceback_frames">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Return exception traceback frame status.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">error:</span><code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code></td><td class="fieldArgDesc">Current exception.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Does exception contain traceback frames?.</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  
   <a name="async_example_program.tools.exceptions.traceback_text_of">
     
   </a>
@@ -593,7 +635,7 @@ python library or from any of the imported site-packages.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">traceback_text_of</span><span class="function-signature">(error: <code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code>) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/exceptions.py#L61">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py#L65">
       
       (source)
     </a>
@@ -619,7 +661,7 @@ python library or from any of the imported site-packages.</p>
   <div class="functionHeader">
     
     <span class="py-defname">EXTERNAL</span> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/exceptions.py#L28">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py#L32">
       
       (source)
     </a>
@@ -646,7 +688,7 @@ python library or from any of the imported site-packages.</p>
   <div class="functionHeader">
     
     <span class="py-defname">SUBJECT</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/exceptions.py#L24">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py#L28">
       
       (source)
     </a>

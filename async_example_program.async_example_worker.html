@@ -91,7 +91,7 @@
         
 
         
-            <div class="itemName"><code><a href="async_example_program.async_example_worker.ExampleWorker.html" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker"><wbr></wbr>Example<wbr></wbr>Worker</a></code>
+            <div class="itemName"><code><a href="async_example_program.async_example_worker.AsyncExampleWorker.html" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker"><wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Worker</a></code>
             </div>
         
 
@@ -310,7 +310,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <a href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_worker.py" class="sourceLink">(source)</a>
+          <a href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py" class="sourceLink">(source)</a>
           <p></p>
         </div>
 
@@ -320,8 +320,8 @@
 <pre class="rst-literal-block">
   $Repo: async_example_program
 $Author: Anders Wiklund
-  $Date: 2023-10-02 10:33:57
-   $Rev: 18
+  $Date: 2023-10-05 21:05:54
+   $Rev: 20
 </pre>
 </div>
         </div>
@@ -333,7 +333,7 @@ $Author: Anders Wiklund
   <tr class="class">
     
     <td>Class</td>
-    <td><code><a href="async_example_program.async_example_worker.ExampleWorker.html" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker"><wbr></wbr>Example<wbr></wbr>Worker</a></code></td>
+    <td><code><a href="async_example_program.async_example_worker.AsyncExampleWorker.html" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker"><wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Worker</a></code></td>
     <td>This worker class demonstrates how to use resources like RabbitMQ and Watchdog asynchronously. It also demonstrates the usage of internal message brokers to control the work by using JSON messages as events...</td>
   </tr><tr class="constant">
     
@@ -365,7 +365,7 @@ $Author: Anders Wiklund
   <div class="functionHeader">
     
     <span class="py-defname">HEALTH_TEMPLATE</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a>]</code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_worker.py#L41">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L41">
       
       (source)
     </a>
@@ -378,11 +378,11 @@ $Author: Anders Wiklund
   <div class="functionBody">
     
     <div><p>Health report template for current program.</p></div>
-    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">ExampleWorker.scheduler</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>,
- <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">AsyncFileSearcher.observer</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>,
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">AsyncFileSearcher.observer</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>,
  <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">AsyncRabbitClient.connection</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>,
- <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">ExampleWorker._message_broker</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>,
- <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">AsyncFileSearcher._message_broker</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>}</code></pre></td></tr></table>
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">AsyncExampleWorker.scheduler</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">AsyncFileSearcher._message_broker</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">AsyncExampleWorker._message_broker</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>}</code></pre></td></tr></table>
   </div>
 </div><div class="baseconstant">
   
@@ -396,7 +396,7 @@ $Author: Anders Wiklund
   <div class="functionHeader">
     
     <span class="py-defname">PREFIXES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_worker.py#L39">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L39">
       
       (source)
     </a>

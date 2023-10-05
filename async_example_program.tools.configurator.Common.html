@@ -133,6 +133,16 @@
         
 
         
+            <div class="itemName"><code><a href="#extendedTopics" class="internal-link" title="async_example_program.tools.configurator.Common.extendedTopics">extended<wbr></wbr>Topics</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#logSeverity" class="internal-link" title="async_example_program.tools.configurator.Common.logSeverity">log<wbr></wbr>Severity</a></code>
             </div>
         
@@ -403,7 +413,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">Common</span>(BaseSettings): <a href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/configurator.py#L52" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="async_example_program.tools.configurator.Dev.html" class="internal-link">async_example_program.tools.configurator.Dev</a></code>, <code><a href="async_example_program.tools.configurator.Prod.html" class="internal-link">async_example_program.tools.configurator.Prod</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">Common</span>(BaseSettings): <a href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/configurator.py#L52" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="async_example_program.tools.configurator.Dev.html" class="internal-link">async_example_program.tools.configurator.Dev</a></code>, <code><a href="async_example_program.tools.configurator.Prod.html" class="internal-link">async_example_program.tools.configurator.Prod</a></code></p>
           <p><a href="classIndex.html#async_example_program.tools.configurator.Common">View In Hierarchy</a></p>
         </div>
 
@@ -475,6 +485,11 @@ ENVIRONMENT variables and from the .env file.</p>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
+    <td><code><a href="#extendedTopics" class="internal-link" title="async_example_program.tools.configurator.Common.extendedTopics">extended<wbr></wbr>Topics</a></code></td>
+    <td>Messages that require the program name as part of the topic.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
     <td><code><a href="#logSeverity" class="internal-link" title="async_example_program.tools.configurator.Common.logSeverity">log<wbr></wbr>Severity</a></code></td>
     <td>RabbitMQ link status log level mappings.</td>
   </tr><tr class="instancevariable">
@@ -513,7 +528,7 @@ ENVIRONMENT variables and from the .env file.</p>
     
     @<a href="https://docs.python.org/3/library/functions.html#classmethod" class="intersphinx-link">classmethod</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">settings_customise_sources</span><span class="function-signature">(cls, settings_cls: <code><a href="https://docs.python.org/3/library/typing.html#typing.Type" class="intersphinx-link">Type</a>[<wbr></wbr>BaseSettings]</code>, init_settings: <code>PydanticBaseSettingsSource</code>, env_settings: <code>PydanticBaseSettingsSource</code>, dotenv_settings: <code>PydanticBaseSettingsSource</code>, file_secret_settings: <code>PydanticBaseSettingsSource</code>) -&gt; <code><a href="https://docs.python.org/3/library/typing.html#typing.Tuple" class="intersphinx-link">Tuple</a>[<wbr></wbr>PydanticBaseSettingsSource, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/configurator.py#L119">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/configurator.py#L122">
       
       (source)
     </a>
@@ -540,7 +555,7 @@ since it causes recursion max depth error in this configuration.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">env</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/configurator.py#L91">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/configurator.py#L93">
       
       (source)
     </a>
@@ -567,7 +582,7 @@ since it causes recursion max depth error in this configuration.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">exchange</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/configurator.py#L88">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/configurator.py#L88">
       
       (source)
     </a>
@@ -585,6 +600,33 @@ since it causes recursion max depth error in this configuration.</p></div>
 </div><div class="baseinstancevariable">
   
   
+  <a name="async_example_program.tools.configurator.Common.extendedTopics">
+    
+  </a>
+  <a name="extendedTopics">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">extendedTopics</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#set" class="intersphinx-link">set</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/configurator.py#L89">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#extendedTopics" title="async_example_program.tools.configurator.Common.extendedTopics">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Messages that require the program name as part of the topic.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
   <a name="async_example_program.tools.configurator.Common.logSeverity">
     
   </a>
@@ -594,7 +636,7 @@ since it causes recursion max depth error in this configuration.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">logSeverity</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/configurator.py#L89">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/configurator.py#L91">
       
       (source)
     </a>
@@ -621,7 +663,7 @@ since it causes recursion max depth error in this configuration.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">model_config</span> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/configurator.py#L87">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/configurator.py#L87">
       
       (source)
     </a>
@@ -648,7 +690,7 @@ since it causes recursion max depth error in this configuration.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">serviceApiKey</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/configurator.py#L90">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/configurator.py#L92">
       
       (source)
     </a>
@@ -675,7 +717,7 @@ since it causes recursion max depth error in this configuration.</p></div>
   <div class="functionHeader">
     @computed_field<br />@<a href="https://docs.python.org/3/library/functions.html#property" class="intersphinx-link">property</a><br />
     <span class="py-defname">server</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/tools/configurator.py#L109">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/configurator.py#L112">
       
       (source)
     </a>

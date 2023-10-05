@@ -390,7 +390,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AsyncExampleProgram</span>: <a href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L31" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.async_example_program.AsyncExampleProgram.__init__">AsyncExampleProgram()</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AsyncExampleProgram</span>: <a href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L31" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.async_example_program.AsyncExampleProgram.__init__">AsyncExampleProgram()</a></code></p>
           <p><a href="classIndex.html#async_example_program.async_example_program.AsyncExampleProgram">View In Hierarchy</a></p>
         </div>
 
@@ -422,9 +422,7 @@ that handles file availability if not <strong>lsof</strong> is available.</li>
 </dd>
 <dt>The following secret dependencies exist:</dt>
 <dd><ul class="rst-first rst-last rst-simple">
-<li>service_api_key</li>
-<li>mongo_url_{environment}</li>
-<li>rabbit_url_{environment}</li>
+<li>mongo_pwd</li>
 </ul>
 </dd>
 <dt>The following jobs are scheduled:</dt>
@@ -441,7 +439,7 @@ will be re-sent when the communication is re-established.</p>
 <dl class="rst-docutils">
 <dt>Subscribe temporarily for the following RabbitMQ message topic(s):</dt>
 <dd><ul class="rst-first rst-last rst-simple">
-<li>Health.Request.*</li>
+<li>Health.Request</li>
 </ul>
 </dd>
 <dt>Subscribe permanently for the following RabbitMQ message topic(s):</dt>
@@ -453,8 +451,8 @@ will be re-sent when the communication is re-established.</p>
 <dd><ul class="rst-first rst-last rst-simple">
 <li>File.Report.&lt;server&gt;</li>
 <li>File.Detected.&lt;server&gt;</li>
-<li>Error.Message.&lt;server&gt;</li>
-<li>Health.Response.&lt;server&gt;</li>
+<li>Error.Message.AsyncExampleProgram.&lt;server&gt;</li>
+<li>Health.Response.AsyncExampleProgram.&lt;server&gt;</li>
 </ul>
 </dd>
 </dl>
@@ -561,7 +559,7 @@ will be re-sent when the communication is re-established.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L101">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L99">
       
       (source)
     </a>
@@ -588,7 +586,7 @@ will be re-sent when the communication is re-established.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">exit_prog</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L256">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L254">
       
       (source)
     </a>
@@ -615,7 +613,7 @@ will be re-sent when the communication is re-established.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">run</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L273">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L271">
       
       (source)
     </a>
@@ -651,7 +649,7 @@ will be re-sent when the communication is re-established.</p>
   <div class="functionHeader">
     
     <span class="py-defname">error</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L83">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L81">
       
       (source)
     </a>
@@ -678,7 +676,7 @@ will be re-sent when the communication is re-established.</p>
   <div class="functionHeader">
     
     <span class="py-defname">future</span>: <code><a href="https://docs.python.org/3/library/asyncio-future.html#asyncio.Future" class="intersphinx-link">asyncio.Future</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L85">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L83">
       
       (source)
     </a>
@@ -705,7 +703,7 @@ will be re-sent when the communication is re-established.</p>
   <div class="functionHeader">
     
     <span class="py-defname">ini</span>: <code><a href="async_example_program.async_example_ini_core.AsyncExampleProgIni.html" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni">AsyncExampleProgIni</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L95">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L93">
       
       (source)
     </a>
@@ -732,7 +730,7 @@ will be re-sent when the communication is re-established.</p>
   <div class="functionHeader">
     
     <span class="py-defname">log</span>: <code><a href="async_example_program.tools.local_log_handler.LogHandler.html" class="internal-link" title="async_example_program.tools.local_log_handler.LogHandler">LogHandler</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L91">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L89">
       
       (source)
     </a>
@@ -759,7 +757,7 @@ will be re-sent when the communication is re-established.</p>
   <div class="functionHeader">
     
     <span class="py-defname">program</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L87">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L85">
       
       (source)
     </a>
@@ -786,7 +784,7 @@ will be re-sent when the communication is re-established.</p>
   <div class="functionHeader">
     
     <span class="py-defname">scheduler</span>: <tt class="rst-docutils literal">apscheduler.schedulers.asyncio.AsyncIOScheduler</tt> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L89">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L87">
       
       (source)
     </a>
@@ -812,8 +810,8 @@ will be re-sent when the communication is re-established.</p>
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">worker</span>: <code><a href="async_example_program.async_example_worker.ExampleWorker.html" class="internal-link" title="async_example_program.async_example_worker.ExampleWorker">ExampleWorker</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L93">
+    <span class="py-defname">worker</span>: <code><a href="async_example_program.async_example_worker.AsyncExampleWorker.html" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker">AsyncExampleWorker</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L91">
       
       (source)
     </a>
@@ -841,7 +839,7 @@ will be re-sent when the communication is re-established.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_demo_purposes_only</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L232">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L230">
       
       (source)
     </a>
@@ -870,7 +868,7 @@ will be re-sent when the communication is re-established.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_fatal_error_dump</span><span class="function-signature">(self, error: <code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code>, suppress: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L125">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L123">
       
       (source)
     </a>
@@ -900,7 +898,7 @@ and an exception traceback is not logged.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_fatal_ini_error_stop</span><span class="function-signature">(self, errors: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L150">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L148">
       
       (source)
     </a>
@@ -927,7 +925,7 @@ and an exception traceback is not logged.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_initiate_resources</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L200">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L198">
       
       (source)
     </a>
@@ -965,7 +963,7 @@ and an exception traceback is not logged.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_schedule_ini_check</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/edf97aa91431e35188f87671ed5c13010b0082f5/async_example_program.py#L169">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_program.py#L167">
       
       (source)
     </a>
