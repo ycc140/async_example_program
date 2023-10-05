@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-05 21:05:06
-       $Rev: 19
+      $Date: 2023-10-05 21:05:54
+       $Rev: 20
 """
 
 # BUILTIN modules
@@ -148,8 +148,8 @@ class AsyncExampleWorker:
         """ Log error with context and failure data, then send it to RabbitMQ.
 
         :param error: Current exception.
-        @param state: Error message state.
-        @param extra: Additional error text.
+        :param state: Error message state.
+        :param extra: Additional error text.
         """
         errmsg = exceptions.error_text_of(error, extra=extra)
 
