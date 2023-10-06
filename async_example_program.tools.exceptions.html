@@ -193,16 +193,6 @@
         
 
         
-            <div class="itemName"><code><a href="async_example_program.tools.async_cache_manager.html" class="internal-link" title="async_example_program.tools.async_cache_manager">async<wbr></wbr>_cache<wbr></wbr>_manager</a></code>
-            </div>
-        
-
-    </li><li class="">
-        
-        
-        
-
-        
             <div class="itemName"><code><a href="async_example_program.tools.async_file_searcher.html" class="internal-link" title="async_example_program.tools.async_file_searcher">async<wbr></wbr>_file<wbr></wbr>_searcher</a></code>
             </div>
         
@@ -234,6 +224,16 @@
 
         
             <div class="itemName"><code><a href="async_example_program.tools.async_rabbit_client.html" class="internal-link" title="async_example_program.tools.async_rabbit_client">async<wbr></wbr>_rabbit<wbr></wbr>_client</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="async_example_program.tools.async_state_offline_manager.html" class="internal-link" title="async_example_program.tools.async_state_offline_manager">async<wbr></wbr>_state<wbr></wbr>_offline<wbr></wbr>_manager</a></code>
             </div>
         
 
@@ -440,7 +440,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <a href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py" class="sourceLink">(source)</a>
+          <a href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/tools/exceptions.py" class="sourceLink">(source)</a>
           <p></p>
         </div>
 
@@ -450,8 +450,8 @@
 <pre class="rst-literal-block">
   $Repo: async_example_program
 $Author: Anders Wiklund
-  $Date: 2023-10-05 21:05:06
-   $Rev: 19
+  $Date: 2023-10-06 09:21:25
+   $Rev: 21
 </pre>
 </div>
         </div>
@@ -489,7 +489,7 @@ $Author: Anders Wiklund
     
     <td>Constant</td>
     <td><code><a href="#EXTERNAL" class="internal-link" title="async_example_program.tools.exceptions.EXTERNAL">EXTERNAL</a></code></td>
-    <td>Root paths to third party, and standard python modules (virtual or not).</td>
+    <td>Root paths to third party and standard python modules (virtual or not).</td>
   </tr><tr class="constant">
     
     <td>Constant</td>
@@ -516,7 +516,7 @@ $Author: Anders Wiklund
     
     
     <span class="py-keyword">def</span> <span class="py-defname">error_message_of</span><span class="function-signature">(error: <code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code>, program: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, state: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, include_traceback: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py#L110">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/tools/exceptions.py#L118">
       
       (source)
     </a>
@@ -546,7 +546,7 @@ is attached to the description.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">error_text_of</span><span class="function-signature">(error: <code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code>, include_traceback: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>, extra: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py#L88">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/tools/exceptions.py#L88">
       
       (source)
     </a>
@@ -559,7 +559,14 @@ is attached to the description.</p>
   <div class="docstring functionBody">
     
     <div><p>Return exception context and error text.</p>
-<p>When include_traceback=True, an exception traceback is attached to the text.</p>
+<p>When <em>include_traceback=True</em>, an exception traceback is appended to
+the text.</p>
+<p>When the <em>extra</em> parameter is specified, that text is inserted after
+the location and before the reason.</p>
+<p>The logical structure of the error test is:</p>
+<pre class="rst-literal-block">
+&lt;location&gt; [&lt;extra&gt;] &lt;reason&gt; [&lt;BR&gt;&lt;traceback&gt;]
+</pre>
 <table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">error:</span><code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code></td><td class="fieldArgDesc">Current exception.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">include<wbr></wbr>_traceback:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Include traceback status.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">extra:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></td><td class="fieldArgDesc">Additional error text.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">Exception context and error text (+ eventual traceback).</td></tr></table></div>
   </div>
 </div><div class="basefunction">
@@ -575,7 +582,7 @@ is attached to the description.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">get_exception_context</span><span class="function-signature">() -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py#L38">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/tools/exceptions.py#L38">
       
       (source)
     </a>
@@ -608,7 +615,7 @@ python library or from any of the imported site-packages.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">has_traceback_frames</span><span class="function-signature">(error: <code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code>) -&gt; <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py#L77">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/tools/exceptions.py#L77">
       
       (source)
     </a>
@@ -635,7 +642,7 @@ python library or from any of the imported site-packages.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">traceback_text_of</span><span class="function-signature">(error: <code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code>) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py#L65">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/tools/exceptions.py#L65">
       
       (source)
     </a>
@@ -661,7 +668,7 @@ python library or from any of the imported site-packages.</p>
   <div class="functionHeader">
     
     <span class="py-defname">EXTERNAL</span> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py#L32">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/tools/exceptions.py#L32">
       
       (source)
     </a>
@@ -673,7 +680,7 @@ python library or from any of the imported site-packages.</p>
   </div>
   <div class="functionBody">
     
-    <div><p>Root paths to third party, and standard python modules (virtual or not).</p></div>
+    <div><p>Root paths to third party and standard python modules (virtual or not).</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>set([<wbr></wbr><a href="https://docs.python.org/3/library/sys.html#sys.prefix" class="intersphinx-link">sys.prefix</a>, <wbr></wbr><a href="https://docs.python.org/3/library/sys.html#sys.base_prefix" class="intersphinx-link">sys.base_prefix</a>])</code></pre></td></tr></table>
   </div>
 </div><div class="baseconstant">
@@ -688,7 +695,7 @@ python library or from any of the imported site-packages.</p>
   <div class="functionHeader">
     
     <span class="py-defname">SUBJECT</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/tools/exceptions.py#L28">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/tools/exceptions.py#L28">
       
       (source)
     </a>

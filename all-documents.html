@@ -114,14 +114,6 @@
             <div class="kind">Package</div>
             <div class="privacy">PUBLIC</div>
             <div class="summary">The modules in this directory should be put in a separate package, but for example simplicity...</div>
-          </li><li id="async_example_program.tools.async_cache_manager">
-            
-            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_cache<wbr></wbr>_manager</div>
-            <div class="url">async_example_program.tools.async_cache_manager.html</div>
-            <div class="type">Module</div>
-            <div class="kind">Module</div>
-            <div class="privacy">PUBLIC</div>
-            <div class="summary">License: Apache 2.0</div>
           </li><li id="async_example_program.tools.async_file_searcher">
             
             <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_file<wbr></wbr>_searcher</div>
@@ -150,6 +142,14 @@
             
             <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_rabbit<wbr></wbr>_client</div>
             <div class="url">async_example_program.tools.async_rabbit_client.html</div>
+            <div class="type">Module</div>
+            <div class="kind">Module</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">License: Apache 2.0</div>
+          </li><li id="async_example_program.tools.async_state_offline_manager">
+            
+            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_state<wbr></wbr>_offline<wbr></wbr>_manager</div>
+            <div class="url">async_example_program.tools.async_state_offline_manager.html</div>
             <div class="type">Module</div>
             <div class="kind">Module</div>
             <div class="privacy">PUBLIC</div>
@@ -561,7 +561,7 @@
             <div class="type">Function</div>
             <div class="kind">Method</div>
             <div class="privacy">PRIVATE</div>
-            <div class="summary">Extract and validate INI file parameters if the Ini file is updated.</div>
+            <div class="summary">Extract and validate INI file content if the Ini file is updated.</div>
           </li><li id="async_example_program.async_example_program.AsyncExampleProgram._initiate_resources">
             
             <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Program<wbr></wbr>._initiate<wbr></wbr>_resources</div>
@@ -569,7 +569,7 @@
             <div class="type">Function</div>
             <div class="kind">Method</div>
             <div class="privacy">PRIVATE</div>
-            <div class="summary">Start the server program.</div>
+            <div class="summary">Initiate resources used by the program.</div>
           </li><li id="async_example_program.async_example_program.AsyncExampleProgram._demo_purposes_only">
             
             <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Program<wbr></wbr>._demo<wbr></wbr>_purposes<wbr></wbr>_only</div>
@@ -665,7 +665,7 @@
             <div class="type">Attribute</div>
             <div class="kind">Instance Variable</div>
             <div class="privacy">PUBLIC</div>
-            <div class="summary">Handles dump checks and pruning of received_files cache.</div>
+            <div class="summary">Handles dump checks and pruning of received_files state.</div>
           </li><li id="async_example_program.async_example_worker.AsyncExampleWorker.mq_buffer">
             
             <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.async<wbr></wbr>_example<wbr></wbr>_worker<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Worker<wbr></wbr>.mq<wbr></wbr>_buffer</div>
@@ -682,14 +682,14 @@
             <div class="kind">Instance Variable</div>
             <div class="privacy">PUBLIC</div>
             <div class="summary">Handle messages being sent to or received from RabbitMQ.</div>
-          </li><li id="async_example_program.async_example_worker.AsyncExampleWorker.cache_mgr">
+          </li><li id="async_example_program.async_example_worker.AsyncExampleWorker.state_mgr">
             
-            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.async<wbr></wbr>_example<wbr></wbr>_worker<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Worker<wbr></wbr>.cache<wbr></wbr>_mgr</div>
-            <div class="url">async_example_program.async_example_worker.AsyncExampleWorker.html#cache_mgr</div>
+            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.async<wbr></wbr>_example<wbr></wbr>_worker<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Worker<wbr></wbr>.state<wbr></wbr>_mgr</div>
+            <div class="url">async_example_program.async_example_worker.AsyncExampleWorker.html#state_mgr</div>
             <div class="type">Attribute</div>
             <div class="kind">Instance Variable</div>
             <div class="privacy">PUBLIC</div>
-            <div class="summary">Handles archiving and restoring cache data that needs to survive a program restart.</div>
+            <div class="summary">Handles archiving and restoring state data that needs to survive a program restart.</div>
           </li><li id="async_example_program.async_example_worker.AsyncExampleWorker.searcher">
             
             <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.async<wbr></wbr>_example<wbr></wbr>_worker<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Worker<wbr></wbr>.searcher</div>
@@ -746,22 +746,22 @@
             <div class="kind">Method</div>
             <div class="privacy">PRIVATE</div>
             <div class="summary">Send pending offline messages and start subscription(s).</div>
-          </li><li id="async_example_program.async_example_worker.AsyncExampleWorker._archive_active_cache">
+          </li><li id="async_example_program.async_example_worker.AsyncExampleWorker._archive_active_state">
             
-            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.async<wbr></wbr>_example<wbr></wbr>_worker<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Worker<wbr></wbr>._archive<wbr></wbr>_active<wbr></wbr>_cache</div>
-            <div class="url">async_example_program.async_example_worker.AsyncExampleWorker.html#_archive_active_cache</div>
+            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.async<wbr></wbr>_example<wbr></wbr>_worker<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Worker<wbr></wbr>._archive<wbr></wbr>_active<wbr></wbr>_state</div>
+            <div class="url">async_example_program.async_example_worker.AsyncExampleWorker.html#_archive_active_state</div>
             <div class="type">Function</div>
             <div class="kind">Method</div>
             <div class="privacy">PRIVATE</div>
-            <div class="summary">Archive active cache(s).</div>
-          </li><li id="async_example_program.async_example_worker.AsyncExampleWorker._restore_active_cache">
+            <div class="summary">Archive active state(s).</div>
+          </li><li id="async_example_program.async_example_worker.AsyncExampleWorker._restore_active_state">
             
-            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.async<wbr></wbr>_example<wbr></wbr>_worker<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Worker<wbr></wbr>._restore<wbr></wbr>_active<wbr></wbr>_cache</div>
-            <div class="url">async_example_program.async_example_worker.AsyncExampleWorker.html#_restore_active_cache</div>
+            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.async<wbr></wbr>_example<wbr></wbr>_worker<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Worker<wbr></wbr>._restore<wbr></wbr>_active<wbr></wbr>_state</div>
+            <div class="url">async_example_program.async_example_worker.AsyncExampleWorker.html#_restore_active_state</div>
             <div class="type">Function</div>
             <div class="kind">Method</div>
             <div class="privacy">PRIVATE</div>
-            <div class="summary">Restore active cache(s).</div>
+            <div class="summary">Restore active state(s).</div>
           </li><li id="async_example_program.async_example_worker.AsyncExampleWorker._send_offline_messages">
             
             <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.async<wbr></wbr>_example<wbr></wbr>_worker<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Worker<wbr></wbr>._send<wbr></wbr>_offline<wbr></wbr>_messages</div>
@@ -802,14 +802,14 @@
             <div class="kind">Method</div>
             <div class="privacy">PRIVATE</div>
             <div class="summary">Handle DUMP request in a separate task, if needed.</div>
-          </li><li id="async_example_program.async_example_worker.AsyncExampleWorker._prune_cache_content">
+          </li><li id="async_example_program.async_example_worker.AsyncExampleWorker._prune_state_content">
             
-            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.async<wbr></wbr>_example<wbr></wbr>_worker<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Worker<wbr></wbr>._prune<wbr></wbr>_cache<wbr></wbr>_content</div>
-            <div class="url">async_example_program.async_example_worker.AsyncExampleWorker.html#_prune_cache_content</div>
+            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.async<wbr></wbr>_example<wbr></wbr>_worker<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Worker<wbr></wbr>._prune<wbr></wbr>_state<wbr></wbr>_content</div>
+            <div class="url">async_example_program.async_example_worker.AsyncExampleWorker.html#_prune_state_content</div>
             <div class="type">Function</div>
             <div class="kind">Method</div>
             <div class="privacy">PRIVATE</div>
-            <div class="summary">Make a daily report of received_files that is older than today and remove the reported files from the cache.</div>
+            <div class="summary">Make a daily report of received_files that is older than today and remove the reported files from the state.</div>
           </li><li id="async_example_program.async_example_worker.AsyncExampleWorker._process_file_found">
             
             <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.async<wbr></wbr>_example<wbr></wbr>_worker<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Example<wbr></wbr>Worker<wbr></wbr>._process<wbr></wbr>_file<wbr></wbr>_found</div>
@@ -866,54 +866,6 @@
             <div class="kind">Method</div>
             <div class="privacy">PUBLIC</div>
             <div class="summary">Stop the used resources in a controlled way.</div>
-          </li><li id="async_example_program.tools.async_cache_manager.AsyncCacheManager">
-            
-            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_cache<wbr></wbr>_manager<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Cache<wbr></wbr>Manager</div>
-            <div class="url">async_example_program.tools.async_cache_manager.AsyncCacheManager.html</div>
-            <div class="type">Class</div>
-            <div class="kind">Class</div>
-            <div class="privacy">PUBLIC</div>
-            <div class="summary">Class that handles archiving and restoring of supplied active caches.</div>
-          </li><li id="async_example_program.tools.async_cache_manager.AsyncCacheManager.offline_path">
-            
-            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_cache<wbr></wbr>_manager<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Cache<wbr></wbr>Manager<wbr></wbr>.offline<wbr></wbr>_path</div>
-            <div class="url">async_example_program.tools.async_cache_manager.AsyncCacheManager.html#offline_path</div>
-            <div class="type">Attribute</div>
-            <div class="kind">Instance Variable</div>
-            <div class="privacy">PUBLIC</div>
-            <div class="summary">Path where files are archived and restored.</div>
-          </li><li id="async_example_program.tools.async_cache_manager.AsyncCacheManager.__init__">
-            
-            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_cache<wbr></wbr>_manager<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Cache<wbr></wbr>Manager<wbr></wbr>.__init__</div>
-            <div class="url">async_example_program.tools.async_cache_manager.AsyncCacheManager.html#__init__</div>
-            <div class="type">Function</div>
-            <div class="kind">Method</div>
-            <div class="privacy">PUBLIC</div>
-            <div class="summary">The class constructor.</div>
-          </li><li id="async_example_program.tools.async_cache_manager.AsyncCacheManager.archive_cache">
-            
-            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_cache<wbr></wbr>_manager<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Cache<wbr></wbr>Manager<wbr></wbr>.archive<wbr></wbr>_cache</div>
-            <div class="url">async_example_program.tools.async_cache_manager.AsyncCacheManager.html#archive_cache</div>
-            <div class="type">Function</div>
-            <div class="kind">Method</div>
-            <div class="privacy">PUBLIC</div>
-            <div class="summary">Archive supplied cache(s).</div>
-          </li><li id="async_example_program.tools.async_cache_manager.AsyncCacheManager.restore_cache">
-            
-            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_cache<wbr></wbr>_manager<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Cache<wbr></wbr>Manager<wbr></wbr>.restore<wbr></wbr>_cache</div>
-            <div class="url">async_example_program.tools.async_cache_manager.AsyncCacheManager.html#restore_cache</div>
-            <div class="type">Function</div>
-            <div class="kind">Method</div>
-            <div class="privacy">PUBLIC</div>
-            <div class="summary">Restore previously archived cache(s).</div>
-          </li><li id="async_example_program.tools.async_cache_manager.AsyncCacheManager.clear_restored_cache">
-            
-            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_cache<wbr></wbr>_manager<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>Cache<wbr></wbr>Manager<wbr></wbr>.clear<wbr></wbr>_restored<wbr></wbr>_cache</div>
-            <div class="url">async_example_program.tools.async_cache_manager.AsyncCacheManager.html#clear_restored_cache</div>
-            <div class="type">Function</div>
-            <div class="kind">Method</div>
-            <div class="privacy">PUBLIC</div>
-            <div class="summary">Remove archived cache(s) after the restore was successful.</div>
           </li><li id="async_example_program.tools.async_file_searcher.AsyncFileSearcher">
             
             <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_file<wbr></wbr>_searcher<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>File<wbr></wbr>Searcher</div>
@@ -1594,6 +1546,54 @@
             <div class="kind">Method</div>
             <div class="privacy">PUBLIC</div>
             <div class="summary">Stop the used resources in a controlled way.</div>
+          </li><li id="async_example_program.tools.async_state_offline_manager.AsyncStateOfflineManager">
+            
+            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_state<wbr></wbr>_offline<wbr></wbr>_manager<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>State<wbr></wbr>Offline<wbr></wbr>Manager</div>
+            <div class="url">async_example_program.tools.async_state_offline_manager.AsyncStateOfflineManager.html</div>
+            <div class="type">Class</div>
+            <div class="kind">Class</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Class that handles archiving and restoring of supplied active states.</div>
+          </li><li id="async_example_program.tools.async_state_offline_manager.AsyncStateOfflineManager.offline_path">
+            
+            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_state<wbr></wbr>_offline<wbr></wbr>_manager<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>State<wbr></wbr>Offline<wbr></wbr>Manager<wbr></wbr>.offline<wbr></wbr>_path</div>
+            <div class="url">async_example_program.tools.async_state_offline_manager.AsyncStateOfflineManager.html#offline_path</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Path where files are archived and restored.</div>
+          </li><li id="async_example_program.tools.async_state_offline_manager.AsyncStateOfflineManager.__init__">
+            
+            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_state<wbr></wbr>_offline<wbr></wbr>_manager<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>State<wbr></wbr>Offline<wbr></wbr>Manager<wbr></wbr>.__init__</div>
+            <div class="url">async_example_program.tools.async_state_offline_manager.AsyncStateOfflineManager.html#__init__</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">The class constructor.</div>
+          </li><li id="async_example_program.tools.async_state_offline_manager.AsyncStateOfflineManager.archive_state">
+            
+            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_state<wbr></wbr>_offline<wbr></wbr>_manager<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>State<wbr></wbr>Offline<wbr></wbr>Manager<wbr></wbr>.archive<wbr></wbr>_state</div>
+            <div class="url">async_example_program.tools.async_state_offline_manager.AsyncStateOfflineManager.html#archive_state</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Archive supplied state(s).</div>
+          </li><li id="async_example_program.tools.async_state_offline_manager.AsyncStateOfflineManager.restore_state">
+            
+            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_state<wbr></wbr>_offline<wbr></wbr>_manager<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>State<wbr></wbr>Offline<wbr></wbr>Manager<wbr></wbr>.restore<wbr></wbr>_state</div>
+            <div class="url">async_example_program.tools.async_state_offline_manager.AsyncStateOfflineManager.html#restore_state</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Restore previously archived state(s).</div>
+          </li><li id="async_example_program.tools.async_state_offline_manager.AsyncStateOfflineManager.clear_restored_state">
+            
+            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_state<wbr></wbr>_offline<wbr></wbr>_manager<wbr></wbr>.<wbr></wbr>Async<wbr></wbr>State<wbr></wbr>Offline<wbr></wbr>Manager<wbr></wbr>.clear<wbr></wbr>_restored<wbr></wbr>_state</div>
+            <div class="url">async_example_program.tools.async_state_offline_manager.AsyncStateOfflineManager.html#clear_restored_state</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Remove archived state(s) after the restore was successful.</div>
           </li><li id="async_example_program.tools.async_utilities.delay">
             
             <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.async<wbr></wbr>_utilities<wbr></wbr>.delay</div>
@@ -1666,10 +1666,10 @@
             <div class="kind">Instance Variable</div>
             <div class="privacy">PUBLIC</div>
             <div class="summary">RabbitMQ topic exchange name.</div>
-          </li><li id="async_example_program.tools.configurator.Common.extendedTopics">
+          </li><li id="async_example_program.tools.configurator.Common.watchTopics">
             
-            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.configurator<wbr></wbr>.<wbr></wbr>Common<wbr></wbr>.extended<wbr></wbr>Topics</div>
-            <div class="url">async_example_program.tools.configurator.Common.html#extendedTopics</div>
+            <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.configurator<wbr></wbr>.<wbr></wbr>Common<wbr></wbr>.watch<wbr></wbr>Topics</div>
+            <div class="url">async_example_program.tools.configurator.Common.html#watchTopics</div>
             <div class="type">Attribute</div>
             <div class="kind">Instance Variable</div>
             <div class="privacy">PUBLIC</div>
@@ -1833,7 +1833,7 @@
             <div class="type">Attribute</div>
             <div class="kind">Constant</div>
             <div class="privacy">PUBLIC</div>
-            <div class="summary">Root paths to third party, and standard python modules (virtual or not).</div>
+            <div class="summary">Root paths to third party and standard python modules (virtual or not).</div>
           </li><li id="async_example_program.tools.exceptions.get_exception_context">
             
             <div class="fullName">async<wbr></wbr>_example<wbr></wbr>_program<wbr></wbr>.tools<wbr></wbr>.exceptions<wbr></wbr>.get<wbr></wbr>_exception<wbr></wbr>_context</div>

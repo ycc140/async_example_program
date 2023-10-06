@@ -134,7 +134,7 @@
         
 
         
-            <div class="itemName"><code><a href="#_archive_active_cache" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker._archive_active_cache">_archive<wbr></wbr>_active<wbr></wbr>_cache</a></code>
+            <div class="itemName"><code><a href="#_archive_active_state" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker._archive_active_state">_archive<wbr></wbr>_active<wbr></wbr>_state</a></code>
             </div>
         
 
@@ -234,7 +234,7 @@
         
 
         
-            <div class="itemName"><code><a href="#_prune_cache_content" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker._prune_cache_content">_prune<wbr></wbr>_cache<wbr></wbr>_content</a></code>
+            <div class="itemName"><code><a href="#_prune_state_content" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker._prune_state_content">_prune<wbr></wbr>_state<wbr></wbr>_content</a></code>
             </div>
         
 
@@ -254,7 +254,7 @@
         
 
         
-            <div class="itemName"><code><a href="#_restore_active_cache" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker._restore_active_cache">_restore<wbr></wbr>_active<wbr></wbr>_cache</a></code>
+            <div class="itemName"><code><a href="#_restore_active_state" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker._restore_active_state">_restore<wbr></wbr>_active<wbr></wbr>_state</a></code>
             </div>
         
 
@@ -308,16 +308,6 @@
         <ul>
     
     <li class="">
-        
-        
-        
-
-        
-            <div class="itemName"><code><a href="#cache_mgr" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker.cache_mgr">cache<wbr></wbr>_mgr</a></code>
-            </div>
-        
-
-    </li><li class="">
         
         
         
@@ -394,6 +384,16 @@
 
         
             <div class="itemName"><code><a href="#searcher" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker.searcher">searcher</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#state_mgr" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker.state_mgr">state<wbr></wbr>_mgr</a></code>
             </div>
         
 
@@ -573,7 +573,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AsyncExampleWorker</span>: <a href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L51" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker.__init__">AsyncExampleWorker(ini, program)</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AsyncExampleWorker</span>: <a href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L51" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker.__init__">AsyncExampleWorker(ini, program)</a></code></p>
           <p><a href="classIndex.html#async_example_program.async_example_worker.AsyncExampleWorker">View In Hierarchy</a></p>
         </div>
 
@@ -656,11 +656,6 @@ is re-established.</p>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
-    <td><code><a href="#cache_mgr" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker.cache_mgr">cache<wbr></wbr>_mgr</a></code></td>
-    <td>Handles archiving and restoring cache data that needs to survive a program restart.</td>
-  </tr><tr class="instancevariable">
-    
-    <td>Instance Variable</td>
     <td><code><a href="#detected_files" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker.detected_files">detected<wbr></wbr>_files</a></code></td>
     <td>Keeping track of received files during the day.</td>
   </tr><tr class="instancevariable">
@@ -692,7 +687,7 @@ is re-established.</p>
     
     <td>Instance Variable</td>
     <td><code><a href="#scheduler" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker.scheduler">scheduler</a></code></td>
-    <td>Handles dump checks and pruning of received_files cache.</td>
+    <td>Handles dump checks and pruning of received_files state.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
@@ -701,13 +696,18 @@ is re-established.</p>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
+    <td><code><a href="#state_mgr" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker.state_mgr">state<wbr></wbr>_mgr</a></code></td>
+    <td>Handles archiving and restoring state data that needs to survive a program restart.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
     <td><code><a href="#work_queue" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker.work_queue">work<wbr></wbr>_queue</a></code></td>
     <td>Used for transferring a message between interested parties.</td>
   </tr><tr class="method private">
     
     <td>Async Method</td>
-    <td><code><a href="#_archive_active_cache" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker._archive_active_cache">_archive<wbr></wbr>_active<wbr></wbr>_cache</a></code></td>
-    <td>Archive active cache(s).</td>
+    <td><code><a href="#_archive_active_state" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker._archive_active_state">_archive<wbr></wbr>_active<wbr></wbr>_state</a></code></td>
+    <td>Archive active state(s).</td>
   </tr><tr class="method private">
     
     <td>Async Method</td>
@@ -756,8 +756,8 @@ is re-established.</p>
   </tr><tr class="method private">
     
     <td>Async Method</td>
-    <td><code><a href="#_prune_cache_content" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker._prune_cache_content">_prune<wbr></wbr>_cache<wbr></wbr>_content</a></code></td>
-    <td>Make a daily report of received_files that is older than today and remove the reported files from the cache.</td>
+    <td><code><a href="#_prune_state_content" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker._prune_state_content">_prune<wbr></wbr>_state<wbr></wbr>_content</a></code></td>
+    <td>Make a daily report of received_files that is older than today and remove the reported files from the state.</td>
   </tr><tr class="method private">
     
     <td>Async Method</td>
@@ -766,8 +766,8 @@ is re-established.</p>
   </tr><tr class="method private">
     
     <td>Async Method</td>
-    <td><code><a href="#_restore_active_cache" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker._restore_active_cache">_restore<wbr></wbr>_active<wbr></wbr>_cache</a></code></td>
-    <td>Restore active cache(s).</td>
+    <td><code><a href="#_restore_active_state" class="internal-link" title="async_example_program.async_example_worker.AsyncExampleWorker._restore_active_state">_restore<wbr></wbr>_active<wbr></wbr>_state</a></code></td>
+    <td>Restore active state(s).</td>
   </tr><tr class="method private">
     
     <td>Async Method</td>
@@ -809,7 +809,7 @@ is re-established.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, ini: <code>AsyncExampleProgIni</code>, program: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L115">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L115">
       
       (source)
     </a>
@@ -836,7 +836,7 @@ is re-established.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">notify</span><span class="function-signature">(self, msg: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L581">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L583">
       
       (source)
     </a>
@@ -863,7 +863,7 @@ is re-established.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">start</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L591">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L593">
       
       (source)
     </a>
@@ -890,7 +890,7 @@ is re-established.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">stop</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L621">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L623">
       
       (source)
     </a>
@@ -909,34 +909,6 @@ is re-established.</p>
 </div><div class="baseinstancevariable">
   
   
-  <a name="async_example_program.async_example_worker.AsyncExampleWorker.cache_mgr">
-    
-  </a>
-  <a name="cache_mgr">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">cache_mgr</span>: <code><a href="async_example_program.tools.async_cache_manager.AsyncCacheManager.html" class="internal-link" title="async_example_program.tools.async_cache_manager.AsyncCacheManager">AsyncCacheManager</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L106">
-      
-      (source)
-    </a>
-    <a class="headerLink" href="#cache_mgr" title="async_example_program.async_example_worker.AsyncExampleWorker.cache_mgr">
-      
-      
-      ¶
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    <div><p>Handles archiving and restoring cache data that needs to
-survive a program restart.</p></div>
-    
-  </div>
-</div><div class="baseinstancevariable">
-  
-  
   <a name="async_example_program.async_example_worker.AsyncExampleWorker.detected_files">
     
   </a>
@@ -946,7 +918,7 @@ survive a program restart.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">detected_files</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L92">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L92">
       
       (source)
     </a>
@@ -973,7 +945,7 @@ survive a program restart.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">health_report</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L94">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L94">
       
       (source)
     </a>
@@ -1000,7 +972,7 @@ survive a program restart.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">ini</span>: <code><a href="async_example_program.async_example_ini_core.AsyncExampleProgIni.html" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni">AsyncExampleProgIni</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L88">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L88">
       
       (source)
     </a>
@@ -1027,7 +999,7 @@ survive a program restart.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">mq_buffer</span>: <code><a href="async_example_program.tools.async_offline_buffer.AsyncOfflineBuffer.html" class="internal-link" title="async_example_program.tools.async_offline_buffer.AsyncOfflineBuffer">AsyncOfflineBuffer</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L100">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L100">
       
       (source)
     </a>
@@ -1055,7 +1027,7 @@ communication goes up and down.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">mq_mgr</span>: <code><a href="async_example_program.tools.async_rabbit_client.AsyncRabbitClient.html" class="internal-link" title="async_example_program.tools.async_rabbit_client.AsyncRabbitClient">AsyncRabbitClient</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L104">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L104">
       
       (source)
     </a>
@@ -1082,7 +1054,7 @@ communication goes up and down.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">program</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L90">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L90">
       
       (source)
     </a>
@@ -1109,7 +1081,7 @@ communication goes up and down.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">scheduler</span>: <tt class="rst-docutils literal">apscheduler.schedulers.asyncio.AsyncIOScheduler</tt> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L98">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L98">
       
       (source)
     </a>
@@ -1121,7 +1093,7 @@ communication goes up and down.</p></div>
   </div>
   <div class="functionBody">
     
-    <div><p>Handles dump checks and pruning of received_files cache.</p></div>
+    <div><p>Handles dump checks and pruning of received_files state.</p></div>
     
   </div>
 </div><div class="baseinstancevariable">
@@ -1136,7 +1108,7 @@ communication goes up and down.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">searcher</span>: <code><a href="async_example_program.tools.async_file_searcher.AsyncFileSearcher.html" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher">AsyncFileSearcher</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L109">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L109">
       
       (source)
     </a>
@@ -1154,6 +1126,34 @@ communication goes up and down.</p></div>
 </div><div class="baseinstancevariable">
   
   
+  <a name="async_example_program.async_example_worker.AsyncExampleWorker.state_mgr">
+    
+  </a>
+  <a name="state_mgr">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">state_mgr</span>: <code><a href="async_example_program.tools.async_state_offline_manager.AsyncStateOfflineManager.html" class="internal-link" title="async_example_program.tools.async_state_offline_manager.AsyncStateOfflineManager">AsyncStateOfflineManager</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L106">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#state_mgr" title="async_example_program.async_example_worker.AsyncExampleWorker.state_mgr">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Handles archiving and restoring state data that needs to
+survive a program restart.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
   <a name="async_example_program.async_example_worker.AsyncExampleWorker.work_queue">
     
   </a>
@@ -1163,7 +1163,7 @@ communication goes up and down.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">work_queue</span>: <code><a href="https://docs.python.org/3/library/asyncio-queue.html#asyncio.Queue" class="intersphinx-link">asyncio.Queue</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L96">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L96">
       
       (source)
     </a>
@@ -1181,21 +1181,21 @@ communication goes up and down.</p></div>
 </div><div class="basemethod private">
   
   
-  <a name="async_example_program.async_example_worker.AsyncExampleWorker._archive_active_cache">
+  <a name="async_example_program.async_example_worker.AsyncExampleWorker._archive_active_state">
     
   </a>
-  <a name="_archive_active_cache">
+  <a name="_archive_active_state">
     
   </a>
   <div class="functionHeader">
     
     
-    <span class="py-keyword">async def</span> <span class="py-defname">_archive_active_cache</span><span class="function-signature">(self, dump: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L243">
+    <span class="py-keyword">async def</span> <span class="py-defname">_archive_active_state</span><span class="function-signature">(self, dump: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L243">
       
       (source)
     </a>
-    <a class="headerLink" href="#_archive_active_cache" title="async_example_program.async_example_worker.AsyncExampleWorker._archive_active_cache">
+    <a class="headerLink" href="#_archive_active_state" title="async_example_program.async_example_worker.AsyncExampleWorker._archive_active_state">
       
       
       ¶
@@ -1203,7 +1203,7 @@ communication goes up and down.</p></div>
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Archive active cache(s).</p>
+    <div><p>Archive active state(s).</p>
 <p>When <em>dump=True</em> the archive filename uses a <em>"dump_"</em>
 prefix when saving the file.</p>
 <p>Note that you are currently limited to what YAML handles
@@ -1223,7 +1223,7 @@ when it comes to what data types you can archive.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_create_health_response</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L172">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L172">
       
       (source)
     </a>
@@ -1250,7 +1250,7 @@ when it comes to what data types you can archive.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_handle_send_response</span><span class="function-signature">(self, success: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code>, msg: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>, topic: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L327">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L327">
       
       (source)
     </a>
@@ -1279,7 +1279,7 @@ when it comes to what data types you can archive.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_message_broker</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L507">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L509">
       
       (source)
     </a>
@@ -1328,7 +1328,7 @@ when it comes to what data types you can archive.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_process_file_found</span><span class="function-signature">(self, msg: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L432">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L433">
       
       (source)
     </a>
@@ -1343,7 +1343,7 @@ when it comes to what data types you can archive.</p>
     <div><p>Trigger a new workflow by sending a FileDetected message.</p>
 <p>If a duplicate file is detected, it's considered an error, so
 it's logged and the file is moved to the <em>error_path</em> directory.</p>
-<p>When it's a unique file, it's added to the detection cache, a
+<p>When it's a unique file, it's added to the detection state, a
 <em>FileDetected</em> message is sent, and the file is moved to the
 <em>out_path</em> directory.</p>
 <p>Example msg data:</p>
@@ -1365,7 +1365,7 @@ it's logged and the file is moved to the <em>error_path</em> directory.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_process_health_request</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L187">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L187">
       
       (source)
     </a>
@@ -1397,7 +1397,7 @@ it's logged and the file is moved to the <em>error_path</em> directory.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_process_linkup_message</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L225">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L225">
       
       (source)
     </a>
@@ -1424,7 +1424,7 @@ it's logged and the file is moved to the <em>error_path</em> directory.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_process_new_params</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L371">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L371">
       
       (source)
     </a>
@@ -1451,7 +1451,7 @@ it's logged and the file is moved to the <em>error_path</em> directory.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_process_report_request</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L478">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L480">
       
       (source)
     </a>
@@ -1483,7 +1483,7 @@ it's logged and the file is moved to the <em>error_path</em> directory.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_process_status_response</span><span class="function-signature">(self, msg: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L211">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L211">
       
       (source)
     </a>
@@ -1505,21 +1505,21 @@ it's logged and the file is moved to the <em>error_path</em> directory.</p>
 </div><div class="basemethod private">
   
   
-  <a name="async_example_program.async_example_worker.AsyncExampleWorker._prune_cache_content">
+  <a name="async_example_program.async_example_worker.AsyncExampleWorker._prune_state_content">
     
   </a>
-  <a name="_prune_cache_content">
+  <a name="_prune_state_content">
     
   </a>
   <div class="functionHeader">
     
     
-    <span class="py-keyword">async def</span> <span class="py-defname">_prune_cache_content</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L393">
+    <span class="py-keyword">async def</span> <span class="py-defname">_prune_state_content</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L393">
       
       (source)
     </a>
-    <a class="headerLink" href="#_prune_cache_content" title="async_example_program.async_example_worker.AsyncExampleWorker._prune_cache_content">
+    <a class="headerLink" href="#_prune_state_content" title="async_example_program.async_example_worker.AsyncExampleWorker._prune_state_content">
       
       
       ¶
@@ -1528,12 +1528,12 @@ it's logged and the file is moved to the <em>error_path</em> directory.</p>
   <div class="docstring functionBody">
     
     <div><p>Make a daily report of received_files that is older than today and
-remove the reported files from the cache.</p>
+remove the reported files from the state.</p>
 <p>This method is normally called at midnight since the detected files
-cache should only contain files for the current day.</p>
+state should only contain files for the current day.</p>
 <p>When a program is started, we also have to make sure that all files
 older than today are reported and pruned from the current day file
-cache.</p>
+state.</p>
 </div>
   </div>
 </div><div class="basemethod private">
@@ -1549,7 +1549,7 @@ cache.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_report_error</span><span class="function-signature">(self, error: <code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code>, state: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">DUMP</span><span class="rst-variable-quote">'</span>, extra: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L146">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L146">
       
       (source)
     </a>
@@ -1566,21 +1566,21 @@ cache.</p>
 </div><div class="basemethod private">
   
   
-  <a name="async_example_program.async_example_worker.AsyncExampleWorker._restore_active_cache">
+  <a name="async_example_program.async_example_worker.AsyncExampleWorker._restore_active_state">
     
   </a>
-  <a name="_restore_active_cache">
+  <a name="_restore_active_state">
     
   </a>
   <div class="functionHeader">
     
     
-    <span class="py-keyword">async def</span> <span class="py-defname">_restore_active_cache</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L275">
+    <span class="py-keyword">async def</span> <span class="py-defname">_restore_active_state</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L275">
       
       (source)
     </a>
-    <a class="headerLink" href="#_restore_active_cache" title="async_example_program.async_example_worker.AsyncExampleWorker._restore_active_cache">
+    <a class="headerLink" href="#_restore_active_state" title="async_example_program.async_example_worker.AsyncExampleWorker._restore_active_state">
       
       
       ¶
@@ -1588,9 +1588,9 @@ cache.</p>
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Restore active cache(s).</p>
+    <div><p>Restore active state(s).</p>
 <dl class="rst-docutils">
-<dt>Currently handled active cache types:</dt>
+<dt>Currently handled active state types:</dt>
 <dd><ul class="rst-first rst-last rst-simple">
 <li>dict</li>
 <li>list</li>
@@ -1599,7 +1599,7 @@ cache.</p>
 </dl>
 <p>Note: this method will restore the saved state to the class
 attribute that was specified when it was archived.</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Raises</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/exceptions.html#ValueError" class="intersphinx-link">ValueError</a></code></td><td>When archived cache name is not found.</td></tr></table></div>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Raises</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/exceptions.html#ValueError" class="intersphinx-link">ValueError</a></code></td><td>When archived state name is not found.</td></tr></table></div>
   </div>
 </div><div class="basemethod private">
   
@@ -1614,7 +1614,7 @@ attribute that was specified when it was archived.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_schedule_dump_check</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L384">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L384">
       
       (source)
     </a>
@@ -1641,7 +1641,7 @@ attribute that was specified when it was archived.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_schedule_state_pruning</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L498">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L500">
       
       (source)
     </a>
@@ -1668,7 +1668,7 @@ attribute that was specified when it was archived.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_send_message</span><span class="function-signature">(self, msg: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L348">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L348">
       
       (source)
     </a>
@@ -1699,7 +1699,7 @@ of the PREFIXES constant.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_send_offline_messages</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/16e699206f0bffd1e4717ff04da61df6d007665f/async_example_worker.py#L312">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/32e31ce6b8cc1d3b9e55421f00e65a4b1aa8982d/async_example_worker.py#L312">
       
       (source)
     </a>
