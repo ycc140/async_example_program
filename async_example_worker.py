@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-05 21:05:54
-       $Rev: 20
+      $Date: 2023-10-06 09:21:25
+       $Rev: 21
 """
 
 # BUILTIN modules
@@ -26,11 +26,11 @@ from tools import exceptions
 from tools.configurator import config
 from tools.async_utilities import delay
 from tools.local_log_handler import logger
-from tools.async_cache_manager import AsyncCacheManager
 from tools.async_file_searcher import AsyncFileSearcher
 from tools.async_offline_buffer import AsyncOfflineBuffer
 from tools.file_utilities import check_for_command, calculate_md5
 from tools.async_rabbit_client import AsyncRabbitClient, RabbitParams
+from tools.async_state_offline_manager import AsyncStateOfflineManager
 
 # Local program modules
 from async_example_ini_core import AsyncExampleProgIni
@@ -95,7 +95,7 @@ class AsyncExampleWorker:
     :type health_report: `dict`
     :ivar work_queue: Used for transferring a message between interested parties.
     :type work_queue: `asyncio.Queue`
-    :ivar scheduler: Handles dump checks and pruning of received_files cache.
+    :ivar scheduler: Handles dump checks and pruning of received_files state.
     :type scheduler: ``apscheduler.schedulers.asyncio.AsyncIOScheduler``
     :ivar mq_buffer:
         Handle the storing and retrieving of messages when the external
@@ -103,9 +103,9 @@ class AsyncExampleWorker:
     :type mq_buffer: `AsyncOfflineBuffer`
     :ivar mq_mgr: Handle messages being sent to or received from RabbitMQ.
     :type mq_mgr: `AsyncRabbitClient`
-    :ivar cache_mgr:  Handles archiving and restoring cache data that needs to
+    :ivar state_mgr:  Handles archiving and restoring state data that needs to
         survive a program restart.
-    :type cache_mgr: `AsyncCacheManager`
+    :type state_mgr: `AsyncStateOfflineManager`
     :ivar searcher:  Reports new files detected in specified directories.
     :type searcher: `AsyncFileSearcher`
     """
@@ -137,8 +137,8 @@ class AsyncExampleWorker:
         self.mq_buffer = AsyncOfflineBuffer(ini.offline_path)
         self.mq_mgr = AsyncRabbitClient(config.rabbitUrl,
                                         params, self.work_queue)
-        self.cache_mgr = AsyncCacheManager(self.ini.offline_path)
         self.searcher = AsyncFileSearcher(paths, self.work_queue)
+        self.state_mgr = AsyncStateOfflineManager(self.ini.offline_path)
 
     # ----------------------------------------------------------
     # Required in every program.
@@ -191,10 +191,10 @@ class AsyncExampleWorker:
 
           {"msgType": "HealthRequest"}
         """
-        loc = self.__class__.__name__
+        name = self.__class__.__name__
         self.health_report = HEALTH_TEMPLATE.copy()
-        self.health_report |= {f'{loc}._message_broker': True,
-                               f'{loc}.scheduler': self.scheduler.running}
+        self.health_report |= {f'{name}._message_broker': True,
+                               f'{name}.scheduler': self.scheduler.running}
 
         # Trigger status reports from used resources.
         msg = {'msgType': 'StatusRequest'}
@@ -234,14 +234,14 @@ class AsyncExampleWorker:
         _ = asyncio.create_task(self.mq_mgr.start_topic_subscription(keys))
 
     # ---------------------------------------------------------
-    # Optional, needed when active cache(s) need to survive a
+    # Optional, needed when active state(s) need to survive a
     # program restart.
     # Content in the items variable will change depending on
-    # how many active cache(s) that need to be saved, and
+    # how many active state(s) that need to be saved, and
     # their individual names.
     #
-    async def _archive_active_cache(self, dump: bool = False):
-        """ Archive active cache(s).
+    async def _archive_active_state(self, dump: bool = False):
+        """ Archive active state(s).
 
         When *dump=True* the archive filename uses a *"dump_"*
         prefix when saving the file.
@@ -261,30 +261,30 @@ class AsyncExampleWorker:
 
         # ----------------------------------------------------------
 
-        # Initiate data for one or more active cache(s) that needs archiving.
+        # Initiate data for one or more active state(s) that needs archiving.
         items = {name_of(item): item for item in [
             self.detected_files
         ] if item}
 
-        await self.cache_mgr.archive_cache(items, dump)
+        await self.state_mgr.archive_state(items, dump)
 
     # ----------------------------------------------------------
-    # Optional, needed when active cache(s) need to survive a
+    # Optional, needed when active state(s) need to survive a
     # program restart.
     #
-    async def _restore_active_cache(self):
-        """ Restore active cache(s).
+    async def _restore_active_state(self):
+        """ Restore active state(s).
 
-        Currently handled active cache types:
+        Currently handled active state types:
             - dict
             - list
 
         Note: this method will restore the saved state to the class
         attribute that was specified when it was archived.
 
-        :raise ValueError: When archived cache name is not found.
+        :raise ValueError: When archived state name is not found.
         """
-        items = await self.cache_mgr.restore_cache()
+        items = await self.state_mgr.restore_state()
 
         for attribute_name, value in items.items():
             try:
@@ -297,14 +297,14 @@ class AsyncExampleWorker:
 
             # You have a name mismatch defined when archiving.
             except AttributeError:
-                errmsg = (f'Archived cache name mismatch, attribute "self.'
+                errmsg = (f'Archived state name mismatch, attribute "self.'
                           f'{attribute_name}" is NOT defined in the worker '
                           f'class! Stop the app, rename the file on disk to'
                           f'match the new attribute name and restart the app.')
                 raise ValueError(errmsg)
 
         # Remove the files when the restore was successful.
-        await self.cache_mgr.clear_restored_cache()
+        await self.state_mgr.clear_restored_state()
 
     # ---------------------------------------------------------
     # Optional, needed when sending external messages.
@@ -357,7 +357,7 @@ class AsyncExampleWorker:
         """
 
         msg_type = (f"{msg['msgType']}.{self.program}"
-                    if msg['msgType'] in config.extendedTopics else msg['msgType'])
+                    if msg['msgType'] in config.watchTopics else msg['msgType'])
         key = next(prefix for prefix in PREFIXES if msg_type.startswith(prefix))
         topic = f"{'.'.join(msg_type.partition(key)[1:])}.{config.server}"
         result = await self.mq_mgr.publish_message(msg, topic)
@@ -378,29 +378,29 @@ class AsyncExampleWorker:
             logger.info("Updating Ini 'document_types' configuration..")
 
     # ---------------------------------------------------------
-    # Optional, needed when active cache content needs to be
+    # Optional, needed when active state content needs to be
     # viewed offline when the program is running.
     #
     async def _schedule_dump_check(self):
         """ Handle DUMP request in a separate task, if needed. """
 
         if check_for_command('dump'):
-            _ = asyncio.create_task(self._archive_active_cache(dump=True))
+            _ = asyncio.create_task(self._archive_active_state(dump=True))
 
     # ----------------------------------------------------------
     # Unique for this program.
     #
-    async def _prune_cache_content(self):
+    async def _prune_state_content(self):
         """
         Make a daily report of received_files that is older than today and
-        remove the reported files from the cache.
+        remove the reported files from the state.
 
         This method is normally called at midnight since the detected files
-        cache should only contain files for the current day.
+        state should only contain files for the current day.
 
         When a program is started, we also have to make sure that all files
         older than today are reported and pruned from the current day file
-        cache.
+        state.
         """
 
         try:
@@ -417,7 +417,8 @@ class AsyncExampleWorker:
                     del self.detected_files[key]
 
             if report:
-                logger.info('Daily report contains {cnt} pruned files', cnt=len(report))
+                logger.info('Daily report contains {cnt} '
+                            'pruned files', cnt=len(report))
                 msg = {'msgType': 'FileReport', 'state': 'daily',
                        'server': config.server, 'data': report,
                        'service': self.program}
@@ -435,7 +436,7 @@ class AsyncExampleWorker:
         If a duplicate file is detected, it's considered an error, so
         it's logged and the file is moved to the *error_path* directory.
 
-        When it's a unique file, it's added to the detection cache, a
+        When it's a unique file, it's added to the detection state, a
         *FileDetected* message is sent, and the file is moved to the
         *out_path* directory.
 
@@ -450,7 +451,8 @@ class AsyncExampleWorker:
             infile = Path(msg['file'])
             crc = await calculate_md5(infile)
             duplicate = self.detected_files.get(crc)
-            dest_path = (self.ini.error_path if duplicate else self.ini.out_path)
+            dest_path = (self.ini.error_path
+                         if duplicate else self.ini.out_path)
 
             if duplicate:
                 errmsg = (f"Checksum {crc} already exists for received file "
@@ -499,7 +501,7 @@ class AsyncExampleWorker:
         """ Start received_files pruning in a separate task, if needed. """
 
         if self.detected_files:
-            _ = asyncio.create_task(self._prune_cache_content())
+            _ = asyncio.create_task(self._prune_state_content())
 
     # ---------------------------------------------------------
     # required in every program (but content changes).
@@ -591,7 +593,7 @@ class AsyncExampleWorker:
     async def start(self):
         """ Start the used resources in a controlled way. """
 
-        await self._restore_active_cache()
+        await self._restore_active_state()
 
         # Start queue blocking tasks.
         _ = asyncio.create_task(self._message_broker())
@@ -601,7 +603,7 @@ class AsyncExampleWorker:
         await self.searcher.start()
 
         # Make sure we start fresh every day (files older
-        # than today are reported and removed from the cache).
+        # than today are reported and removed from the state).
         await self._schedule_state_pruning()
 
         # Start scheduling the dump command detection.
@@ -632,4 +634,4 @@ class AsyncExampleWorker:
         stop = {'msgType': 'Stop'}
         await self.work_queue.put(stop)
 
-        await self._archive_active_cache()
+        await self._archive_active_state()

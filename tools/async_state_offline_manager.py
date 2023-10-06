@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-28 20:42:35
-       $Rev: 1
+      $Date: 2023-10-06 09:21:25
+       $Rev: 21
 """
 
 # BUILTIN modules
@@ -24,11 +24,11 @@ from tools.local_log_handler import logger
 
 # -----------------------------------------------------------------------------
 #
-class AsyncCacheManager:
-    """ Class that handles archiving and restoring of supplied active caches.
+class AsyncStateOfflineManager:
+    """ Class that handles archiving and restoring of supplied active states.
 
-    After you have called the *restore_cache()* method, you have to call the
-    *clear_restored_cache()* method, so that the cache files are deleted.
+    After you have called the *restore_state()* method, you have to call the
+    *clear_restored_state()* method, so that the state files are deleted.
 
     The reason for splitting it into two methods is that something might go
     wrong in your application, at least in the early stages and then the
@@ -49,49 +49,49 @@ class AsyncCacheManager:
 
     # ----------------------------------------------------------
     #
-    async def archive_cache(self, active_caches: dict, dump: bool = False):
-        """ Archive supplied cache(s).
+    async def archive_state(self, active_states: dict, dump: bool = False):
+        """ Archive supplied state(s).
 
-        :param active_caches: Name of cache, and its data.
+        :param active_states: Name of state, and its data.
         :param dump: Dump status (default is False).
         """
 
-        for name, cache in active_caches.items():
-            cache_name = ' '.join(name.split('_'))
+        for name, state in active_states.items():
+            state_name = ' '.join(name.split('_'))
             dump_prefix = ('dump_' if dump else '')
             log_prefix = ('Dumping' if dump else 'Archiving')
             archive_file = (Path(self.offline_path) /
-                            f'{dump_prefix}cache.{name}.yaml')
-            logger.info(f'{log_prefix} {len(cache)} {cache_name}(s)...')
+                            f'{dump_prefix}state.{name}.yaml')
+            logger.info(f'{log_prefix} {len(state)} {state_name}(s)...')
 
             async with aiofiles.open(archive_file, 'w', encoding='utf8') as hdl:
-                await hdl.write(yaml.dump(cache, allow_unicode=True))
+                await hdl.write(yaml.dump(state, allow_unicode=True))
 
     # ----------------------------------------------------------
     #
-    async def restore_cache(self) -> Union[dict, list]:
-        """ Restore previously archived cache(s).
+    async def restore_state(self) -> Union[dict, list]:
+        """ Restore previously archived state(s).
 
-        :return: Restored cache(s).
+        :return: Restored state(s).
         """
 
-        active_caches = {}
+        active_states = {}
 
-        for archive_file in Path(self.offline_path).glob('cache.*.yaml'):
+        for archive_file in Path(self.offline_path).glob('state.*.yaml'):
             name = archive_file.stem.split('.')[1]
-            cache_name = ' '.join(name.split('_'))
+            state_name = ' '.join(name.split('_'))
 
             async with aiofiles.open(archive_file, 'r', encoding='utf8') as hdl:
-                active_caches[name] = yaml.safe_load(await hdl.read())
+                active_states[name] = yaml.safe_load(await hdl.read())
 
-            logger.info(f'Restored {len(active_caches[name])} {cache_name}(s)...')
+            logger.info(f'Restored {len(active_states[name])} {state_name}(s)...')
 
-        return active_caches
+        return active_states
 
     # ----------------------------------------------------------
     #
-    async def clear_restored_cache(self):
-        """ Remove archived cache(s) after the restore was successful. """
+    async def clear_restored_state(self):
+        """ Remove archived state(s) after the restore was successful. """
 
-        for archive_file in Path(self.offline_path).glob('cache.*.yaml'):
+        for archive_file in Path(self.offline_path).glob('state.*.yaml'):
             archive_file.unlink()

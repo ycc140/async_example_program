@@ -7,8 +7,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-05 21:05:06
-       $Rev: 19
+      $Date: 2023-10-06 09:21:25
+       $Rev: 21
 """
 
 # BUILTIN modules
@@ -59,11 +59,11 @@ class AsyncExampleProgram:
     The following jobs are scheduled:
       - *_schedule_ini_check()*: runs every five seconds.
       - *_schedule_dump_check()*: runs every five seconds.
-      - *_schedule_state_pruning()*: runs at midnight every day.
+      - *_schedule_state_pruning()*: runs at midnight every day, and at startup.
 
-    RabbitMQ is used for sending messages to external programs. Messages that are to
-    be sent to the RabbitMQ will be stored offline if the communication goes down and
-    will be re-sent when the communication is re-established.
+    RabbitMQ is used for sending messages to external programs. Messages that
+    are to be sent to the RabbitMQ will be stored offline if the communication
+    goes down and will be re-sent when the communication is re-established.
 
     Subscribe temporarily for the following RabbitMQ message topic(s):
       - Health.Request
@@ -80,7 +80,8 @@ class AsyncExampleProgram:
 
     :ivar error: Program exit error status.
     :type error: `bool`
-    :ivar future: Asyncio Future handle (used for handling fatal error program exit).
+    :ivar future:
+        Asyncio Future handle (used for handling fatal error program exit).
     :type future: `asyncio.Future`
     :ivar program: Current program name, used for logging.
     :type program: `str`
@@ -120,7 +121,8 @@ class AsyncExampleProgram:
     # ---------------------------------------------------------
     # Required in every program.
     #
-    async def _fatal_error_dump(self, error: Exception, suppress: bool = False):
+    async def _fatal_error_dump(self, error: Exception,
+                                suppress: bool = False):
         """Report error and trigger a fatal program exit.
 
         When Suppress=True, no ErrorMessage is sent to RabbitMQ
@@ -165,7 +167,7 @@ class AsyncExampleProgram:
     # if worker needs to be notified of INI parameter changes).
     #
     async def _schedule_ini_check(self):
-        """ Extract and validate INI file parameters if the Ini file is updated.
+        """ Extract and validate INI file content if the Ini file is updated.
 
         This method is called by the AsyncIOScheduler every 5 seconds. A fatal
         program exit is triggered if the validation of the changed INI file
@@ -196,7 +198,7 @@ class AsyncExampleProgram:
     # Required in every program.
     #
     async def _initiate_resources(self):
-        """ Start the server program.
+        """ Initiate resources used by the program.
 
         The following actions are performed:
           - Validate INI file content.
@@ -297,7 +299,8 @@ class AsyncExampleProgram:
 
         # The initial RabbitMQ connection failed, so no point
         # in generating a traceback and sending an ErrorMessage.
-        # When restore cache is out-of-sync, you'll get a ValueError.
+        #
+        # When restore state is out-of-sync, you'll get a ValueError.
         except (ValueError, ConnectionError) as why:
             await self._fatal_error_dump(error=why, suppress=True)
 

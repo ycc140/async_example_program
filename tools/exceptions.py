@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-05 21:05:06
-       $Rev: 19
+      $Date: 2023-10-06 09:21:25
+       $Rev: 21
 """
 
 # BUILTIN modules
@@ -30,7 +30,7 @@ SUBJECT = {'PROG': 'Program {0} processing failure on {1}',
            'DUMP': 'Program {0} processing failed unexpectedly on {1}'}
 """ Subject template text based on error state. """
 EXTERNAL = {sys.prefix, sys.base_prefix}
-""" Root paths to third party, and standard python modules (virtual or not). """
+""" Root paths to third party and standard python modules (virtual or not). """
 
 
 # ---------------------------------------------------------
@@ -68,8 +68,8 @@ def traceback_text_of(error: Exception) -> str:
     :param error: Current exception.
     :return: Exception traceback as a string.
     """
-    elems = (type(error), error, error.__traceback__)
-    return ''.join(ExceptionFormatter(encoding='utf8').format_exception(*elems))
+    exc = (type(error), error, error.__traceback__)
+    return ''.join(ExceptionFormatter(encoding='utf8').format_exception(*exc))
 
 
 # ---------------------------------------------------------
@@ -89,7 +89,15 @@ def error_text_of(error: Exception, include_traceback: bool = False,
                   extra: Optional[str] = None) -> str:
     """ Return exception context and error text.
 
-    When include_traceback=True, an exception traceback is attached to the text.
+    When *include_traceback=True*, an exception traceback is appended to
+    the text.
+
+    When the *extra* parameter is specified, that text is inserted after
+    the location and before the reason.
+
+    The logical structure of the error test is::
+
+        <location> [<extra>] <reason> [<BR><traceback>]
 
     :param error: Current exception.
     :param include_traceback: Include traceback status.
@@ -121,7 +129,8 @@ def error_message_of(error: Exception, program: str, state: str,
     :return: A populated ErrorMessage.
     """
     now = time.strftime("%Y-%m-%d %X")
-    item = [program, config.server, now, f'{error_text_of(error, include_traceback)}']
+    item = [program, config.server, now,
+            f'{error_text_of(error, include_traceback)}']
     return {'msgType': 'ErrorMessage',
             'description': "Program {0} on {1} at {2} =>>> {3}".format(*item),
             'summary': SUBJECT[state].format(*item), 'state': state}
