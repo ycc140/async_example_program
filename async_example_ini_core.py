@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-02 10:33:57
-       $Rev: 18
+      $Date: 2023-10-08 16:03:57
+       $Rev: 23
 """
 
 # BUILTIN modules
@@ -15,9 +15,7 @@ import os
 from typing import Callable, Optional, List
 
 # Tools modules
-from tools.async_ini_file_parser import (PLATFORM,
-                                         AsyncIniFileParser,
-                                         IniValidationError)
+from tools.async_ini_file_parser import PLATFORM, AsyncIniFileParser
 
 # Local program modules
 from async_example_ini_models import ConfigModel, Win32Model, LinuxModel
@@ -26,7 +24,7 @@ from async_example_ini_models import ConfigModel, Win32Model, LinuxModel
 # -----------------------------------------------------------------------------
 #
 class AsyncExampleProgIni(AsyncIniFileParser):
-    """ This class handles the ini file parameters for the ExampleProgram. """
+    """ This class handles the ini file parameters for the AsyncExampleProgram. """
 
     # ---------------------------------------------------------
     #
@@ -36,7 +34,7 @@ class AsyncExampleProgIni(AsyncIniFileParser):
         :param name: Name of ini file.
         """
         default_paths = []
-        default_params = ['log_level', 'document_types', 'schedules']
+        default_params = ['log_level', 'document_types']
 
         # Initiate the mother object.
         super().__init__(name, default_paths, default_params)
@@ -68,11 +66,6 @@ class AsyncExampleProgIni(AsyncIniFileParser):
             except (ValueError, SyntaxError, OSError):
                 self.error.append(f'<{key}> parameter is incorrect')
 
-        # Add parameters to change supervision, if needed.
-        if not self.error and self.supervise_change:
-            items = self._add_platform_parameters()
-            self._handle_status(items)
-
     # ---------------------------------------------------------
     # Optional, needed when you have section parameters.
     #
@@ -91,11 +84,6 @@ class AsyncExampleProgIni(AsyncIniFileParser):
             if not self.has_option(section, key):
                 self.error.append(f"No option '{key}' in section: '{section}'")
 
-        # Add parameters to change supervision, if needed.
-        if not self.error and self.supervise_change:
-            items = self._add_section_parameters(section)
-            self._handle_status(items)
-
         return [section]
 
     # ---------------------------------------------------------
@@ -105,17 +93,21 @@ class AsyncExampleProgIni(AsyncIniFileParser):
                                 sections: Optional[list] = None,
                                 read_ini: bool = False):
         """
-        Read ini file and check the existence of required parameters and validate
-        their types, and somtimes their content.
+        Read ini file and check the existence of required parameters and
+        sometimes validate content of complex types.
 
-        Specifically, handle validation of non-DEFAULT section(s).
+        Specifically, handle verification of non-DEFAULT section(s).
 
-        :param validation_model: Pydantic BaseModel.
+        The superclass handles verification of DEFAULT parameters and validation
+        of all parameters (except special cases for complex types).
+
+        :param validation_model: The validation model that pydantic should use.
         :param sections: List of used section names (except DEFAULT).
         :param read_ini: Read ini file status.
         """
 
-        # This needs to be the first statement.
+        # This needs to be the first statement (the read_ini
+        # input parameter is for the superclass only).
         await self.read_ini_file()
 
         # Do a basic check that required parameters exist, and that a
@@ -123,8 +115,8 @@ class AsyncExampleProgIni(AsyncIniFileParser):
         self._verify_platform_parameters()
         sect = self._verify_config_section_parameters()
 
-        # Do the same as above for DEFAULT parameters, validate
-        # all parameters with pydantic and log validation errors.
+        # The superclass verifies the DEFAULT parameters and validates
+        # all parameters using pydantic models.
         all_sections = sect
         await super().validate_ini_file(validation_model=validation_model,
                                         sections=all_sections, read_ini=read_ini)
@@ -140,10 +132,10 @@ class AsyncExampleProgIni(AsyncIniFileParser):
 
         # This needs to be the last block (log semantic validation errors).
         if self.error:
-            raise IniValidationError(self.error)
+            await self._handle_error_severity()
 
     # ---------------------------------------------------------
-    # Required by every program.
+    # Required by every program (but content changes).
     #
     async def validate_ini_file_parameters(self):
         """ Extract and validate ini file parameters. """
@@ -171,32 +163,3 @@ class AsyncExampleProgIni(AsyncIniFileParser):
         :return: Ini file value change status.
         """
         return self.status['document_types'][1]
-
-    # ---------------------------------------------------------
-    # Unique for this program.
-    #
-    @property
-    def changed_schedules(self) -> bool:
-        """ Return schedules change status.
-
-        :return: Ini file value change status.
-        """
-        return self.status['schedules'][1]
-
-    # ----------------------------------------------------------
-    # Unique for this program.
-    #
-    @property
-    def changed_worker_parameters(self) -> bool:
-        """  Return changed worker parameter status.
-
-        These parameters are monitored:
-          - schedules
-          - document_types
-
-        :return: Ini file value change status.
-        """
-        return (
-                self.status['schedules'][1] or
-                self.status['document_types'][1]
-        )

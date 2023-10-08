@@ -6,21 +6,22 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-28 20:42:35
-       $Rev: 1
+      $Date: 2023-10-08 16:03:57
+       $Rev: 23
 """
 
 # BUILTIN modules
-from typing import Union, List, Dict, Tuple
+from typing import Union, Dict, List
 
 # Third party modules
-from pydantic import BaseModel, field_validator, FieldValidationInfo
+from pydantic import BaseModel, field_validator
+from pydantic_core.core_schema import FieldValidationInfo
 
 # Tools modules
 from tools.log_level import LogLevel
 
 # Constants
-NESTED = ['document_types', 'schedules']
+NESTED = ['document_types']
 """ Nested data types defined in INI file. """
 
 
@@ -42,18 +43,17 @@ class ConfigModel(BaseModel):
 # required in every program (but content changes).
 #
 class IniFileModel(BaseModel):
-    """ Representation of ExampleProgram INI file parameters.
+    """ Representation of AsyncExampleProgram INI file parameters.
 
 
     :ivar log_level: Current log level.
     :ivar config: ConfigModel parameters.
     :ivar document_types: Current document types.
-    :ivar schedules: Current schedules.
+    :raise ValueError: When type evaluation fails.
     """
     log_level: LogLevel
     config: ConfigModel
-    document_types: Dict[str, list]
-    schedules: List[Tuple[str, str]]
+    document_types: Dict[str, List[str]]
 
     @field_validator(*NESTED, mode='before')
     @classmethod

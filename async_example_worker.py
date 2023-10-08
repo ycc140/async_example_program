@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-06 09:21:25
-       $Rev: 21
+      $Date: 2023-10-08 16:03:57
+       $Rev: 23
 """
 
 # BUILTIN modules
@@ -48,6 +48,7 @@ HEALTH_TEMPLATE = {'AsyncFileSearcher.observer': False,
 
 # -----------------------------------------------------------------------------
 #
+# noinspection StructuralWrap
 class AsyncExampleWorker:
     """
     This worker class demonstrates how to use resources like RabbitMQ and Watchdog
@@ -97,17 +98,17 @@ class AsyncExampleWorker:
     :type work_queue: `asyncio.Queue`
     :ivar scheduler: Handles dump checks and pruning of received_files state.
     :type scheduler: ``apscheduler.schedulers.asyncio.AsyncIOScheduler``
+    :ivar mq_mgr: Handle messages being sent to or received from RabbitMQ.
+    :type mq_mgr: `AsyncRabbitClient`
     :ivar mq_buffer:
         Handle the storing and retrieving of messages when the external
         communication goes up and down.
     :type mq_buffer: `AsyncOfflineBuffer`
-    :ivar mq_mgr: Handle messages being sent to or received from RabbitMQ.
-    :type mq_mgr: `AsyncRabbitClient`
+    :ivar searcher:  Reports new files detected in specified directories.
+    :type searcher: `AsyncFileSearcher`
     :ivar state_mgr:  Handles archiving and restoring state data that needs to
         survive a program restart.
     :type state_mgr: `AsyncStateOfflineManager`
-    :ivar searcher:  Reports new files detected in specified directories.
-    :type searcher: `AsyncFileSearcher`
     """
 
     # ---------------------------------------------------------
@@ -120,7 +121,6 @@ class AsyncExampleWorker:
         """
 
         # Local parameters.
-        paths = [ini.in_path]
         params = RabbitParams(server=config.server, program=program)
 
         # Input parameters.
@@ -134,10 +134,11 @@ class AsyncExampleWorker:
         # Initiate objects.
         self.work_queue = asyncio.Queue()
         self.scheduler = AsyncIOScheduler()
+        self.mq_mgr = AsyncRabbitClient(
+            config.rabbitUrl, params, self.work_queue)
         self.mq_buffer = AsyncOfflineBuffer(ini.offline_path)
-        self.mq_mgr = AsyncRabbitClient(config.rabbitUrl,
-                                        params, self.work_queue)
-        self.searcher = AsyncFileSearcher(paths, self.work_queue)
+        self.searcher = AsyncFileSearcher(
+            list(self.ini.document_types.keys()), self.work_queue)
         self.state_mgr = AsyncStateOfflineManager(self.ini.offline_path)
 
     # ----------------------------------------------------------
@@ -182,13 +183,14 @@ class AsyncExampleWorker:
         self.health_report = None
 
     # ----------------------------------------------------------
-    # required in every program (but content is changed).
+    # required in every program (but content changes).
     #
     async def _process_health_request(self):
         """ Process HealthRequest message..
 
-        Example msg data::
+        Example msg data:
 
+        .. python::
           {"msgType": "HealthRequest"}
         """
         name = self.__class__.__name__
@@ -198,8 +200,8 @@ class AsyncExampleWorker:
 
         # Trigger status reports from used resources.
         msg = {'msgType': 'StatusRequest'}
-        await self.mq_mgr.status_of()
         await self.searcher.notify(msg)
+        await self.mq_mgr.status_of()
 
         # Give all reporting modules some time to submit
         # their health status before creating the report.
@@ -211,8 +213,9 @@ class AsyncExampleWorker:
     async def _process_status_response(self, msg: dict):
         """ Process StatusResponse message..
 
-        Example msg data::
+        Example msg data:
 
+        .. python::
           {"msgType": "StatusResponse", "resources": {...}}
         """
 
@@ -220,7 +223,7 @@ class AsyncExampleWorker:
             self.health_report[key] = value
 
     # ----------------------------------------------------------
-    # required in every program (but content is changed).
+    # required in every program (but content changes).
     #
     async def _process_linkup_message(self):
         """ Send pending offline messages and start subscription(s). """
@@ -254,14 +257,15 @@ class AsyncExampleWorker:
 
         # ----------------------------------------------------------
 
-        def name_of(attribute: Union[dict, list]) -> str:
-            """ Return str name of supplied class attribute. """
-            class_attributes = self.__dict__.items()
-            return [name for name, value in class_attributes if value is attribute][0]
+        def name_of(attr_value: Union[dict, list]) -> str:
+            """ Return str name of supplied class attribute value. """
+            class_attr = self.__dict__.items()
+            return [attr for attr, val in class_attr if val is attr_value][0]
 
         # ----------------------------------------------------------
 
-        # Initiate data for one or more active state(s) that needs archiving.
+        # Create a data structure for one or more active state(s) that
+        # needs archiving (has content).
         items = {name_of(item): item for item in [
             self.detected_files
         ] if item}
@@ -307,7 +311,7 @@ class AsyncExampleWorker:
         await self.state_mgr.clear_restored_state()
 
     # ---------------------------------------------------------
-    # Optional, needed when sending external messages.
+    # required in every program.
     #
     async def _send_offline_messages(self):
         """ Send pending offline messages to the RabbitMQ server. """
@@ -322,7 +326,7 @@ class AsyncExampleWorker:
             logger.success('Restored {size} offline messages', size=size)
 
     # ---------------------------------------------------------
-    # Optional, needed when sending external messages.
+    # required in every program.
     #
     async def _handle_send_response(self, success: bool, msg: dict, topic: str):
         """ Handle send response, good or bad.
@@ -342,16 +346,32 @@ class AsyncExampleWorker:
             logger.warning("Stored '{what}' message offline", what=topic)
 
     # ----------------------------------------------------------
-    # Optional, needed when sending external messages.
-    # (but content might change).
+    # required in every program (but content might change).
     #
+    # noinspection StructuralWrap
     async def _send_message(self, msg: dict):
         """ Send a msgType message to RabbitMQ.
 
         The message topic is automatically created here with the help
         of the PREFIXES constant.
 
-        Handle File and Error message types.
+        You only have to change *msg_type* when you are using more than
+        the two standardized topic patterns.
+
+        An example of that might look like this:
+
+        .. Python::
+            # Send message prefixes.
+            PREFIXES = ['Health', 'Error', 'Email', 'Phoenix', 'File']
+
+            if msg['msgType'] == 'PhoenixRegisterFile':
+                msg_type = 'PhoenixRegister.File'
+
+            elif msg['msgType'] in config.watchTopics:
+                msg_type = f"{msg['msgType']}.{self.program}"
+
+            else:
+                msg_type = msg['msgType']
 
         :param msg: A msgType message.
         """
@@ -371,11 +391,11 @@ class AsyncExampleWorker:
     async def _process_new_params(self):
         """ Update affected resources with the changed Ini parameters. """
 
-        if self.ini.changed_schedules:
-            logger.info("Updating Ini 'schedules' configuration..")
-
-        if self.ini.document_types:
-            logger.info("Updating Ini 'document_types' configuration..")
+        if self.ini.changed_document_types:
+            logger.info("Updating changed Ini 'document_types' configuration...")
+            msg = {'msgType': 'UpdateSearchPaths',
+                   'data': list(self.ini.document_types.keys())}
+            await self.searcher.notify(msg)
 
     # ---------------------------------------------------------
     # Optional, needed when active state content needs to be
@@ -440,15 +460,27 @@ class AsyncExampleWorker:
         *FileDetected* message is sent, and the file is moved to the
         *out_path* directory.
 
-        Example msg data::
+        Example msg data:
 
-          {"msgType": "FileFound", "file": "D:/Prod/Pre/Incoming/AKFAIN12.DAT"}
+        .. Python::
+            {"msgType": "FileFound",
+             "file": "D:\\prod\\kundin\\cust3\\DDDD.231008.txt"}
 
         :param msg: A FileFound message.
         """
 
         try:
             infile = Path(msg['file'])
+            key = infile.parent.as_posix()
+
+            # Verify that it's a file that we are interested in.
+            if infile.name[:4] not in self.ini.document_types[key]:
+                dest_file = Path(self.ini.error_path, infile.name)
+                shutil.move(infile, dest_file)
+                logger.warning('Unknown file type {name} is move to {where}',
+                               name=infile.name, where=self.ini.error_path)
+                return
+
             crc = await calculate_md5(infile)
             duplicate = self.detected_files.get(crc)
             dest_path = (self.ini.error_path
@@ -480,9 +512,10 @@ class AsyncExampleWorker:
     async def _process_report_request(self):
         """ Process FileReportRequest message..
 
-        Example msg data::
+        Example msg data:
 
-          {"msgType": "FileReportRequest"}
+        .. Python::
+            {"msgType": "FileReportRequest"}
         """
 
         try:
@@ -588,7 +621,7 @@ class AsyncExampleWorker:
         self.work_queue.put_nowait(msg)
 
     # ---------------------------------------------------------
-    # required in every program (but content is changed).
+    # required in every program (but content changes).
     #
     async def start(self):
         """ Start the used resources in a controlled way. """
@@ -618,7 +651,7 @@ class AsyncExampleWorker:
         self.scheduler.start()
 
     # ---------------------------------------------------------
-    # required in every program (but content is changed).
+    # required in every program (but content changes).
     #
     async def stop(self):
         """ Stop the used resources in a controlled way.

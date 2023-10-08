@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-28 20:42:35
-       $Rev: 1
+      $Date: 2023-10-08 16:03:57
+       $Rev: 23
 """
 
 # BUILTIN modules
@@ -22,7 +22,7 @@ PATTERN = "@{(.+?)}"
 
 # -----------------------------------------------------------------------------
 #
-class SecretsManager:
+class SecretsExpander:
     """ This class expands secrets referenced in ini files.
 
     A secret is declared as @{<secrets-filename>}.

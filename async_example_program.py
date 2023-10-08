@@ -7,8 +7,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-06 09:21:25
-       $Rev: 21
+      $Date: 2023-10-08 16:03:57
+       $Rev: 23
 """
 
 # BUILTIN modules
@@ -18,12 +18,13 @@ import contextlib
 
 # Tools modules
 from tools.configurator import config
-from tools.exceptions import error_message_of, error_text_of
+from tools.async_ini_file_parser import IniValidationError
 from tools.local_log_handler import path_of, LogHandler, logger
 
 # Local program modules
-from async_example_ini_core import AsyncExampleProgIni, IniValidationError
-from async_example_worker import AsyncExampleWorker, asyncio, Path, AsyncIOScheduler
+from async_example_worker import (asyncio, Path, AsyncIOScheduler,
+                                  exceptions, AsyncExampleProgIni,
+                                  AsyncExampleWorker)
 
 
 # ---------------------------------------------------------------------
@@ -132,7 +133,7 @@ class AsyncExampleProgram:
         :param suppress: Suppress traceback dump and sending ErrorMessage.
         """
         self.error = True
-        errmsg = error_text_of(error)
+        errmsg = exceptions.error_text_of(error)
 
         if suppress:
             logger.error('{err}', err=errmsg)
@@ -141,25 +142,25 @@ class AsyncExampleProgram:
             logger.opt(exception=error).error(f'{errmsg} => ')
 
             # Trigger sending error message.
-            msg = error_message_of(error, self.program, 'FATAL')
+            msg = exceptions.error_message_of(error, self.program, 'FATAL')
             await self.worker.notify(msg)
 
     # ---------------------------------------------------------
     # Required in every program.
     #
-    async def _fatal_ini_error_stop(self, errors: list):
-        """ Trigger a fatal program exit due to INI file errors.
+    async def _handle_ini_error(self, fatal: bool):
+        """ Trigger a fatal program exit when errors found and *fatal==True*.
 
-        :param errors: List of INI error messages.
+        :param fatal: Is the error fatal or not?
         """
 
-        self.error = True
         logger.error('Ini file configuration errors:')
 
-        for errmsg in errors:
+        for errmsg in self.ini.error:
             logger.error('  - {err}', err=errmsg)
 
-        if self.future:
+        if fatal and self.future:
+            self.error = True
             self.future.cancel()
 
     # ---------------------------------------------------------
@@ -169,30 +170,29 @@ class AsyncExampleProgram:
     async def _schedule_ini_check(self):
         """ Extract and validate INI file content if the Ini file is updated.
 
-        This method is called by the AsyncIOScheduler every 5 seconds. A fatal
-        program exit is triggered if the validation of the changed INI file
+        This method is called by the AsyncIOScheduler every 5 seconds.
+
+        A RuntimeError is raised if the validation of the changed INI file
         content fails, otherwise the worker is notified if the relevant
         parameter has changed.
+
+        :raise RuntimeError: When INI file validation fails.
         """
 
-        if not self.ini.file_is_changed:
-            return
+        if self.ini.file_is_changed:
+            try:
+                await self.ini.validate_ini_file_parameters()
 
-        try:
-            await self.ini.validate_ini_file_parameters()
+                if self.ini.changed_log_level:
+                    level_name = self.ini.log_level
+                    self.log.update_loglevel(level_name)
 
-            if self.ini.changed_log_level:
-                level_name = self.ini.log_level
-                self.log.update_loglevel(level_name)
+                if self.ini.changed_document_types:
+                    await self.worker.notify({'msgType': 'ChangedIniParams'})
 
-            if self.ini.changed_worker_parameters:
-                await self.worker.notify({'msgType': 'ChangedIniParams'})
-
-        except IniValidationError:
-            await self._fatal_ini_error_stop(self.ini.error)
-
-        except AttributeError as why:
-            await self._fatal_ini_error_stop([why.args[0]])
+            # Handle INI file errors during execution (not fatal).
+            except RuntimeError:
+                await self._handle_ini_error(fatal=False)
 
     # ---------------------------------------------------------
     # Required in every program.
@@ -206,8 +206,8 @@ class AsyncExampleProgram:
           - Start Ini file change supervision (every 5 seconds).
           - Setup waits for program termination.
         """
-        # Validate the initial INI file content.
-        await self.ini.validate_ini_file_parameters()
+        # Validate the current INI file content.
+        await self.ini.start()
 
         self.log.start(self.ini.log_level)
         logger.success('Starting server on {name}...', name=config.server)
@@ -240,9 +240,9 @@ class AsyncExampleProgram:
             data = json.dumps(indent=4, sort_keys=True,
                               obj=self.ini.valid_params.model_dump())
             logger.trace('INI file content:\n{show}', show=data)
-            data = json.dumps(indent=4, sort_keys=True,
-                              obj=config.model_dump())
-            logger.trace('config content:\n{show}', show=data)
+            dta = json.dumps(indent=4, sort_keys=True,
+                             obj=config.model_dump())
+            logger.trace('config content:\n{show}', show=dta)
 
         # Shows how to reference a INI file config section parameter.
         logger.debug('user: {show}', show=self.ini.config.user)
@@ -259,6 +259,8 @@ class AsyncExampleProgram:
 
         if self.worker:
             await self.worker.stop()
+
+        await self.ini.stop()
 
         if self.error:
             logger.critical('Server halted')
@@ -286,22 +288,22 @@ class AsyncExampleProgram:
             self._demo_purposes_only()
 
             # Wait until termination, either by operator or by fatal error
-            # (this code needs to be placed last in the method).
+            # (this statement needs to be placed last in the method).
             await self.future
 
         # Ignore the consequences of an operator stopping the program.
         except asyncio.CancelledError:
             pass
 
-        # Handle INI file errors, either initial or during execution.
+        # Handle INI file errors during program startup.
         except IniValidationError:
-            await self._fatal_ini_error_stop(self.ini.error)
+            await self._handle_ini_error(fatal=True)
 
         # The initial RabbitMQ connection failed, so no point
         # in generating a traceback and sending an ErrorMessage.
         #
         # When restore state is out-of-sync, you'll get a ValueError.
-        except (ValueError, ConnectionError) as why:
+        except (ConnectionError, ValueError) as why:
             await self._fatal_error_dump(error=why, suppress=True)
 
         # Handle all unhandled exceptions that reach here as fatal.

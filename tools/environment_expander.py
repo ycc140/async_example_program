@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-28 20:42:35
-       $Rev: 1
+      $Date: 2023-10-08 16:03:57
+       $Rev: 23
 """
 
 # BUILTIN modules
@@ -21,7 +21,7 @@ PATTERN = "&{(.+?)}"
 
 # -----------------------------------------------------------------------------
 #
-class EnvironmentManager:
+class EnvironmentExpander:
     """ This class expands environment variables referenced in ini files.
 
     An environment_variable is declared as &{<environment-variable-name>}.

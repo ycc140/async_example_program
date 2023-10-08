@@ -6,12 +6,11 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-01 06:15:18
-       $Rev: 14
+      $Date: 2023-10-08 16:03:57
+       $Rev: 23
 """
 
 # BUILTIN modules
-import os
 import time
 from pathlib import Path
 from typing import Optional
@@ -29,6 +28,7 @@ from tools.file_modified_event_handler import FileModifiedEventHandler
 
 # -----------------------------------------------------------------------------
 #
+# noinspection StructuralWrap
 class AsyncFileSearcher:
     """ This class detects files in one, or several specified directories.
 
@@ -55,14 +55,23 @@ class AsyncFileSearcher:
       3. Stop the detection by calling method stop().
 
     Example data:
-      {"msgType": "FileFound", "file": "D:/Prod/Pre/Incoming/AKFAIN12.DAT"}
+
+    .. Python::
+          {"msgType": "FileFound",
+           "file": "D:\\prod\\kundin\\cust3\\DDDD.231008.txt"}
 
 
-    :ivar touch_files:
-        Touch undetected files in search path(s) (default is True).
-    :type touch_files: `dict` or `None`
+    :ivar recursive: Search path(s) recursively (default is False).
+    :type recursive: `bool`
+    :ivar root_paths: List of path(s) to search.
+    :type root_paths: `set`
     :ivar out_queue: File detection report queue.
     :type out_queue: `asyncio.Queue`
+    :ivar find_undetected_files:
+        Touch undetected files in search path(s) (default is True).
+    :type find_undetected_files: `bool`
+    :ivar watchers: Keep track of which paths(s) that is observed.
+    :type watchers: `dict`
     :ivar suppress: Suppress reporting of already detected files.
     :type suppress: `dict`
     :ivar lock: A locking mechanism that protects the suppressed cache object.
@@ -117,13 +126,14 @@ class AsyncFileSearcher:
             [path.lower() for path in excluded_paths] if excluded_paths else []
         )
 
-        self.touch_files = ({'recursive': recursive, 'paths': paths}
-                            if find_undetected_files else None)
-
         # Input parameters.
+        self.recursive = recursive
+        self.root_paths = set(paths)
         self.out_queue: Queue = out_queue
+        self.find_undetected_files = find_undetected_files
 
         # Unique parameters.
+        self.watchers = {}
         self.suppress = {}
 
         # Initialize objects.
@@ -131,22 +141,8 @@ class AsyncFileSearcher:
         self.work_queue = Queue()
         self.observer = Observer()
         self.file_mgr = FileModifiedEventHandler(
-            self.work_queue, case_sensitive, patterns, excl_paths, ignored_patterns)
-
-        # Local parameters.
-        invalid_paths = []
-
-        for path in paths:
-
-            # Make sure the path exists before starting observation.
-            if os.path.isdir(path):
-                self.observer.schedule(self.file_mgr, path, recursive)
-
-            else:
-                invalid_paths.append(path)
-
-        if invalid_paths:
-            raise RuntimeError(f'Found invalid path(s): {invalid_paths}')
+            self.work_queue, case_sensitive, patterns,
+            excl_paths, ignored_patterns)
 
     # ---------------------------------------------------------
     #
@@ -200,12 +196,45 @@ class AsyncFileSearcher:
 
     # ---------------------------------------------------------
     #
+    async def _process_new_search_paths(self, msg: dict):
+        """ Update the list of paths used in the search.
+
+        Example data:
+
+        .. Python::
+            {'msgType': 'UpdateSearchPaths', 'data': [<root Paths>]}
+
+        :param msg: A UpdateSearchPaths message.
+        """
+
+        # Find changes in which paths to observe.
+        existing = self.root_paths
+        new_paths = set(msg['data'])
+        remove = existing - new_paths
+        insert = new_paths - existing
+
+        self.root_paths = set(msg['data'])
+
+        # Remove obsolete paths to observe.
+        for path in remove:
+            self.observer.unschedule(self.watchers[path])
+            del self.watchers[path]
+
+        # Insert new paths to observe.
+        for path in insert:
+            self.watchers[path] = self.observer.schedule(
+                self.file_mgr, path, self.recursive)
+
+        logger.info('Monitoring paths: {data}...', data=self.root_paths)
+
+    # ---------------------------------------------------------
+    #
     async def _handle_undetected_files(self):
         """ Touch undetected files to make them detectable again. """
 
-        for directory in self.touch_files['paths']:
+        for directory in self.root_paths:
 
-            if self.touch_files['recursive']:
+            if self.recursive:
                 for item in Path(directory).rglob('*'):
                     item.touch(exist_ok=True)
 
@@ -217,10 +246,10 @@ class AsyncFileSearcher:
     #
     async def _process_status_request(self):
         """ Process health status request. """
-
+        name = self.__class__.__name__
         msg = {'msgType': 'StatusResponse',
-               'resources': {'AsyncFileSearcher._message_broker': True,
-                             'AsyncFileSearcher.observer': self.observer.is_alive()}}
+               'resources': {f'{name}._message_broker': True,
+                             f'{name}.observer': self.observer.is_alive()}}
         self.out_queue.put_nowait(msg)
 
     # ---------------------------------------------------------
@@ -232,6 +261,7 @@ class AsyncFileSearcher:
           - Stop
           - FileFound
           - StatusRequest
+          - UpdateSearchPaths
         """
 
         try:
@@ -244,13 +274,14 @@ class AsyncFileSearcher:
                 if msg['msgType'] == 'Stop':
                     break
 
-                # Health status request.
                 elif msg['msgType'] == 'StatusRequest':
                     await self._process_status_request()
 
-                # A new file is detected in the supervised context.
                 elif msg['msgType'] == 'FileFound':
                     await self._process_file_found(msg)
+
+                elif msg['msgType'] == 'UpdateSearchPaths':
+                    await self._process_new_search_paths(msg)
 
             logger.trace('Stopped searcher BROKER task')
 
@@ -274,6 +305,13 @@ class AsyncFileSearcher:
         # Start asyncio tasks.
         _ = create_task(self._message_broker())
 
+        # Add paths that the observer should monitor.
+        for path in self.root_paths:
+            self.watchers[path] = self.observer.schedule(
+                self.file_mgr, path, self.recursive)
+
+        logger.info('Monitoring paths: {what}...', what=self.root_paths)
+
         # Start a normal python thread enveloped in an asyncio task.
         event_loop = get_event_loop()
         event_loop.call_soon_threadsafe(self.observer.start)
@@ -283,7 +321,7 @@ class AsyncFileSearcher:
         scheduler.add_job(self._handle_report_suppression,
                           trigger='interval', seconds=10)
 
-        if self.touch_files:
+        if self.find_undetected_files:
             scheduler.add_job(self._handle_undetected_files,
                               trigger='interval', minutes=2)
 

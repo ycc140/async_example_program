@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-06 09:21:25
-       $Rev: 21
+      $Date: 2023-10-08 16:03:57
+       $Rev: 23
 """
 
 # BUILTIN modules
@@ -100,7 +100,7 @@ class Common(BaseSettings):
 
     # Constants.
     exchange: str = 'topic_routing'
-    watchTopics: set = {'HealthResponse', 'ErrorMessage'}
+    watchTopics: list = ['HealthResponse', 'ErrorMessage']
     logSeverity: dict = {'LinkUp': 'info', 'LinkDown': 'warning'}
 
     # Secrets depending parameters.

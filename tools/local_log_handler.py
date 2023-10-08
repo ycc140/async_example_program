@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-09-28 20:42:35
-       $Rev: 1
+      $Date: 2023-10-08 16:03:57
+       $Rev: 23
 """
 
 # BUILTIN modules
@@ -164,7 +164,9 @@ class LogHandler:
 
         :param log_path: Logfile path.
         :param program: Name of logging program.
-        :param lean_format: Use a lean log format (default is True).
+        :param lean_format:
+            Use a lean log format. When you set it to False the standard
+            loguru format is used (default is True).
         :param include_external: Include python standard logging into Loguru
             (default is False).
         :param supress_console: Suppress console logging (default is False).
