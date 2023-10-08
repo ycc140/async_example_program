@@ -124,6 +124,26 @@
         
 
         
+            <div class="itemName"><code><a href="#start" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.start">start</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#stop" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.stop">stop</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#validate_ini_file" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.validate_ini_file">validate<wbr></wbr>_ini<wbr></wbr>_file</a></code>
             </div>
         
@@ -164,7 +184,37 @@
         
 
         
+            <div class="itemName"><code><a href="#_handle_error_severity" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._handle_error_severity">_handle<wbr></wbr>_error<wbr></wbr>_severity</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#_handle_status" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._handle_status">_handle<wbr></wbr>_status</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_restore_orig_file" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._restore_orig_file">_restore<wbr></wbr>_orig<wbr></wbr>_file</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_update_change_status" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._update_change_status">_update<wbr></wbr>_change<wbr></wbr>_status</a></code>
             </div>
         
 
@@ -234,6 +284,16 @@
 
         
             <div class="itemName"><code><a href="#filename" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.filename">filename</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#orig_file_copied" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.orig_file_copied">orig<wbr></wbr>_file<wbr></wbr>_copied</a></code>
             </div>
         
 
@@ -443,7 +503,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AsyncIniFileParser</span>(<a href="https://docs.python.org/3/library/configparser.html#configparser.ConfigParser" class="intersphinx-link">ConfigParser</a>): <a href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L46" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.__init__">AsyncIniFileParser(name, default_paths, default_params, supervise_change)</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AsyncIniFileParser</span>(<a href="https://docs.python.org/3/library/configparser.html#configparser.ConfigParser" class="intersphinx-link">ConfigParser</a>): <a href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L48" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.__init__">AsyncIniFileParser(name, default_paths, default_params, supervise_change)</a></code></p>
           <p><a href="classIndex.html#async_example_program.tools.async_ini_file_parser.AsyncIniFileParser">View In Hierarchy</a></p>
         </div>
 
@@ -452,6 +512,23 @@
 <p>It keeps track of changed parameter values during program execution,
 if needed. Environment variables and secrets are expanded. Parameter
 values are accessed using dot notation.</p>
+<p>If INI file validation fails during program startup, the program stops.</p>
+<p>If an INI file change is detected when the program is running and the
+validation fails, the content is rejected and the old file content is
+restored, whilst the program keeps running.</p>
+<div class="rst-admonition note">
+<p class="rst-first rst-admonition-title">Note</p>
+<p>You should be aware of the consequences of changing values while the
+program is running. For example, changing path parameters is mostly
+a bad idea since the input path of this program might be the output
+path of another program. So changing file paths usually require a
+coordinated effort that results in changes to several INI files,
+while the programs are offline.</p>
+<p class="rst-last">This goes for connection parameters as well. The program must have been
+programmed to handle disconnecting from the current connection and create
+a new connection using the new parameters, otherwise the change will have
+no effect.</p>
+</div>
 <dl class="rst-docutils">
 <dt>Expanded parameter ini file syntax:</dt>
 <dd><ul class="rst-first rst-last rst-simple">
@@ -485,6 +562,16 @@ values are accessed using dot notation.</p>
   </tr><tr class="method">
     
     <td>Async Method</td>
+    <td><code><a href="#start" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.start">start</a></code></td>
+    <td>Start the used resources in a controlled way.</td>
+  </tr><tr class="method">
+    
+    <td>Async Method</td>
+    <td><code><a href="#stop" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.stop">stop</a></code></td>
+    <td>Stop the used resources in a controlled way.</td>
+  </tr><tr class="method">
+    
+    <td>Async Method</td>
     <td><code><a href="#validate_ini_file" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.validate_ini_file">validate<wbr></wbr>_ini<wbr></wbr>_file</a></code></td>
     <td>Read ini file, check existence of required parameters and validate their types.</td>
   </tr><tr class="instancevariable">
@@ -512,6 +599,11 @@ values are accessed using dot notation.</p>
     <td>Instance Variable</td>
     <td><code><a href="#filename" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.filename">filename</a></code></td>
     <td>Name if ini file.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#orig_file_copied" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.orig_file_copied">orig<wbr></wbr>_file<wbr></wbr>_copied</a></code></td>
+    <td>Is original ini file copied status.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
@@ -549,14 +641,29 @@ values are accessed using dot notation.</p>
     <td>Return specified section parameters.</td>
   </tr><tr class="method private">
     
+    <td>Async Method</td>
+    <td><code><a href="#_handle_error_severity" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._handle_error_severity">_handle<wbr></wbr>_error<wbr></wbr>_severity</a></code></td>
+    <td>Handle validation error severity.</td>
+  </tr><tr class="method private">
+    
     <td>Method</td>
     <td><code><a href="#_handle_status" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._handle_status">_handle<wbr></wbr>_status</a></code></td>
     <td>Update parameter change status.</td>
   </tr><tr class="method private">
     
+    <td>Async Method</td>
+    <td><code><a href="#_restore_orig_file" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._restore_orig_file">_restore<wbr></wbr>_orig<wbr></wbr>_file</a></code></td>
+    <td>Restore original ini file since validation failed.</td>
+  </tr><tr class="method private">
+    
     <td>Method</td>
+    <td><code><a href="#_update_change_status" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._update_change_status">_update<wbr></wbr>_change<wbr></wbr>_status</a></code></td>
+    <td>Update parameter supervision change status.</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
     <td><code><a href="#_validate_params" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._validate_params">_validate<wbr></wbr>_params</a></code></td>
-    <td>Validate parameters against pydantic validation model.</td>
+    <td>Validate parameters against a pydantic validation model.</td>
   </tr>
 </table>
           
@@ -578,7 +685,7 @@ values are accessed using dot notation.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">__getattr__</span><span class="function-signature">(self, name: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>) -&gt; <code><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L104">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L128">
       
       (source)
     </a>
@@ -605,7 +712,7 @@ values are accessed using dot notation.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, name: <code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" class="intersphinx-link">Path</a></code>, default_paths: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code>, default_params: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code>, supervise_change: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L79">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L102">
       
       (source)
     </a>
@@ -632,7 +739,7 @@ values are accessed using dot notation.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">read_ini_file</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L196">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L226">
       
       (source)
     </a>
@@ -651,6 +758,60 @@ values are accessed using dot notation.</p>
 </div><div class="basemethod">
   
   
+  <a name="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.start">
+    
+  </a>
+  <a name="start">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">start</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L378">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#start" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.start">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Start the used resources in a controlled way.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.stop">
+    
+  </a>
+  <a name="stop">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">stop</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L384">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#stop" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.stop">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Stop the used resources in a controlled way.</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
   <a name="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.validate_ini_file">
     
   </a>
@@ -661,7 +822,7 @@ values are accessed using dot notation.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">validate_ini_file</span><span class="function-signature">(self, validation_model: <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a></code>, sections: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, read_ini: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L221">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L316">
       
       (source)
     </a>
@@ -676,7 +837,7 @@ values are accessed using dot notation.</p>
     <div><p>Read ini file, check existence of required parameters and validate
 their types.</p>
 <p>Update parameter change status when the value is changed, if required.</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">validation<wbr></wbr>_model:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a></code></td><td class="fieldArgDesc">Pydantic BaseModel.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sections:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]</code></td><td class="fieldArgDesc">List of used section names (except DEFAULT).</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">read<wbr></wbr>_ini:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Read ini file (default is True).</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Raises</td></tr><tr><td class="fieldArgContainer"><code><a href="async_example_program.tools.async_ini_file_parser.IniValidationError.html" class="internal-link" title="async_example_program.tools.async_ini_file_parser.IniValidationError">IniValidationError</a></code></td><td>When missing or corrupt, Ini parameters are detected.</td></tr></table></div>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">validation<wbr></wbr>_model:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a></code></td><td class="fieldArgDesc">Pydantic BaseModel.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sections:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]</code></td><td class="fieldArgDesc">List of used section names (except DEFAULT).</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">read<wbr></wbr>_ini:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Read ini file (default is True).</td></tr></table></div>
   </div>
 </div><div class="baseinstancevariable">
   
@@ -690,7 +851,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">default_params</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L62">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L85">
       
       (source)
     </a>
@@ -717,7 +878,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">default_paths</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L60">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L83">
       
       (source)
     </a>
@@ -744,7 +905,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">error</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L67">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L90">
       
       (source)
     </a>
@@ -771,7 +932,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">file_timestamp</span>: <code><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L73">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L96">
       
       (source)
     </a>
@@ -798,7 +959,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">filename</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L58">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L79">
       
       (source)
     </a>
@@ -816,6 +977,33 @@ their types.</p>
 </div><div class="baseinstancevariable">
   
   
+  <a name="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.orig_file_copied">
+    
+  </a>
+  <a name="orig_file_copied">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">orig_file_copied</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L81">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#orig_file_copied" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.orig_file_copied">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Is original ini file copied status.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
   <a name="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.status">
     
   </a>
@@ -825,7 +1013,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">status</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L69">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L92">
       
       (source)
     </a>
@@ -852,7 +1040,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">supervise_change</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L64">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L87">
       
       (source)
     </a>
@@ -879,7 +1067,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">valid_params</span>: <tt class="rst-docutils literal">pydantic.BaseModel</tt> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L71">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L94">
       
       (source)
     </a>
@@ -906,7 +1094,7 @@ their types.</p>
   <div class="functionHeader">
     @<a href="https://docs.python.org/3/library/functions.html#property" class="intersphinx-link">property</a><br />
     <span class="py-defname">file_is_changed</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L271">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L363">
       
       (source)
     </a>
@@ -934,7 +1122,7 @@ their types.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_add_default_parameters</span><span class="function-signature">(self) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L130">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L167">
       
       (source)
     </a>
@@ -948,7 +1136,7 @@ their types.</p>
     
     <div><p>Return DEFAULT parameters.</p>
 <p>This method exists, so it can be overridden in derived
-classes when the need arises.</p>
+classes when needed (for example, when using vars).</p>
 <table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></td><td class="fieldArgDesc">DEFAULT parameters.</td></tr></table></div>
   </div>
 </div><div class="basemethod private">
@@ -964,7 +1152,7 @@ classes when the need arises.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_add_platform_parameters</span><span class="function-signature">(self) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L142">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L179">
       
       (source)
     </a>
@@ -978,7 +1166,7 @@ classes when the need arises.</p>
     
     <div><p>Return DEFAULT and platform parameters.</p>
 <p>This method exists, so it can be overridden in derived
-classes when the need arises.</p>
+classes when needed (for example, when using vars).</p>
 <table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></td><td class="fieldArgDesc">DEFAULT and platform parameters.</td></tr></table></div>
   </div>
 </div><div class="basemethod private">
@@ -994,7 +1182,7 @@ classes when the need arises.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_add_section_parameters</span><span class="function-signature">(self, section: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L154">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L191">
       
       (source)
     </a>
@@ -1008,8 +1196,43 @@ classes when the need arises.</p>
     
     <div><p>Return specified section parameters.</p>
 <p>This method exists, so it can be overridden in derived
-classes when the need arises.</p>
+classes when needed (for example, when using vars).</p>
 <table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">section:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">Section name.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></td><td class="fieldArgDesc">Section parameters.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._handle_error_severity">
+    
+  </a>
+  <a name="_handle_error_severity">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_handle_error_severity</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L257">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_handle_error_severity" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._handle_error_severity">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Handle validation error severity.</p>
+<p>When you get a validation error during program startup, there's no
+valid original file that you can restore, so the consequence is to
+trigger a fatal stop by raising a <em>IniValidationError</em> exception.</p>
+<p>When the program is running (after starting with a valid INI file), and
+a faulty INI file change happens, we can restore the valid original INI
+file and keep the program running after reporting the error by raising
+a <em>RuntimeError</em> exception.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Raises</td></tr><tr><td class="fieldArgContainer"><code><a href="async_example_program.tools.async_ini_file_parser.IniValidationError.html" class="internal-link" title="async_example_program.tools.async_ini_file_parser.IniValidationError">IniValidationError</a></code></td><td>When invalid ini file detected during startup.</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/exceptions.html#RuntimeError" class="intersphinx-link">RuntimeError</a></code></td><td>When invalid ini file detected during running program.</td></tr></table></div>
   </div>
 </div><div class="basemethod private">
   
@@ -1024,7 +1247,7 @@ classes when the need arises.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_handle_status</span><span class="function-signature">(self, params: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L114">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L138">
       
       (source)
     </a>
@@ -1046,6 +1269,62 @@ classes when the need arises.</p>
 </div><div class="basemethod private">
   
   
+  <a name="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._restore_orig_file">
+    
+  </a>
+  <a name="_restore_orig_file">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_restore_orig_file</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L154">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_restore_orig_file" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._restore_orig_file">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Restore original ini file since validation failed.</p>
+<p>Save faulty file with a <em>.err</em> extension.</p>
+</div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._update_change_status">
+    
+  </a>
+  <a name="_update_change_status">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_update_change_status</span><span class="function-signature">(self, sections: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L205">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_update_change_status" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._update_change_status">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Update parameter supervision change status.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sections:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]</code></td><td class="fieldArgDesc">List of section names.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
   <a name="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser._validate_params">
     
   </a>
@@ -1055,8 +1334,8 @@ classes when the need arises.</p>
   <div class="functionHeader">
     
     
-    <span class="py-keyword">def</span> <span class="py-defname">_validate_params</span><span class="function-signature">(self, validation_model: <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a></code>, sections: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_ini_file_parser.py#L167">
+    <span class="py-keyword">async def</span> <span class="py-defname">_validate_params</span><span class="function-signature">(self, validation_model: <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a></code>, sections: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code>)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_ini_file_parser.py#L283">
       
       (source)
     </a>
@@ -1068,7 +1347,7 @@ classes when the need arises.</p>
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Validate parameters against pydantic validation model.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">validation<wbr></wbr>_model:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a></code></td><td class="fieldArgDesc">Pydantic BaseModel.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sections:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code></td><td class="fieldArgDesc">List of used section names (except DEFAULT).</td></tr></table></div>
+    <div><p>Validate parameters against a pydantic validation model.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">validation<wbr></wbr>_model:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a></code></td><td class="fieldArgDesc">Pydantic BaseModel.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sections:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code></td><td class="fieldArgDesc">List of used section names (except DEFAULT).</td></tr></table></div>
   </div>
 </div>
         </div>

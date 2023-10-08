@@ -174,6 +174,16 @@
         
 
         
+            <div class="itemName"><code><a href="#_process_new_search_paths" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher._process_new_search_paths">_process<wbr></wbr>_new<wbr></wbr>_search<wbr></wbr>_paths</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#_process_status_request" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher._process_status_request">_process<wbr></wbr>_status<wbr></wbr>_request</a></code>
             </div>
         
@@ -194,6 +204,16 @@
 
         
             <div class="itemName"><code><a href="#file_mgr" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.file_mgr">file<wbr></wbr>_mgr</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#find_undetected_files" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.find_undetected_files">find<wbr></wbr>_undetected<wbr></wbr>_files</a></code>
             </div>
         
 
@@ -233,6 +253,26 @@
         
 
         
+            <div class="itemName"><code><a href="#recursive" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.recursive">recursive</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#root_paths" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.root_paths">root<wbr></wbr>_paths</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#suppress" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.suppress">suppress</a></code>
             </div>
         
@@ -243,7 +283,7 @@
         
 
         
-            <div class="itemName"><code><a href="#touch_files" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.touch_files">touch<wbr></wbr>_files</a></code>
+            <div class="itemName"><code><a href="#watchers" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.watchers">watchers</a></code>
             </div>
         
 
@@ -400,7 +440,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AsyncFileSearcher</span>: <a href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L32" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.__init__">AsyncFileSearcher(paths, out_queue, recursive, find_undetected_files, ...)</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AsyncFileSearcher</span>: <a href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L32" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.__init__">AsyncFileSearcher(paths, out_queue, recursive, find_undetected_files, ...)</a></code></p>
           <p><a href="classIndex.html#async_example_program.tools.async_file_searcher.AsyncFileSearcher">View In Hierarchy</a></p>
         </div>
 
@@ -428,10 +468,11 @@ that touches files that weren't detected earlier.</p>
 <li>Stop the detection by calling method stop().</li>
 </ol>
 </dd>
-<dt>Example data:</dt>
-<dd>{"msgType": "FileFound", "file": "D:/Prod/Pre/Incoming/AKFAIN12.DAT"}</dd>
 </dl>
-</div>
+<p>Example data:</p>
+<pre class="py-doctest">
+{<span class="py-string">"msgType"</span>: <span class="py-string">"FileFound"</span>,
+ <span class="py-string">"file"</span>: <span class="py-string">"D:\prod\kundin\cust3\DDDD.231008.txt"</span>}</pre></div>
         </div>
 
         <div id="splitTables">
@@ -466,6 +507,11 @@ that touches files that weren't detected earlier.</p>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
+    <td><code><a href="#find_undetected_files" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.find_undetected_files">find<wbr></wbr>_undetected<wbr></wbr>_files</a></code></td>
+    <td>Touch undetected files in search path(s) (default is True).</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
     <td><code><a href="#lock" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.lock">lock</a></code></td>
     <td>A locking mechanism that protects the suppressed cache object.</td>
   </tr><tr class="instancevariable">
@@ -481,13 +527,23 @@ that touches files that weren't detected earlier.</p>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
+    <td><code><a href="#recursive" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.recursive">recursive</a></code></td>
+    <td>Search path(s) recursively (default is False).</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#root_paths" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.root_paths">root<wbr></wbr>_paths</a></code></td>
+    <td>List of path(s) to search.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
     <td><code><a href="#suppress" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.suppress">suppress</a></code></td>
     <td>Suppress reporting of already detected files.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
-    <td><code><a href="#touch_files" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.touch_files">touch<wbr></wbr>_files</a></code></td>
-    <td>Touch undetected files in search path(s) (default is True).</td>
+    <td><code><a href="#watchers" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.watchers">watchers</a></code></td>
+    <td>Keep track of which paths(s) that is observed.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
@@ -516,6 +572,11 @@ that touches files that weren't detected earlier.</p>
   </tr><tr class="method private">
     
     <td>Async Method</td>
+    <td><code><a href="#_process_new_search_paths" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher._process_new_search_paths">_process<wbr></wbr>_new<wbr></wbr>_search<wbr></wbr>_paths</a></code></td>
+    <td>Update the list of paths used in the search.</td>
+  </tr><tr class="method private">
+    
+    <td>Async Method</td>
     <td><code><a href="#_process_status_request" class="internal-link" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher._process_status_request">_process<wbr></wbr>_status<wbr></wbr>_request</a></code></td>
     <td>Process health status request.</td>
   </tr>
@@ -539,7 +600,7 @@ that touches files that weren't detected earlier.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, paths: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code>, out_queue: <code><a href="https://docs.python.org/3/library/asyncio-queue.html#asyncio.Queue" class="intersphinx-link">Queue</a></code>, recursive: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>, find_undetected_files: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, case_sensitive: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>, excluded_paths: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, patterns: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, ignored_patterns: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L84">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L93">
       
       (source)
     </a>
@@ -568,7 +629,7 @@ path(s) (default is True).</td></tr><tr><td class="fieldArgContainer"><span clas
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">notify</span><span class="function-signature">(self, msg: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L262">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L293">
       
       (source)
     </a>
@@ -595,7 +656,7 @@ path(s) (default is True).</td></tr><tr><td class="fieldArgContainer"><span clas
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">start</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L271">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L302">
       
       (source)
     </a>
@@ -622,7 +683,7 @@ path(s) (default is True).</td></tr><tr><td class="fieldArgContainer"><span clas
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">stop</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L294">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L332">
       
       (source)
     </a>
@@ -648,7 +709,7 @@ path(s) (default is True).</td></tr><tr><td class="fieldArgContainer"><span clas
   <div class="functionHeader">
     
     <span class="py-defname">file_mgr</span>: <code><a href="async_example_program.tools.file_modified_event_handler.FileModifiedEventHandler.html" class="internal-link" title="async_example_program.tools.file_modified_event_handler.FileModifiedEventHandler">FileModifiedEventHandler</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L76">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L85">
       
       (source)
     </a>
@@ -667,6 +728,33 @@ is detected and available.</p></div>
 </div><div class="baseinstancevariable">
   
   
+  <a name="async_example_program.tools.async_file_searcher.AsyncFileSearcher.find_undetected_files">
+    
+  </a>
+  <a name="find_undetected_files">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">find_undetected_files</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L70">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#find_undetected_files" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.find_undetected_files">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Touch undetected files in search path(s) (default is True).</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
   <a name="async_example_program.tools.async_file_searcher.AsyncFileSearcher.lock">
     
   </a>
@@ -676,7 +764,7 @@ is detected and available.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">lock</span>: <code><a href="https://docs.python.org/3/library/asyncio-sync.html#asyncio.Lock" class="intersphinx-link">asyncio.Lock</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L68">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L77">
       
       (source)
     </a>
@@ -703,7 +791,7 @@ is detected and available.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">observer</span>: <tt class="rst-docutils literal">watchdog.observers.Observer</tt> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L72">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L81">
       
       (source)
     </a>
@@ -731,7 +819,7 @@ and dispatches calls to event handlers.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">out_queue</span>: <code><a href="https://docs.python.org/3/library/asyncio-queue.html#asyncio.Queue" class="intersphinx-link">asyncio.Queue</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L64">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L68">
       
       (source)
     </a>
@@ -749,6 +837,60 @@ and dispatches calls to event handlers.</p></div>
 </div><div class="baseinstancevariable">
   
   
+  <a name="async_example_program.tools.async_file_searcher.AsyncFileSearcher.recursive">
+    
+  </a>
+  <a name="recursive">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">recursive</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L64">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#recursive" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.recursive">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Search path(s) recursively (default is False).</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="async_example_program.tools.async_file_searcher.AsyncFileSearcher.root_paths">
+    
+  </a>
+  <a name="root_paths">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">root_paths</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#set" class="intersphinx-link">set</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L66">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#root_paths" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.root_paths">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>List of path(s) to search.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
   <a name="async_example_program.tools.async_file_searcher.AsyncFileSearcher.suppress">
     
   </a>
@@ -758,7 +900,7 @@ and dispatches calls to event handlers.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">suppress</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L66">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L75">
       
       (source)
     </a>
@@ -776,20 +918,20 @@ and dispatches calls to event handlers.</p></div>
 </div><div class="baseinstancevariable">
   
   
-  <a name="async_example_program.tools.async_file_searcher.AsyncFileSearcher.touch_files">
+  <a name="async_example_program.tools.async_file_searcher.AsyncFileSearcher.watchers">
     
   </a>
-  <a name="touch_files">
+  <a name="watchers">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">touch_files</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> or <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L61">
+    <span class="py-defname">watchers</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L73">
       
       (source)
     </a>
-    <a class="headerLink" href="#touch_files" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.touch_files">
+    <a class="headerLink" href="#watchers" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher.watchers">
       
       
       ¶
@@ -797,7 +939,7 @@ and dispatches calls to event handlers.</p></div>
   </div>
   <div class="functionBody">
     
-    <div><p>Touch undetected files in search path(s) (default is True).</p></div>
+    <div><p>Keep track of which paths(s) that is observed.</p></div>
     
   </div>
 </div><div class="baseinstancevariable">
@@ -812,7 +954,7 @@ and dispatches calls to event handlers.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">work_queue</span>: <code><a href="https://docs.python.org/3/library/asyncio-queue.html#asyncio.Queue" class="intersphinx-link">asyncio.Queue</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L70">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L79">
       
       (source)
     </a>
@@ -840,7 +982,7 @@ and dispatches calls to event handlers.</p></div>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_handle_report_suppression</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L153">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L149">
       
       (source)
     </a>
@@ -871,7 +1013,7 @@ a few milliseconds, so a 2-second prune timeout should be ok...</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_handle_undetected_files</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L203">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L232">
       
       (source)
     </a>
@@ -898,7 +1040,7 @@ a few milliseconds, so a 2-second prune timeout should be ok...</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_message_broker</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L228">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L257">
       
       (source)
     </a>
@@ -917,6 +1059,7 @@ a few milliseconds, so a 2-second prune timeout should be ok...</p>
 <li>Stop</li>
 <li>FileFound</li>
 <li>StatusRequest</li>
+<li>UpdateSearchPaths</li>
 </ul>
 </dd>
 </dl>
@@ -935,7 +1078,7 @@ a few milliseconds, so a 2-second prune timeout should be ok...</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_process_file_found</span><span class="function-signature">(self, msg: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L187">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L183">
       
       (source)
     </a>
@@ -952,6 +1095,36 @@ a few milliseconds, so a 2-second prune timeout should be ok...</p>
 </div><div class="basemethod private">
   
   
+  <a name="async_example_program.tools.async_file_searcher.AsyncFileSearcher._process_new_search_paths">
+    
+  </a>
+  <a name="_process_new_search_paths">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">async def</span> <span class="py-defname">_process_new_search_paths</span><span class="function-signature">(self, msg: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>)</span>:
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L199">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_process_new_search_paths" title="async_example_program.tools.async_file_searcher.AsyncFileSearcher._process_new_search_paths">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Update the list of paths used in the search.</p>
+<p>Example data:</p>
+<pre class="py-doctest">
+{<span class="py-string">'msgType'</span>: <span class="py-string">'UpdateSearchPaths'</span>, <span class="py-string">'data'</span>: [&lt;root Paths&gt;]}</pre><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">msg:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></td><td class="fieldArgDesc">A UpdateSearchPaths message.</td></tr></table></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
   <a name="async_example_program.tools.async_file_searcher.AsyncFileSearcher._process_status_request">
     
   </a>
@@ -962,7 +1135,7 @@ a few milliseconds, so a 2-second prune timeout should be ok...</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_process_status_request</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/tools/async_file_searcher.py#L218">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/tools/async_file_searcher.py#L247">
       
       (source)
     </a>

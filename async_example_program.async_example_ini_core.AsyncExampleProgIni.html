@@ -167,26 +167,6 @@
             </div>
         
 
-    </li><li class="">
-        
-        
-        
-
-        
-            <div class="itemName"><code><a href="#changed_schedules" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.changed_schedules">changed<wbr></wbr>_schedules</a></code>
-            </div>
-        
-
-    </li><li class="">
-        
-        
-        
-
-        
-            <div class="itemName"><code><a href="#changed_worker_parameters" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.changed_worker_parameters">changed<wbr></wbr>_worker<wbr></wbr>_parameters</a></code>
-            </div>
-        
-
     </li>
 </ul> 
 
@@ -330,12 +310,12 @@
         </div>
 
         <div class="extrasDocstring">
-          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AsyncExampleProgIni</span>(AsyncIniFileParser): <a href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/async_example_ini_core.py#L28" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.__init__">AsyncExampleProgIni(name)</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AsyncExampleProgIni</span>(AsyncIniFileParser): <a href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/async_example_ini_core.py#L26" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.__init__">AsyncExampleProgIni(name)</a></code></p>
           <p><a href="classIndex.html#async_example_program.async_example_ini_core.AsyncExampleProgIni">View In Hierarchy</a></p>
         </div>
 
         <div class="moduleDocstring">
-          <div><p>This class handles the ini file parameters for the ExampleProgram.</p></div>
+          <div><p>This class handles the ini file parameters for the AsyncExampleProgram.</p></div>
         </div>
 
         <div id="splitTables">
@@ -351,7 +331,7 @@
     
     <td>Async Method</td>
     <td><code><a href="#validate_ini_file" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.validate_ini_file">validate<wbr></wbr>_ini<wbr></wbr>_file</a></code></td>
-    <td>Read ini file and check the existence of required parameters and validate their types, and somtimes their content.</td>
+    <td>Read ini file and check the existence of required parameters and sometimes validate content of complex types.</td>
   </tr><tr class="method">
     
     <td>Async Method</td>
@@ -367,16 +347,6 @@
     <td>Property</td>
     <td><code><a href="#changed_log_level" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.changed_log_level">changed<wbr></wbr>_log<wbr></wbr>_level</a></code></td>
     <td>Return log_level change status.</td>
-  </tr><tr class="property">
-    
-    <td>Property</td>
-    <td><code><a href="#changed_schedules" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.changed_schedules">changed<wbr></wbr>_schedules</a></code></td>
-    <td>Return schedules change status.</td>
-  </tr><tr class="property">
-    
-    <td>Property</td>
-    <td><code><a href="#changed_worker_parameters" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.changed_worker_parameters">changed<wbr></wbr>_worker<wbr></wbr>_parameters</a></code></td>
-    <td>Return changed worker parameter status.</td>
   </tr><tr class="method private">
     
     <td>Method</td>
@@ -408,7 +378,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, name: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/async_example_ini_core.py#L33">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/async_example_ini_core.py#L31">
       
       (source)
     </a>
@@ -435,7 +405,7 @@
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">validate_ini_file</span><span class="function-signature">(self, validation_model: <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a></code>, sections: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, read_ini: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/async_example_ini_core.py#L104">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/async_example_ini_core.py#L92">
       
       (source)
     </a>
@@ -447,10 +417,12 @@
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Read ini file and check the existence of required parameters and validate
-their types, and somtimes their content.</p>
-<p>Specifically, handle validation of non-DEFAULT section(s).</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">validation<wbr></wbr>_model:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a></code></td><td class="fieldArgDesc">Pydantic BaseModel.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sections:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]</code></td><td class="fieldArgDesc">List of used section names (except DEFAULT).</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">read<wbr></wbr>_ini:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Read ini file status.</td></tr></table></div>
+    <div><p>Read ini file and check the existence of required parameters and
+sometimes validate content of complex types.</p>
+<p>Specifically, handle verification of non-DEFAULT section(s).</p>
+<p>The superclass handles verification of DEFAULT parameters and validation
+of all parameters (except special cases for complex types).</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">validation<wbr></wbr>_model:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a></code></td><td class="fieldArgDesc">The validation model that pydantic should use.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sections:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]</code></td><td class="fieldArgDesc">List of used section names (except DEFAULT).</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">read<wbr></wbr>_ini:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Read ini file status.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -465,7 +437,7 @@ their types, and somtimes their content.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">validate_ini_file_parameters</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/async_example_ini_core.py#L148">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/async_example_ini_core.py#L140">
       
       (source)
     </a>
@@ -491,7 +463,7 @@ their types, and somtimes their content.</p>
   <div class="functionHeader">
     @<a href="https://docs.python.org/3/library/functions.html#property" class="intersphinx-link">property</a><br />
     <span class="py-defname">changed_document_types</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/async_example_ini_core.py#L167">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/async_example_ini_core.py#L159">
       
       (source)
     </a>
@@ -518,7 +490,7 @@ their types, and somtimes their content.</p>
   <div class="functionHeader">
     @<a href="https://docs.python.org/3/library/functions.html#property" class="intersphinx-link">property</a><br />
     <span class="py-defname">changed_log_level</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/async_example_ini_core.py#L156">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/async_example_ini_core.py#L148">
       
       (source)
     </a>
@@ -531,69 +503,6 @@ their types, and somtimes their content.</p>
   <div class="functionBody">
     
     <div><p>Return log_level change status.</p></div>
-    
-  </div>
-</div><div class="baseproperty">
-  
-  
-  <a name="async_example_program.async_example_ini_core.AsyncExampleProgIni.changed_schedules">
-    
-  </a>
-  <a name="changed_schedules">
-    
-  </a>
-  <div class="functionHeader">
-    @<a href="https://docs.python.org/3/library/functions.html#property" class="intersphinx-link">property</a><br />
-    <span class="py-defname">changed_schedules</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/async_example_ini_core.py#L178">
-      
-      (source)
-    </a>
-    <a class="headerLink" href="#changed_schedules" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.changed_schedules">
-      
-      
-      ¶
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    <div><p>Return schedules change status.</p></div>
-    
-  </div>
-</div><div class="baseproperty">
-  
-  
-  <a name="async_example_program.async_example_ini_core.AsyncExampleProgIni.changed_worker_parameters">
-    
-  </a>
-  <a name="changed_worker_parameters">
-    
-  </a>
-  <div class="functionHeader">
-    @<a href="https://docs.python.org/3/library/functions.html#property" class="intersphinx-link">property</a><br />
-    <span class="py-defname">changed_worker_parameters</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/async_example_ini_core.py#L189">
-      
-      (source)
-    </a>
-    <a class="headerLink" href="#changed_worker_parameters" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.changed_worker_parameters">
-      
-      
-      ¶
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    <div><p>Return changed worker parameter status.</p>
-<dl class="rst-docutils">
-<dt>These parameters are monitored:</dt>
-<dd><ul class="rst-first rst-last rst-simple">
-<li>schedules</li>
-<li>document_types</li>
-</ul>
-</dd>
-</dl>
-</div>
     
   </div>
 </div><div class="basemethod private">
@@ -609,7 +518,7 @@ their types, and somtimes their content.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_verify_config_section_parameters</span><span class="function-signature">(self) -&gt; <code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/async_example_ini_core.py#L79">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/async_example_ini_core.py#L72">
       
       (source)
     </a>
@@ -636,7 +545,7 @@ their types, and somtimes their content.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_verify_platform_parameters</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/882153395039c8bb51f6798429472243688dd1eb/async_example_ini_core.py#L47">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/0c50ce44e858ed2767d4de2bfe06643614b2b3e6/async_example_ini_core.py#L45">
       
       (source)
     </a>
