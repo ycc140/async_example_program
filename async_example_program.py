@@ -7,8 +7,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-09 18:52:05
-       $Rev: 24
+      $Date: 2023-10-09 22:04:07
+       $Rev: 27
 """
 
 # BUILTIN modules
@@ -78,8 +78,6 @@ class AsyncExampleProgram(AsyncBaseProgram):
     :type ini: `AsyncExampleProgIni`
     :ivar worker:  Handles the bulk of the work for this program.
     :type worker: `AsyncExampleWorker`
-    :ivar scheduler: Handles periodic ini file change checks.
-    :type scheduler: ``apscheduler.schedulers.asyncio.AsyncIOScheduler``
     """
 
     # ---------------------------------------------------------
