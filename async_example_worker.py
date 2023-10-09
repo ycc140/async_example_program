@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-09 18:53:26
-       $Rev: 25
+      $Date: 2023-10-09 19:14:55
+       $Rev: 26
 """
 
 # BUILTIN modules
@@ -489,5 +489,6 @@ class AsyncExampleWorker(AsyncBaseWorker):
 
         # Wait for tasks and threads to stop.
         await self.searcher.stop()
+        self.scheduler.shutdown()
 
         await self._archive_active_state()

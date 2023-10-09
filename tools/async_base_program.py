@@ -7,8 +7,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-09 18:52:05
-       $Rev: 24
+      $Date: 2023-10-09 19:14:55
+       $Rev: 26
 """
 
 # BUILTIN modules
@@ -246,6 +246,9 @@ class AsyncBaseProgram:
 
         if self.worker:
             await self.worker.stop()
+
+        if self.scheduler.running:
+            self.scheduler.shutdown()
 
         await self.ini.stop()
 
