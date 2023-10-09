@@ -6,30 +6,27 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-08 16:03:57
-       $Rev: 23
+      $Date: 2023-10-09 18:52:05
+       $Rev: 24
 """
 
 # BUILTIN modules
-import time
 import shutil
 import asyncio
 import datetime
 from pathlib import Path
-from typing import Union, Optional
+from typing import Union
 
 # Third party modules
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 # Tools modules
-from tools import exceptions
 from tools.configurator import config
 from tools.async_utilities import delay
 from tools.local_log_handler import logger
+from tools.async_base_worker import AsyncBaseWorker
 from tools.async_file_searcher import AsyncFileSearcher
-from tools.async_offline_buffer import AsyncOfflineBuffer
 from tools.file_utilities import check_for_command, calculate_md5
-from tools.async_rabbit_client import AsyncRabbitClient, RabbitParams
 from tools.async_state_offline_manager import AsyncStateOfflineManager
 
 # Local program modules
@@ -48,8 +45,7 @@ HEALTH_TEMPLATE = {'AsyncFileSearcher.observer': False,
 
 # -----------------------------------------------------------------------------
 #
-# noinspection StructuralWrap
-class AsyncExampleWorker:
+class AsyncExampleWorker(AsyncBaseWorker):
     """
     This worker class demonstrates how to use resources like RabbitMQ and Watchdog
     asynchronously. It also demonstrates the usage of internal message brokers to
@@ -86,24 +82,12 @@ class AsyncExampleWorker:
       - Health.Response.AsyncExampleProgram.<server>
 
 
-    :ivar ini: Ini file configuration parameters.
-    :type ini: `AsyncExampleProgIni`
-    :ivar program: Current program name, used by logging and RabbitMQ.
-    :type program: `str`
+    :ivar health_report: Keeps track of health status when a request arrives.
+    :type health_report: `dict`
     :ivar detected_files: Keeping track of received files during the day.
     :type detected_files: `dict`
-    :ivar health_report: Keep track of health status when a request arrives.
-    :type health_report: `dict`
-    :ivar work_queue: Used for transferring a message between interested parties.
-    :type work_queue: `asyncio.Queue`
     :ivar scheduler: Handles dump checks and pruning of received_files state.
     :type scheduler: ``apscheduler.schedulers.asyncio.AsyncIOScheduler``
-    :ivar mq_mgr: Handle messages being sent to or received from RabbitMQ.
-    :type mq_mgr: `AsyncRabbitClient`
-    :ivar mq_buffer:
-        Handle the storing and retrieving of messages when the external
-        communication goes up and down.
-    :type mq_buffer: `AsyncOfflineBuffer`
     :ivar searcher:  Reports new files detected in specified directories.
     :type searcher: `AsyncFileSearcher`
     :ivar state_mgr:  Handles archiving and restoring state data that needs to
@@ -119,68 +103,16 @@ class AsyncExampleWorker:
         :param ini: Ini file configuration parameters.
         :param program: Program name, used by logging and RabbitMQ.
         """
-
-        # Local parameters.
-        params = RabbitParams(server=config.server, program=program)
-
-        # Input parameters.
-        self.ini = ini
-        self.program = program
+        super().__init__(ini, program, PREFIXES)
 
         # Unique parameters.
         self.detected_files = {}
-        self.health_report = None
 
         # Initiate objects.
-        self.work_queue = asyncio.Queue()
         self.scheduler = AsyncIOScheduler()
-        self.mq_mgr = AsyncRabbitClient(
-            config.rabbitUrl, params, self.work_queue)
-        self.mq_buffer = AsyncOfflineBuffer(ini.offline_path)
         self.searcher = AsyncFileSearcher(
             list(self.ini.document_types.keys()), self.work_queue)
         self.state_mgr = AsyncStateOfflineManager(self.ini.offline_path)
-
-    # ----------------------------------------------------------
-    # Required in every program.
-    #
-    async def _report_error(self, error: Exception, state: str = 'DUMP',
-                            extra: Optional[str] = None):
-        """ Log error with context and failure data, then send it to RabbitMQ.
-
-        :param error: Current exception.
-        :param state: Error message state.
-        :param extra: Additional error text.
-        """
-        errmsg = exceptions.error_text_of(error, extra=extra)
-
-        if state == 'DUMP':
-            traceback = True
-            logger.opt(exception=error).error(f'{errmsg} => ')
-
-        else:
-            traceback = False
-            logger.error('{err}', err=errmsg)
-
-        # Trigger sending error message.
-        msg = exceptions.error_message_of(error, program=self.program,
-                                          state=state, include_traceback=traceback)
-        self.work_queue.put_nowait(msg)
-
-    # ----------------------------------------------------------
-    # required in every program.
-    #
-    async def _create_health_response(self):
-        """ Create the program health response and send it. """
-
-        data = {'msgType': 'HealthResponse',
-                'server': config.server, 'timestamp': time.time(),
-                'service': self.program, 'resources': self.health_report,
-                'status': all(key for key in self.health_report.values())}
-        await self.work_queue.put(data)
-
-        # Reset parameter since the report have been sent.
-        self.health_report = None
 
     # ----------------------------------------------------------
     # required in every program (but content changes).
@@ -206,35 +138,6 @@ class AsyncExampleWorker:
         # Give all reporting modules some time to submit
         # their health status before creating the report.
         _ = asyncio.create_task(delay(self._create_health_response(), 1))
-
-    # ----------------------------------------------------------
-    # required in every program.
-    #
-    async def _process_status_response(self, msg: dict):
-        """ Process StatusResponse message..
-
-        Example msg data:
-
-        .. python::
-          {"msgType": "StatusResponse", "resources": {...}}
-        """
-
-        for key, value in msg['resources'].items():
-            self.health_report[key] = value
-
-    # ----------------------------------------------------------
-    # required in every program (but content changes).
-    #
-    async def _process_linkup_message(self):
-        """ Send pending offline messages and start subscription(s). """
-        _ = asyncio.create_task(self._send_offline_messages())
-
-        keys = ['Health.Request']
-        _ = asyncio.create_task(
-            self.mq_mgr.start_topic_subscription(keys, permanent=False))
-
-        keys = [f'File.ReportRequest.{config.server}']
-        _ = asyncio.create_task(self.mq_mgr.start_topic_subscription(keys))
 
     # ---------------------------------------------------------
     # Optional, needed when active state(s) need to survive a
@@ -311,77 +214,14 @@ class AsyncExampleWorker:
         await self.state_mgr.clear_restored_state()
 
     # ---------------------------------------------------------
-    # required in every program.
+    # Optional, needed when active state content needs to be
+    # viewed offline when the program is running.
     #
-    async def _send_offline_messages(self):
-        """ Send pending offline messages to the RabbitMQ server. """
+    async def _schedule_dump_check(self):
+        """ Handle DUMP request in a separate task, if needed. """
 
-        if not self.mq_buffer.is_empty:
-            messages = await self.mq_buffer.retrieve()
-            size = len(messages)
-
-            for msg in messages:
-                await self.work_queue.put(msg)
-
-            logger.success('Restored {size} offline messages', size=size)
-
-    # ---------------------------------------------------------
-    # required in every program.
-    #
-    async def _handle_send_response(self, success: bool, msg: dict, topic: str):
-        """ Handle send response, good or bad.
-
-        If the communication is down, the message is stored offline.
-
-        :param success: Message transmission status.
-        :param msg: A msgType message.
-        :param topic: A subscription topic.
-        """
-
-        if success:
-            logger.success("Sent '{what}' message to MQ", what=topic)
-
-        else:
-            await self.mq_buffer.append(msg)
-            logger.warning("Stored '{what}' message offline", what=topic)
-
-    # ----------------------------------------------------------
-    # required in every program (but content might change).
-    #
-    # noinspection StructuralWrap
-    async def _send_message(self, msg: dict):
-        """ Send a msgType message to RabbitMQ.
-
-        The message topic is automatically created here with the help
-        of the PREFIXES constant.
-
-        You only have to change *msg_type* when you are using more than
-        the two standardized topic patterns.
-
-        An example of that might look like this:
-
-        .. Python::
-            # Send message prefixes.
-            PREFIXES = ['Health', 'Error', 'Email', 'Phoenix', 'File']
-
-            if msg['msgType'] == 'PhoenixRegisterFile':
-                msg_type = 'PhoenixRegister.File'
-
-            elif msg['msgType'] in config.watchTopics:
-                msg_type = f"{msg['msgType']}.{self.program}"
-
-            else:
-                msg_type = msg['msgType']
-
-        :param msg: A msgType message.
-        """
-
-        msg_type = (f"{msg['msgType']}.{self.program}"
-                    if msg['msgType'] in config.watchTopics else msg['msgType'])
-        key = next(prefix for prefix in PREFIXES if msg_type.startswith(prefix))
-        topic = f"{'.'.join(msg_type.partition(key)[1:])}.{config.server}"
-        result = await self.mq_mgr.publish_message(msg, topic)
-        await self._handle_send_response(result, msg, topic)
+        if check_for_command('dump'):
+            _ = asyncio.create_task(self._archive_active_state(dump=True))
 
     # ---------------------------------------------------------
     # Optional, needed when the worker class needs to know
@@ -396,16 +236,6 @@ class AsyncExampleWorker:
             msg = {'msgType': 'UpdateSearchPaths',
                    'data': list(self.ini.document_types.keys())}
             await self.searcher.notify(msg)
-
-    # ---------------------------------------------------------
-    # Optional, needed when active state content needs to be
-    # viewed offline when the program is running.
-    #
-    async def _schedule_dump_check(self):
-        """ Handle DUMP request in a separate task, if needed. """
-
-        if check_for_command('dump'):
-            _ = asyncio.create_task(self._archive_active_state(dump=True))
 
     # ----------------------------------------------------------
     # Unique for this program.
@@ -536,6 +366,16 @@ class AsyncExampleWorker:
         if self.detected_files:
             _ = asyncio.create_task(self._prune_state_content())
 
+    # ----------------------------------------------------------
+    # required in every program (but content changes).
+    #
+    async def _process_linkup_message(self):
+        """ Send pending offline messages and start subscription(s). """
+        await super()._process_linkup_message()
+
+        keys = [f'File.ReportRequest.{config.server}']
+        _ = asyncio.create_task(self.mq_mgr.start_topic_subscription(keys))
+
     # ---------------------------------------------------------
     # required in every program (but content changes).
     #
@@ -610,29 +450,16 @@ class AsyncExampleWorker:
         except asyncio.CancelledError:
             logger.trace('Operator cancelled main BROKER task')
 
-    # ----------------------------------------------------------
-    # required in every program.
-    #
-    async def notify(self, msg: dict):
-        """ Send msgType messages to the broker.
-
-        :param msg: A msgType message.
-        """
-        self.work_queue.put_nowait(msg)
-
     # ---------------------------------------------------------
-    # required in every program (but content changes).
+    # Unique content for current program.
     #
     async def start(self):
         """ Start the used resources in a controlled way. """
+        await super().start()
 
         await self._restore_active_state()
 
-        # Start queue blocking tasks.
-        _ = asyncio.create_task(self._message_broker())
-
         # Start tasks and threads.
-        await self.mq_mgr.start()
         await self.searcher.start()
 
         # Make sure we start fresh every day (files older
@@ -651,20 +478,16 @@ class AsyncExampleWorker:
         self.scheduler.start()
 
     # ---------------------------------------------------------
-    # required in every program (but content changes).
+    # Unique content for current program.
     #
     async def stop(self):
         """ Stop the used resources in a controlled way.
 
         Note that this method can't be async
         """
+        await super().stop()
 
         # Wait for tasks and threads to stop.
-        await self.mq_mgr.stop()
         await self.searcher.stop()
-
-        # Stop queue blocking tasks.
-        stop = {'msgType': 'Stop'}
-        await self.work_queue.put(stop)
 
         await self._archive_active_state()

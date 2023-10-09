@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-08 16:03:57
-       $Rev: 23
+      $Date: 2023-10-09 18:52:05
+       $Rev: 24
 """
 
 # BUILTIN modules
@@ -38,7 +38,7 @@ PLATFORM = sys.platform
 class IniValidationError(Exception):
     """
     This exception will be raised when an error occurs
-    during validation if the INI file.
+    during validation of the INI file.
     """
     pass
 
@@ -74,6 +74,7 @@ class AsyncIniFileParser(ConfigParser):
     Expanded parameter ini file syntax:
       - @{<secrets-name>}
       - &{<environment-variable-name>}
+      - ${<extended-interpolation-reference>}
 
 
     :ivar filename: Name if ini file.
@@ -207,7 +208,7 @@ class AsyncIniFileParser(ConfigParser):
 
         :param sections: List of section names.
         """
-        items = None
+        items = {}
         params = self.valid_params.model_dump()
 
         # The status structure is flat, so section parameters need

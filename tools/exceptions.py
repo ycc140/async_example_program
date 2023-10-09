@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-06 09:57:16
-       $Rev: 22
+      $Date: 2023-10-09 18:52:05
+       $Rev: 24
 """
 
 # BUILTIN modules
@@ -104,7 +104,7 @@ def error_text_of(error: Exception, include_traceback: bool = False,
     :param extra: Additional error text.
     :return: Exception context and error text (+ eventual traceback).
     """
-    reason = f'{error.args[1]}'
+    reason = f'{error.args[-1]}'
     errmsg = (f'{extra} => {reason}' if extra else f'{reason}')
     traceback = include_traceback and has_traceback_frames(error)
     suffix = (f'{errmsg}\n{traceback_text_of(error)}'
