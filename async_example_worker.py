@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-09 18:52:05
-       $Rev: 24
+      $Date: 2023-10-09 18:53:26
+       $Rev: 25
 """
 
 # BUILTIN modules
@@ -82,7 +82,7 @@ class AsyncExampleWorker(AsyncBaseWorker):
       - Health.Response.AsyncExampleProgram.<server>
 
 
-    :ivar health_report: Keeps track of health status when a request arrives.
+    :ivar health_report: Keeping track of health status when a request arrives.
     :type health_report: `dict`
     :ivar detected_files: Keeping track of received files during the day.
     :type detected_files: `dict`
