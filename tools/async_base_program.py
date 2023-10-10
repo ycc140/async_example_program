@@ -7,8 +7,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-09 19:14:55
-       $Rev: 26
+      $Date: 2023-10-10 09:17:58
+       $Rev: 28
 """
 
 # BUILTIN modules
@@ -193,8 +193,8 @@ class AsyncBaseProgram:
         """ Initiate resources used by the program.
 
         The following actions are performed:
-          - Validate INI file content.
-          - Initiate and start worker processing.
+          - Initiate unique resources used by the program.
+          - Start log processing.
           - Start Ini file change supervision (every 5 seconds).
           - Setup waits for program termination.
         """
