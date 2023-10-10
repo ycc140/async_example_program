@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-08 16:03:57
-       $Rev: 23
+      $Date: 2023-10-11 01:16:02
+       $Rev: 29
 """
 
 # BUILTIN modules
@@ -23,11 +23,12 @@ from typing import Optional
 from loguru import logger
 
 # Constants.
-LEVELS = {'trace': '###', 'debug': '%%%', 'info': '---',
-          'success': '+++', 'warning': '++*', 'error': '***', 'critical': '!!!'}
-""" Log level convert mappings for a more compact log line. """
 ENV: str = getenv('ENVIRONMENT', 'dev').lower()
 """ Get server defined environment. """
+LEAN_FORMAT = ("<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | "
+               "<level>{level: <8}</level> | <cyan>{extra[program]}</cyan> "
+               "- <level>{message}</level>")
+""" A leaner log format than the loguru default format. """
 
 
 # -------------------------------------------------------------
@@ -59,30 +60,6 @@ def path_of(program: Optional[Path] = None) -> Path:
         log_path = Path.cwd()
 
     return log_path
-
-
-# ---------------------------------------------------------
-#
-def lean_color_formatter(record: dict) -> str:
-    # noinspection StructuralWrap
-    """ Return lean colored logging format string with special log level.
-
-        The following log levels (in prio order) are used::
-
-          - '###' => trace    (cyan text)
-          - '%%%' => debug    (blue text)
-          - '---' => info     (white text)
-          - '+++' => success  (green text)
-          - '++*' => warning  (yellow text)
-          - '***' => error    (red text)
-          - '!!!' => critical (white text on a red background).
-
-        :param record: Logging record.
-        :return: Lean and colored logging format.
-        """
-    level = record["level"].name.lower()
-    return ('<level>{time:YYYY-MM-DD HH:mm:ss.SSS} ' + LEVELS[level] +
-            ' [{extra[program]}] {message}</level>\n{exception}')
 
 
 # -----------------------------------------------------------------------------
@@ -165,7 +142,7 @@ class LogHandler:
         :param log_path: Logfile path.
         :param program: Name of logging program.
         :param lean_format:
-            Use a lean log format. When you set it to False the standard
+            Use a lean log format; when you set it to False, the standard
             loguru format is used (default is True).
         :param include_external: Include python standard logging into Loguru
             (default is False).
@@ -195,7 +172,7 @@ class LogHandler:
 
         if lean_format:
             for item in conf['handlers']:
-                item['format'] = lean_color_formatter
+                item['format'] = LEAN_FORMAT
 
         # Configure all selected handlers.
         logger.configure(**conf)
