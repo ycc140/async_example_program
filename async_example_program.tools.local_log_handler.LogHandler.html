@@ -202,16 +202,6 @@
         
 
         
-            <div class="itemName"><code><a href="async_example_program.tools.local_log_handler.html#lean_color_formatter" class="internal-link" title="async_example_program.tools.local_log_handler.lean_color_formatter">lean<wbr></wbr>_color<wbr></wbr>_formatter</a></code>
-            </div>
-        
-
-    </li><li class="">
-        
-        
-        
-
-        
             <div class="itemName"><code><a href="async_example_program.tools.local_log_handler.html#path_of" class="internal-link" title="async_example_program.tools.local_log_handler.path_of">path<wbr></wbr>_of</a></code>
             </div>
         
@@ -241,7 +231,7 @@
         
 
         
-            <div class="itemName"><code><a href="async_example_program.tools.local_log_handler.html#LEVELS" class="internal-link" title="async_example_program.tools.local_log_handler.LEVELS">LEVELS</a></code>
+            <div class="itemName"><code><a href="async_example_program.tools.local_log_handler.html#LEAN_FORMAT" class="internal-link" title="async_example_program.tools.local_log_handler.LEAN_FORMAT">LEAN<wbr></wbr>_FORMAT</a></code>
             </div>
         
 
@@ -346,7 +336,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">LogHandler</span>: <a href="https://github.com/ycc140/async_example_program/tree/fe248bcdf9c36ab6f9f0d9974dcb647ae594ce3c/tools/local_log_handler.py#L141" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.tools.local_log_handler.LogHandler.__init__">LogHandler(log_path, program, lean_format, include_external, supress_console)</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">LogHandler</span>: <a href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/local_log_handler.py#L118" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.tools.local_log_handler.LogHandler.__init__">LogHandler(log_path, program, lean_format, include_external, supress_console)</a></code></p>
           <p><a href="classIndex.html#async_example_program.tools.local_log_handler.LogHandler">View In Hierarchy</a></p>
         </div>
 
@@ -409,7 +399,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, log_path: <code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" class="intersphinx-link">Path</a></code>, program: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, lean_format: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, include_external: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>, supress_console: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/fe248bcdf9c36ab6f9f0d9974dcb647ae594ce3c/tools/local_log_handler.py#L156">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/local_log_handler.py#L133">
       
       (source)
     </a>
@@ -424,7 +414,7 @@
     <div><p>Add console and rotating log file handler into Loguru logging.</p>
 <p>Setting <em>supress_console=True</em> is used when building a Windows
 service or when a Linux program is managed by systemctl.</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">log<wbr></wbr>_path:</span><code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" class="intersphinx-link">Path</a></code></td><td class="fieldArgDesc">Logfile path.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">program:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">Name of logging program.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lean<wbr></wbr>_format:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Use a lean log format. When you set it to False the standard
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">log<wbr></wbr>_path:</span><code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" class="intersphinx-link">Path</a></code></td><td class="fieldArgDesc">Logfile path.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">program:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">Name of logging program.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">lean<wbr></wbr>_format:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Use a lean log format; when you set it to False, the standard
 loguru format is used (default is True).</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">include<wbr></wbr>_external:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Include python standard logging into Loguru
 (default is False).</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">supress<wbr></wbr>_console:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">Suppress console logging (default is False).</td></tr></table></div>
   </div>
@@ -441,7 +431,7 @@ loguru format is used (default is True).</td></tr><tr><td class="fieldArgContain
     
     
     <span class="py-keyword">def</span> <span class="py-defname">start</span><span class="function-signature">(self, log_level: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, suppress: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/fe248bcdf9c36ab6f9f0d9974dcb647ae594ce3c/tools/local_log_handler.py#L231">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/local_log_handler.py#L208">
       
       (source)
     </a>
@@ -482,7 +472,7 @@ loguru format is used (default is True).</td></tr><tr><td class="fieldArgContain
     
     
     <span class="py-keyword">def</span> <span class="py-defname">update_loglevel</span><span class="function-signature">(self, log_level: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/fe248bcdf9c36ab6f9f0d9974dcb647ae594ce3c/tools/local_log_handler.py#L212">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/local_log_handler.py#L189">
       
       (source)
     </a>
@@ -522,7 +512,7 @@ loguru format is used (default is True).</td></tr><tr><td class="fieldArgContain
   <div class="functionHeader">
     
     <span class="py-defname">log_filter</span>: <code><a href="async_example_program.tools.local_log_handler.DynamicLogFilter.html" class="internal-link" title="async_example_program.tools.local_log_handler.DynamicLogFilter">DynamicLogFilter</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/fe248bcdf9c36ab6f9f0d9974dcb647ae594ce3c/tools/local_log_handler.py#L150">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/local_log_handler.py#L127">
       
       (source)
     </a>
