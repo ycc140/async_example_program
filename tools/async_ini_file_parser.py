@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-09 18:52:05
-       $Rev: 24
+      $Date: 2023-10-11 02:16:09
+       $Rev: 30
 """
 
 # BUILTIN modules
@@ -71,10 +71,41 @@ class AsyncIniFileParser(ConfigParser):
         a new connection using the new parameters, otherwise the change will have
         no effect.
 
-    Expanded parameter ini file syntax:
+    Expanded parameter ini file parameter syntax:
       - @{<secrets-name>}
       - &{<environment-variable-name>}
       - ${<extended-interpolation-reference>}
+
+    There are three methods that are designed to be overridden when needed:
+        - *_add_default_parameters()*
+        - *_add_platform_parameters()*
+        - *_add_section_parameters()*
+
+    That can be useful when you are referencing external values (in relation to
+    the INI file content) in the ini file.
+
+    The way to do that is to use vars like this:
+
+    .. python::
+        # In a *_ini_core.py file
+        class AsyncDeployIni(AsyncIniFileParser):
+            def __init__(self, name: str, dest_server: str):
+                self.var_params = {'server': dest_server}
+
+            def _add_platform_parameters(self) -> dict:
+                # Add external parameter(s) to the parameter interpolation.
+                return dict(self.items(PLATFORM, vars=self.var_params))
+
+    And the INI file can look something like this:
+
+    .. python::
+        [DEFAULT]
+        passwd: @{environment_prod_pwd}
+
+        [win32]
+        root_path: /export
+        local_path: ${root_path}/Prod/Pgm
+        dest_path: //${server}/Prod/Pgm
 
 
     :ivar filename: Name if ini file.
