@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-06 09:21:25
-       $Rev: 21
+      $Date: 2023-10-11 19:59:12
+       $Rev: 31
 """
 
 # BUILTIN modules
@@ -62,7 +62,7 @@ class AsyncStateOfflineManager:
             log_prefix = ('Dumping' if dump else 'Archiving')
             archive_file = (Path(self.offline_path) /
                             f'{dump_prefix}state.{name}.yaml')
-            logger.info(f'{log_prefix} {len(state)} {state_name}(s)...')
+            logger.info(f'{log_prefix} {len(state)} {state_name}...')
 
             async with aiofiles.open(archive_file, 'w', encoding='utf8') as hdl:
                 await hdl.write(yaml.dump(state, allow_unicode=True))
@@ -84,7 +84,7 @@ class AsyncStateOfflineManager:
             async with aiofiles.open(archive_file, 'r', encoding='utf8') as hdl:
                 active_states[name] = yaml.safe_load(await hdl.read())
 
-            logger.info(f'Restored {len(active_states[name])} {state_name}(s)...')
+            logger.info(f'Restored {len(active_states[name])} {state_name}...')
 
         return active_states
 

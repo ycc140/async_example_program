@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-09 19:14:55
-       $Rev: 26
+      $Date: 2023-10-11 19:59:12
+       $Rev: 31
 """
 
 # BUILTIN modules
@@ -15,7 +15,6 @@ import shutil
 import asyncio
 import datetime
 from pathlib import Path
-from typing import Union
 
 # Third party modules
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -27,7 +26,6 @@ from tools.local_log_handler import logger
 from tools.async_base_worker import AsyncBaseWorker
 from tools.async_file_searcher import AsyncFileSearcher
 from tools.file_utilities import check_for_command, calculate_md5
-from tools.async_state_offline_manager import AsyncStateOfflineManager
 
 # Local program modules
 from async_example_ini_core import AsyncExampleProgIni
@@ -90,9 +88,6 @@ class AsyncExampleWorker(AsyncBaseWorker):
     :type scheduler: ``apscheduler.schedulers.asyncio.AsyncIOScheduler``
     :ivar searcher:  Reports new files detected in specified directories.
     :type searcher: `AsyncFileSearcher`
-    :ivar state_mgr:  Handles archiving and restoring state data that needs to
-        survive a program restart.
-    :type state_mgr: `AsyncStateOfflineManager`
     """
 
     # ---------------------------------------------------------
@@ -112,7 +107,6 @@ class AsyncExampleWorker(AsyncBaseWorker):
         self.scheduler = AsyncIOScheduler()
         self.searcher = AsyncFileSearcher(
             list(self.ini.document_types.keys()), self.work_queue)
-        self.state_mgr = AsyncStateOfflineManager(self.ini.offline_path)
 
     # ----------------------------------------------------------
     # required in every program (but content changes).
@@ -138,90 +132,6 @@ class AsyncExampleWorker(AsyncBaseWorker):
         # Give all reporting modules some time to submit
         # their health status before creating the report.
         _ = asyncio.create_task(delay(self._create_health_response(), 1))
-
-    # ---------------------------------------------------------
-    # Optional, needed when active state(s) need to survive a
-    # program restart.
-    # Content in the items variable will change depending on
-    # how many active state(s) that need to be saved, and
-    # their individual names.
-    #
-    async def _archive_active_state(self, dump: bool = False):
-        """ Archive active state(s).
-
-        When *dump=True* the archive filename uses a *"dump_"*
-        prefix when saving the file.
-
-        Note that you are currently limited to what YAML handles
-        when it comes to what data types you can archive.
-
-        :param dump: Dump status (default: False).
-        """
-
-        # ----------------------------------------------------------
-
-        def name_of(attr_value: Union[dict, list]) -> str:
-            """ Return str name of supplied class attribute value. """
-            class_attr = self.__dict__.items()
-            return [attr for attr, val in class_attr if val is attr_value][0]
-
-        # ----------------------------------------------------------
-
-        # Create a data structure for one or more active state(s) that
-        # needs archiving (has content).
-        items = {name_of(item): item for item in [
-            self.detected_files
-        ] if item}
-
-        await self.state_mgr.archive_state(items, dump)
-
-    # ----------------------------------------------------------
-    # Optional, needed when active state(s) need to survive a
-    # program restart.
-    #
-    async def _restore_active_state(self):
-        """ Restore active state(s).
-
-        Currently handled active state types:
-            - dict
-            - list
-
-        Note: this method will restore the saved state to the class
-        attribute that was specified when it was archived.
-
-        :raise ValueError: When archived state name is not found.
-        """
-        items = await self.state_mgr.restore_state()
-
-        for attribute_name, value in items.items():
-            try:
-                class_attribute = getattr(self, attribute_name)
-
-                if isinstance(value, dict):
-                    class_attribute.update(value)
-                elif isinstance(value, list):
-                    class_attribute.extend(value)
-
-            # You have a name mismatch defined when archiving.
-            except AttributeError:
-                errmsg = (f'Archived state name mismatch, attribute "self.'
-                          f'{attribute_name}" is NOT defined in the worker '
-                          f'class! Stop the app, rename the file on disk to'
-                          f'match the new attribute name and restart the app.')
-                raise ValueError(errmsg)
-
-        # Remove the files when the restore was successful.
-        await self.state_mgr.clear_restored_state()
-
-    # ---------------------------------------------------------
-    # Optional, needed when active state content needs to be
-    # viewed offline when the program is running.
-    #
-    async def _schedule_dump_check(self):
-        """ Handle DUMP request in a separate task, if needed. """
-
-        if check_for_command('dump'):
-            _ = asyncio.create_task(self._archive_active_state(dump=True))
 
     # ---------------------------------------------------------
     # Optional, needed when the worker class needs to know
@@ -358,6 +268,16 @@ class AsyncExampleWorker(AsyncBaseWorker):
             await self._report_error(why)
 
     # ---------------------------------------------------------
+    # Optional, needed when active state content needs to be
+    # viewed offline when the program is running.
+    #
+    async def _schedule_dump_check(self):
+        """ Handle DUMP request in a separate task, if needed. """
+
+        if check_for_command('dump'):
+            _ = asyncio.create_task(self._archive_active_state(dump=True))
+
+    # ---------------------------------------------------------
     # Unique for this program.
     #
     async def _schedule_state_pruning(self):
@@ -367,7 +287,7 @@ class AsyncExampleWorker(AsyncBaseWorker):
             _ = asyncio.create_task(self._prune_state_content())
 
     # ----------------------------------------------------------
-    # required in every program (but content changes).
+    # Optional, needed when you have unique subscribe topics.
     #
     async def _process_linkup_message(self):
         """ Send pending offline messages and start subscription(s). """
@@ -377,7 +297,8 @@ class AsyncExampleWorker(AsyncBaseWorker):
         _ = asyncio.create_task(self.mq_mgr.start_topic_subscription(keys))
 
     # ---------------------------------------------------------
-    # required in every program (but content changes).
+    # Optional, needed when you have unique messages that needs routing.
+    # Copy the method from the base class and add your extra routes.
     #
     async def _message_broker(self):
         """ Broker messages between interested parties using a queue.
@@ -451,13 +372,24 @@ class AsyncExampleWorker(AsyncBaseWorker):
             logger.trace('Operator cancelled main BROKER task')
 
     # ---------------------------------------------------------
-    # Unique content for current program.
+    # Optional, needed when you are using extra resources.
+    # Remember to call the method in the base class as well.
     #
     async def start(self):
-        """ Start the used resources in a controlled way. """
-        await super().start()
+        """ Start the used resources in a controlled way.
 
-        await self._restore_active_state()
+        You need the statement, appending the state(s) that needs to
+        survive a program restart to be placed first in the method
+        (the *self.states_to_archive* class attribute is defined in
+        the inherited base class).
+
+        It could look something like this::
+
+            self.states_to_archive.append(self.detected_files)
+        """
+        self.states_to_archive.append(self.detected_files)
+
+        await super().start()
 
         # Start tasks and threads.
         await self.searcher.start()
@@ -478,7 +410,8 @@ class AsyncExampleWorker(AsyncBaseWorker):
         self.scheduler.start()
 
     # ---------------------------------------------------------
-    # Unique content for current program.
+    # Optional, needed when you are using extra resources.
+    # Remember to call the method in the base class as well.
     #
     async def stop(self):
         """ Stop the used resources in a controlled way.
@@ -490,5 +423,3 @@ class AsyncExampleWorker(AsyncBaseWorker):
         # Wait for tasks and threads to stop.
         await self.searcher.stop()
         self.scheduler.shutdown()
-
-        await self._archive_active_state()

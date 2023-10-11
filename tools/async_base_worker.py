@@ -6,15 +6,15 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-09 18:52:05
-       $Rev: 24
+      $Date: 2023-10-11 19:59:12
+       $Rev: 31
 """
 
 # BUILTIN modules
 import time
 import asyncio
 from abc import abstractmethod
-from typing import Optional
+from typing import Optional, Union
 
 # Tools modules
 from tools import exceptions
@@ -23,6 +23,7 @@ from tools.local_log_handler import logger
 from tools.async_offline_buffer import AsyncOfflineBuffer
 from tools.async_ini_file_parser import AsyncIniFileParser
 from tools.async_rabbit_client import AsyncRabbitClient, RabbitParams
+from tools.async_state_offline_manager import AsyncStateOfflineManager
 
 
 # -----------------------------------------------------------------------------
@@ -72,6 +73,8 @@ class AsyncBaseWorker:
     :type send_prefixes: L{list}
     :ivar health_report: Keeps track of health status when a request arrives.
     :type health_report: `dict`
+    :ivar states_to_archive:  Contains state(s) that needs archiving.
+    :type states_to_archive: `list`
     :ivar work_queue: Used for transferring a message between interested parties.
     :type work_queue: `asyncio.Queue`
     :ivar mq_mgr: Handle messages being sent to or received from RabbitMQ.
@@ -80,6 +83,9 @@ class AsyncBaseWorker:
         Handle the storing and retrieving of messages when the external
         communication goes up and down.
     :type mq_buffer: `AsyncOfflineBuffer`
+    :ivar state_mgr:  Handles archiving and restoring state data that needs to
+        survive a program restart.
+    :type state_mgr: `AsyncStateOfflineManager`
     """
 
     # ---------------------------------------------------------
@@ -102,12 +108,14 @@ class AsyncBaseWorker:
 
         # Unique parameters.
         self.health_report = None
+        self.states_to_archive = []
 
         # Initiate objects.
         self.work_queue = asyncio.Queue()
         self.mq_mgr = AsyncRabbitClient(
             config.rabbitUrl, params, self.work_queue)
         self.mq_buffer = AsyncOfflineBuffer(ini.offline_path)
+        self.state_mgr = AsyncStateOfflineManager(self.ini.offline_path)
 
     # ----------------------------------------------------------
     #
@@ -133,6 +141,78 @@ class AsyncBaseWorker:
         msg = exceptions.error_message_of(error, program=self.program,
                                           state=state, include_traceback=traceback)
         self.work_queue.put_nowait(msg)
+
+    # ---------------------------------------------------------
+    # Optional, needed when active state(s) need to survive a
+    # program restart.
+    # Content in the items variable will change depending on
+    # how many active state(s) that need to be saved, and
+    # their individual names.
+    #
+    async def _archive_active_state(self, dump: bool = False):
+        """ Archive active state(s).
+
+        When *dump=True* the archive filename uses a *"dump_"*
+        prefix when saving the file.
+
+        Note that you are currently limited to what YAML handles
+        when it comes to what data types you can archive.
+
+        :param dump: Dump status (default: False).
+        """
+
+        # ----------------------------------------------------------
+
+        def name_of(attr_value: Union[dict, list]) -> str:
+            """ Return str name of supplied class attribute value. """
+            class_attr = self.__dict__.items()
+            return [attr for attr, val in class_attr if val is attr_value][0]
+
+        # ----------------------------------------------------------
+
+        # Create a data structure for one or more active state(s) that
+        # needs archiving (has content).
+        items = {name_of(item): item for item in self.states_to_archive if item}
+
+        await self.state_mgr.archive_state(items, dump)
+
+    # ----------------------------------------------------------
+    # Optional, needed when active state(s) need to survive a
+    # program restart.
+    #
+    async def _restore_active_state(self):
+        """ Restore active state(s).
+
+        Currently handled active state types:
+            - dict
+            - list
+
+        Note: this method will restore the saved state to the class
+        attribute that was specified when it was archived.
+
+        :raise ValueError: When archived state name is not found.
+        """
+        items = await self.state_mgr.restore_state()
+
+        for attribute_name, value in items.items():
+            try:
+                class_attribute = getattr(self, attribute_name)
+
+                if isinstance(value, dict):
+                    class_attribute.update(value)
+                elif isinstance(value, list):
+                    class_attribute.extend(value)
+
+            # You have a name mismatch defined when archiving.
+            except AttributeError:
+                errmsg = (f'Archived state name mismatch, attribute "self.'
+                          f'{attribute_name}" is NOT defined in the worker '
+                          f'class! Stop the app, rename the file on disk to'
+                          f'match the new attribute name and restart the app.')
+                raise ValueError(errmsg)
+
+        # Remove the files when the restore was successful.
+        await self.state_mgr.clear_restored_state()
 
     # ----------------------------------------------------------
     #
@@ -324,6 +404,7 @@ class AsyncBaseWorker:
     #
     async def start(self):
         """ Start the used resources in a controlled way. """
+        await self._restore_active_state()
 
         # Start queue blocking tasks.
         _ = asyncio.create_task(self._message_broker())
@@ -342,3 +423,6 @@ class AsyncBaseWorker:
         # Stop queue blocking tasks.
         stop = {'msgType': 'Stop'}
         await self.work_queue.put(stop)
+
+        if self.states_to_archive:
+            await self._archive_active_state()

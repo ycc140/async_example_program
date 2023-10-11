@@ -7,8 +7,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-09 22:04:07
-       $Rev: 27
+      $Date: 2023-10-11 19:59:12
+       $Rev: 31
 """
 
 # BUILTIN modules
@@ -98,11 +98,15 @@ class AsyncExampleProgram(AsyncBaseProgram):
 
         The following actions are performed:
           - Validate INI file content.
+          - Start log processing.
           - Initiate worker.
         """
         # Validate the current INI file content.
         self.ini = AsyncExampleProgIni(self.location.with_suffix('.ini'))
         await self.ini.start()
+
+        # Needs to be called between the two.
+        await super()._initiate_unique_resources()
 
         # Initialize and start the worker processing.
         self.worker = AsyncExampleWorker(self.ini, self.program)

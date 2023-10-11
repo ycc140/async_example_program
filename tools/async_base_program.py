@@ -7,8 +7,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-10 09:17:58
-       $Rev: 28
+      $Date: 2023-10-11 19:59:12
+       $Rev: 31
 """
 
 # BUILTIN modules
@@ -183,8 +183,11 @@ class AsyncBaseProgram:
 
         The following actions are performed:
           - Validate INI file content.
+          - Start log processing.
           - Initiate current worker.
         """
+        self.log.start(self.ini.log_level)
+        logger.success('Starting server on {name}...', name=config.server)
 
     # ---------------------------------------------------------
     # Required in every program.
@@ -194,14 +197,10 @@ class AsyncBaseProgram:
 
         The following actions are performed:
           - Initiate unique resources used by the program.
-          - Start log processing.
           - Start Ini file change supervision (every 5 seconds).
           - Setup waits for program termination.
         """
         await self._initiate_unique_resources()
-
-        self.log.start(self.ini.log_level)
-        logger.success('Starting server on {name}...', name=config.server)
 
         # Start looking for INI file changes.
         self.scheduler.add_job(func=self._schedule_ini_check,
