@@ -503,7 +503,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AsyncIniFileParser</span>(<a href="https://docs.python.org/3/library/configparser.html#configparser.ConfigParser" class="intersphinx-link">ConfigParser</a>): <a href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L48" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.__init__">AsyncIniFileParser(name, default_paths, default_params, supervise_change)</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AsyncIniFileParser</span>(<a href="https://docs.python.org/3/library/configparser.html#configparser.ConfigParser" class="intersphinx-link">ConfigParser</a>): <a href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L48" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.tools.async_ini_file_parser.AsyncIniFileParser.__init__">AsyncIniFileParser(name, default_paths, default_params, supervise_change)</a></code></p>
           <p><a href="classIndex.html#async_example_program.tools.async_ini_file_parser.AsyncIniFileParser">View In Hierarchy</a></p>
         </div>
 
@@ -530,15 +530,41 @@ a new connection using the new parameters, otherwise the change will have
 no effect.</p>
 </div>
 <dl class="rst-docutils">
-<dt>Expanded parameter ini file syntax:</dt>
+<dt>Expanded parameter ini file parameter syntax:</dt>
 <dd><ul class="rst-first rst-last rst-simple">
 <li>@{&lt;secrets-name&gt;}</li>
 <li>&amp;{&lt;environment-variable-name&gt;}</li>
 <li>${&lt;extended-interpolation-reference&gt;}</li>
 </ul>
 </dd>
+<dt>There are three methods that are designed to be overridden when needed:</dt>
+<dd><ul class="rst-first rst-last rst-simple">
+<li><em>_add_default_parameters()</em></li>
+<li><em>_add_platform_parameters()</em></li>
+<li><em>_add_section_parameters()</em></li>
+</ul>
+</dd>
 </dl>
-</div>
+<p>That can be useful when you are referencing external values (in relation to
+the INI file content) in the ini file.</p>
+<p>The way to do that is to use vars like this:</p>
+<pre class="py-doctest">
+<span class="py-comment"># In a *_ini_core.py file</span>
+<span class="py-keyword">class</span> <span class="py-defname">AsyncDeployIni</span>(AsyncIniFileParser):
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, name: <span class="py-builtin">str</span>, dest_server: <span class="py-builtin">str</span>):
+        self.var_params = {<span class="py-string">'server'</span>: dest_server}
+
+    <span class="py-keyword">def</span> <span class="py-defname">_add_platform_parameters</span>(self) -&gt; <span class="py-builtin">dict</span>:
+        <span class="py-comment"># Add external parameter(s) to the parameter interpolation.</span>
+        <span class="py-keyword">return</span> <span class="py-builtin">dict</span>(self.items(PLATFORM, <span class="py-builtin">vars</span>=self.var_params))</pre><p>And the INI file can look something like this:</p>
+<pre class="py-doctest">
+[DEFAULT]
+passwd: @{environment_prod_pwd}
+
+[win32]
+root_path: /export
+local_path: ${root_path}/Prod/Pgm
+dest_path: //${server}/Prod/Pgm</pre></div>
         </div>
 
         <div id="splitTables">
@@ -686,7 +712,7 @@ no effect.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">__getattr__</span><span class="function-signature">(self, name: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>) -&gt; <code><a href="https://docs.python.org/3/library/typing.html#typing.Any" class="intersphinx-link">Any</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L129">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L160">
       
       (source)
     </a>
@@ -713,7 +739,7 @@ no effect.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, name: <code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" class="intersphinx-link">Path</a></code>, default_paths: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code>, default_params: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code>, supervise_change: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L103">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L134">
       
       (source)
     </a>
@@ -740,7 +766,7 @@ no effect.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">read_ini_file</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L227">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L258">
       
       (source)
     </a>
@@ -769,7 +795,7 @@ no effect.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">start</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L379">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L410">
       
       (source)
     </a>
@@ -796,7 +822,7 @@ no effect.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">stop</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L385">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L416">
       
       (source)
     </a>
@@ -823,7 +849,7 @@ no effect.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">validate_ini_file</span><span class="function-signature">(self, validation_model: <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a></code>, sections: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, read_ini: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L317">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L348">
       
       (source)
     </a>
@@ -852,7 +878,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">default_params</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L86">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L117">
       
       (source)
     </a>
@@ -879,7 +905,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">default_paths</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L84">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L115">
       
       (source)
     </a>
@@ -906,7 +932,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">error</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L91">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L122">
       
       (source)
     </a>
@@ -933,7 +959,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">file_timestamp</span>: <code><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L97">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L128">
       
       (source)
     </a>
@@ -960,7 +986,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">filename</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L80">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L111">
       
       (source)
     </a>
@@ -987,7 +1013,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">orig_file_copied</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L82">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L113">
       
       (source)
     </a>
@@ -1014,7 +1040,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">status</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L93">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L124">
       
       (source)
     </a>
@@ -1041,7 +1067,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">supervise_change</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L88">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L119">
       
       (source)
     </a>
@@ -1068,7 +1094,7 @@ their types.</p>
   <div class="functionHeader">
     
     <span class="py-defname">valid_params</span>: <tt class="rst-docutils literal">pydantic.BaseModel</tt> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L95">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L126">
       
       (source)
     </a>
@@ -1095,7 +1121,7 @@ their types.</p>
   <div class="functionHeader">
     @<a href="https://docs.python.org/3/library/functions.html#property" class="intersphinx-link">property</a><br />
     <span class="py-defname">file_is_changed</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L364">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L395">
       
       (source)
     </a>
@@ -1123,7 +1149,7 @@ their types.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_add_default_parameters</span><span class="function-signature">(self) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L168">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L199">
       
       (source)
     </a>
@@ -1153,7 +1179,7 @@ classes when needed (for example, when using vars).</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_add_platform_parameters</span><span class="function-signature">(self) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L180">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L211">
       
       (source)
     </a>
@@ -1183,7 +1209,7 @@ classes when needed (for example, when using vars).</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_add_section_parameters</span><span class="function-signature">(self, section: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L192">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L223">
       
       (source)
     </a>
@@ -1213,7 +1239,7 @@ classes when needed (for example, when using vars).</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_handle_error_severity</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L258">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L289">
       
       (source)
     </a>
@@ -1248,7 +1274,7 @@ a <em>RuntimeError</em> exception.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_handle_status</span><span class="function-signature">(self, params: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L139">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L170">
       
       (source)
     </a>
@@ -1280,7 +1306,7 @@ a <em>RuntimeError</em> exception.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_restore_orig_file</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L155">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L186">
       
       (source)
     </a>
@@ -1309,7 +1335,7 @@ a <em>RuntimeError</em> exception.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_update_change_status</span><span class="function-signature">(self, sections: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>) -&gt; <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L206">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L237">
       
       (source)
     </a>
@@ -1336,7 +1362,7 @@ a <em>RuntimeError</em> exception.</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">_validate_params</span><span class="function-signature">(self, validation_model: <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a></code>, sections: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/1f572b0202b40156034f28804df2776e2455e956/tools/async_ini_file_parser.py#L284">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/e008150b15b32070a14a0f713beb9aa356ba948a/tools/async_ini_file_parser.py#L315">
       
       (source)
     </a>
