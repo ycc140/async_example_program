@@ -7,8 +7,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-12 19:37:19
-       $Rev: 33
+      $Date: 2023-10-12 19:42:20
+       $Rev: 34
 """
 
 # BUILTIN modules
@@ -61,7 +61,7 @@ class AsyncBaseProgram:
     :ivar program: Current program name, used for logging.
     :type program: `str`
     :ivar location: Current program name, including the path.
-    :type location: L{Path}
+    :type location: `Path`
     :ivar scheduler: Handles periodic ini file change checks.
     :type scheduler: ``apscheduler.schedulers.asyncio.AsyncIOScheduler``
     :ivar log: Handle colored and dynamic filter logging.

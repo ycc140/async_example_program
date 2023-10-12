@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-12 19:37:19
-       $Rev: 33
+      $Date: 2023-10-12 19:42:20
+       $Rev: 34
 """
 
 # BUILTIN modules
@@ -41,7 +41,7 @@ class AsyncBaseWorker:
     :ivar program: Current program name, used by logging and RabbitMQ.
     :type program: `str`
     :ivar send_prefixes: Current programs send message prefixes.
-    :type send_prefixes: L{list}
+    :type send_prefixes: `list`
     :ivar health_report: Keeps track of health status when a request arrives.
     :type health_report: `dict`
     :ivar states_to_archive:  Contains state(s) that needs archiving.
