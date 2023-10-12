@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-11 19:59:12
-       $Rev: 31
+      $Date: 2023-10-12 17:37:18
+       $Rev: 32
 """
 
 # BUILTIN modules
@@ -404,7 +404,10 @@ class AsyncBaseWorker:
     #
     async def start(self):
         """ Start the used resources in a controlled way. """
-        await self._restore_active_state()
+
+        # Only activate when used.
+        if self.states_to_archive:
+            await self._restore_active_state()
 
         # Start queue blocking tasks.
         _ = asyncio.create_task(self._message_broker())
@@ -424,5 +427,6 @@ class AsyncBaseWorker:
         stop = {'msgType': 'Stop'}
         await self.work_queue.put(stop)
 
+        # Only activate when used.
         if self.states_to_archive:
             await self._archive_active_state()
