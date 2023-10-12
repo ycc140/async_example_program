@@ -7,8 +7,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-11 19:59:12
-       $Rev: 31
+      $Date: 2023-10-12 19:37:19
+       $Rev: 33
 """
 
 # BUILTIN modules
@@ -89,7 +89,6 @@ class AsyncBaseProgram:
                               log_path=path_of(context))
 
     # ---------------------------------------------------------
-    # Required in every program.
     #
     async def _fatal_error_dump(self, error: Exception,
                                 suppress: bool = False):
@@ -132,7 +131,7 @@ class AsyncBaseProgram:
             self.future.cancel()
 
     # ---------------------------------------------------------
-    # Optional, only needed if the worker needs to be notified
+    # Override this method if the worker needs to be notified
     # of INI parameter changes.
     #
     async def _schedule_unique_ini_check(self):
@@ -143,8 +142,6 @@ class AsyncBaseProgram:
         pass
 
     # ---------------------------------------------------------
-    # required in every program (content changes depending on
-    # if worker needs to be notified of INI parameter changes).
     #
     async def _schedule_ini_check(self):
         """ Extract and validate INI file content if the Ini file is updated.
@@ -173,7 +170,8 @@ class AsyncBaseProgram:
                 await self._handle_ini_error(fatal=False)
 
     # ---------------------------------------------------------
-    # Required in every program.
+    # This method needs to be overridden and called by
+    # every program.
     #
     @abstractmethod
     async def _initiate_unique_resources(self):
@@ -190,7 +188,6 @@ class AsyncBaseProgram:
         logger.success('Starting server on {name}...', name=config.server)
 
     # ---------------------------------------------------------
-    # Required in every program.
     #
     async def _initiate_resources(self):
         """ Initiate resources used by the program.
@@ -237,7 +234,6 @@ class AsyncBaseProgram:
         # _ = 5 / 0
 
     # ---------------------------------------------------------
-    # Required in every program.
     #
     async def exit_prog(self):
         """ Stop the server program. """
@@ -259,7 +255,6 @@ class AsyncBaseProgram:
             logger.success('Server ended OK')
 
     # ---------------------------------------------------------
-    # Required in every program.
     #
     async def run(self):
         """ Start the server program.

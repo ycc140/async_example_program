@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-12 17:37:18
-       $Rev: 32
+      $Date: 2023-10-12 19:37:19
+       $Rev: 33
 """
 
 # BUILTIN modules
@@ -30,39 +30,10 @@ from tools.async_state_offline_manager import AsyncStateOfflineManager
 #
 class AsyncBaseWorker:
     """
-    This worker class demonstrates how to use resources like RabbitMQ and Watchdog
-    asynchronously. It also demonstrates the usage of internal message brokers to
-    control the work by using JSON messages as events. It also demonstrates the
-    usage of scheduling reoccurring events.
+    This generic base worker class is intended to be used as a building block
+    through inheritance when you are creating a server worker.
 
-    The following environment variable dependencies exist:
-      - ENVIRONMENT
-      - HOSTNAME (on Linux servers only - set by OS)
-      - COMPUTERNAME (on Windows servers only - set by OS)
-
-    The following secret dependencies exist:
-      - mongo_pwd
-
-    The following jobs are scheduled:
-      - *_schedule_dump_check()*: runs every five seconds.
-      - *_schedule_state_pruning()*: runs at midnight every day.
-
-    RabbitMQ is used for receiving and sending messages to external services.
-    Messages that are to be sent to the RabbitMQ will be stored offline if
-    the communication goes down and will be re-sent when the communication
-    is re-established.
-
-    Subscribe temporary for the following RabbitMQ message topic(s):
-      - Health.Request
-
-    Subscribe permanently for the following RabbitMQ message topic(s):
-      - File.ReportRequest.<SERVER>
-
-    Sends RabbitMQ messages with the following topic(s):
-      - File.Report.<server>
-      - File.Detected.<server>
-      - Error.Message.AsyncExampleProgram.<server>
-      - Health.Response.AsyncExampleProgram.<server>
+    Any methods that you need to change, you override it using polymorphism.
 
 
     :ivar ini: Ini file configuration parameters.

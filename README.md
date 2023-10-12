@@ -17,11 +17,11 @@ articles once they are published).
 
 ### Here's a brief outline of the article parts
 
-#### 1. Introduction and installation of required components
+#### [1. Introduction and installation of required components](https://medium.com/@wilde.consult/async-template-program-using-watchdog-rabbitmq-ini-file-deluxe-part1-7e32abf0d417)
 This part talks about why a template program is useful when you are working with a distributed system. 
 It covers the overall architecture of the example and the installation of required components.
 
-#### 2. Template program example
+#### [2. Template program example](https://medium.com/@wilde.consult/async-template-program-using-watchdog-rabbitmq-ini-file-deluxe-part2-788042a4c8f1)
 This part talks about why a template program is useful when you are working with a distributed system. 
 It covers the overall architecture of the example, and we do a code walkthrough of the example program.
 
