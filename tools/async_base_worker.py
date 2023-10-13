@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-12 19:42:20
-       $Rev: 34
+      $Date: 2023-10-13 15:43:10
+       $Rev: 35
 """
 
 # BUILTIN modules
@@ -223,16 +223,6 @@ class AsyncBaseWorker:
         for key, value in msg['resources'].items():
             self.health_report[key] = value
 
-    # ----------------------------------------------------------
-    #
-    async def _process_linkup_message(self):
-        """ Send pending offline messages and start subscription(s). """
-        _ = asyncio.create_task(self._send_offline_messages())
-
-        keys = ['Health.Request']
-        _ = asyncio.create_task(
-            self.mq_mgr.start_topic_subscription(keys, permanent=False))
-
     # ---------------------------------------------------------
     #
     async def _send_offline_messages(self):
@@ -302,6 +292,16 @@ class AsyncBaseWorker:
         topic = f"{'.'.join(msg_type.partition(key)[1:])}.{config.server}"
         result = await self.mq_mgr.publish_message(msg, topic)
         await self._handle_send_response(result, msg, topic)
+
+    # ----------------------------------------------------------
+    #
+    async def _process_linkup_message(self):
+        """ Send pending offline messages and start subscription(s). """
+        _ = asyncio.create_task(self._send_offline_messages())
+
+        keys = ['Health.Request']
+        _ = asyncio.create_task(
+            self.mq_mgr.start_topic_subscription(keys, permanent=False))
 
     # ---------------------------------------------------------
     #

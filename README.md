@@ -25,7 +25,7 @@ It covers the overall architecture of the example and the installation of requir
 This part talks about why a template program is useful when you are working with a distributed system. 
 It covers the overall architecture of the example, and we do a code walkthrough of the example program.
 
-#### 3. Template program worker example
+#### [3. Template program worker example](https://medium.com/@wilde.consult/async-template-program-using-watchdog-rabbitmq-ini-file-deluxe-part3-d0d6890ea98)
 This part dive into the body of the example worker, a genuine code walkthrough.
 
 #### 4. Common program tools not mentioned elsewhere

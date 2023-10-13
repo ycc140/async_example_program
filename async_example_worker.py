@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-11 19:59:12
-       $Rev: 31
+      $Date: 2023-10-13 15:43:10
+       $Rev: 35
 """
 
 # BUILTIN modules
@@ -261,7 +261,7 @@ class AsyncExampleWorker(AsyncBaseWorker):
         try:
             data = {'msgType': 'FileReport', 'server': config.server,
                     'service': self.program, 'state': 'requested',
-                    'data': self.detected_files}
+                    'data': self.detected_files.copy()}
             await self.work_queue.put(data)
 
         except BaseException as why:
