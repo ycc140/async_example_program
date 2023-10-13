@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-11 01:16:02
-       $Rev: 29
+      $Date: 2023-10-13 17:19:04
+       $Rev: 36
 """
 
 # BUILTIN modules
@@ -15,16 +15,16 @@ import sys
 import site
 import logging
 import inspect
-from os import getenv
 from pathlib import Path
 from typing import Optional
 
 # Third party modules
 from loguru import logger
 
+# local modules
+from .configurator import config
+
 # Constants.
-ENV: str = getenv('ENVIRONMENT', 'dev').lower()
-""" Get server defined environment. """
 LEAN_FORMAT = ("<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | "
                "<level>{level: <8}</level> | <cyan>{extra[program]}</cyan> "
                "- <level>{message}</level>")
@@ -154,7 +154,7 @@ class LogHandler:
         logger.remove()
 
         # Caution, "diagnose=True" is the default and may leak sensitive data in prod
-        diag = ENV != 'prod'
+        diag = config.env != 'prod'
 
         # Always create a new and enhanced rotating file logger.
         conf = {"extra": {"program": program},

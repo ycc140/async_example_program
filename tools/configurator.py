@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-08 16:03:57
-       $Rev: 23
+      $Date: 2023-10-13 17:19:04
+       $Rev: 36
 """
 
 # BUILTIN modules
@@ -30,20 +30,15 @@ MISSING_ENV = '>>> undefined environment parameter <<<'
 """ Error message for missing environment parameter. """
 ENVIRONMENT: str = os.getenv('ENVIRONMENT', MISSING_ENV)
 """ Declared local server environment. """
-SECRETS_DIR: str = ('/run/secrets'
-                    if os.path.exists('/.dockerenv')
-                    else f'{site.getuserbase()}/secrets')
-""" This is where your secrets are stored (in Docker or locally). """
+SECRETS_DIR: str = f'{site.getuserbase()}/secrets'
+""" This is where your secrets are stored. """
 
 # --------------------------------------------------------------
 # This needs to be done before the Base class gets evaluated, and
 # to avoid getting UserWarnings that the path does not exist.
 #
-# Create the directory if it does not already exist. When running
-# inside Docker, skip it (Docker handles that just fine on its own).
-#
-if not os.path.exists('/.dockerenv'):
-    os.makedirs(SECRETS_DIR, exist_ok=True)
+# Create the directory if it does not already exist.
+os.makedirs(SECRETS_DIR, exist_ok=True)
 
 
 # ------------------------------------------------------------------------

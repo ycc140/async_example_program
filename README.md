@@ -28,7 +28,7 @@ It covers the overall architecture of the example, and we do a code walkthrough 
 #### [3. Template program worker example](https://medium.com/@wilde.consult/async-template-program-using-watchdog-rabbitmq-ini-file-deluxe-part3-d0d6890ea98)
 This part dive into the body of the example worker, a genuine code walkthrough.
 
-#### 4. Common program tools not mentioned elsewhere
+#### [4. Common program tools not mentioned elsewhere](https://medium.com/@wilde.consult/async-template-program-using-watchdog-rabbitmq-ini-file-deluxe-part4-dce93af95b16)
 This part talks about some of the tools that are not mentioned elsewhere.
 
 #### 5. Enhanced INI file handling
