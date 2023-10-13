@@ -490,7 +490,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <a href="https://github.com/ycc140/async_example_program/tree/d65ff143958415330d7e6b877ff90335af6e51de/tools/configurator.py" class="sourceLink">(source)</a>
+          <a href="https://github.com/ycc140/async_example_program/tree/11ca8b0b0774ce47aa7d04c15118f5750e6b2735/tools/configurator.py" class="sourceLink">(source)</a>
           <p></p>
         </div>
 
@@ -500,8 +500,8 @@
 <pre class="rst-literal-block">
   $Repo: async_example_program
 $Author: Anders Wiklund
-  $Date: 2023-10-08 16:03:57
-   $Rev: 23
+  $Date: 2023-10-13 17:19:04
+   $Rev: 36
 </pre>
 </div>
         </div>
@@ -544,7 +544,7 @@ $Author: Anders Wiklund
     
     <td>Constant</td>
     <td><code><a href="#SECRETS_DIR" class="internal-link" title="async_example_program.tools.configurator.SECRETS_DIR">SECRETS<wbr></wbr>_DIR</a></code></td>
-    <td>This is where your secrets are stored (in Docker or locally).</td>
+    <td>This is where your secrets are stored.</td>
   </tr><tr class="constant">
     
     <td>Constant</td>
@@ -580,7 +580,7 @@ $Author: Anders Wiklund
   <div class="functionHeader">
     
     <span class="py-defname">ENVIRONMENT</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/d65ff143958415330d7e6b877ff90335af6e51de/tools/configurator.py#L31">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/11ca8b0b0774ce47aa7d04c15118f5750e6b2735/tools/configurator.py#L31">
       
       (source)
     </a>
@@ -607,7 +607,7 @@ $Author: Anders Wiklund
   <div class="functionHeader">
     
     <span class="py-defname">MISSING_ENV</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/d65ff143958415330d7e6b877ff90335af6e51de/tools/configurator.py#L29">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/11ca8b0b0774ce47aa7d04c15118f5750e6b2735/tools/configurator.py#L29">
       
       (source)
     </a>
@@ -634,7 +634,7 @@ $Author: Anders Wiklund
   <div class="functionHeader">
     
     <span class="py-defname">MISSING_SECRET</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/d65ff143958415330d7e6b877ff90335af6e51de/tools/configurator.py#L27">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/11ca8b0b0774ce47aa7d04c15118f5750e6b2735/tools/configurator.py#L27">
       
       (source)
     </a>
@@ -661,7 +661,7 @@ $Author: Anders Wiklund
   <div class="functionHeader">
     
     <span class="py-defname">SECRETS_DIR</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/d65ff143958415330d7e6b877ff90335af6e51de/tools/configurator.py#L33">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/11ca8b0b0774ce47aa7d04c15118f5750e6b2735/tools/configurator.py#L33">
       
       (source)
     </a>
@@ -673,9 +673,8 @@ $Author: Anders Wiklund
   </div>
   <div class="functionBody">
     
-    <div><p>This is where your secrets are stored (in Docker or locally).</p></div>
-    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>('/run/secrets' if os.path.exists('/.dockerenv') else
-    f'{site.getuserbase()}/secrets')</code></pre></td></tr></table>
+    <div><p>This is where your secrets are stored.</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>f"""{site.getuserbase()}/secrets"""</code></pre></td></tr></table>
   </div>
 </div><div class="baseconstant">
   
@@ -689,7 +688,7 @@ $Author: Anders Wiklund
   <div class="functionHeader">
     
     <span class="py-defname">USER_BASE</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/d65ff143958415330d7e6b877ff90335af6e51de/tools/configurator.py#L25">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/11ca8b0b0774ce47aa7d04c15118f5750e6b2735/tools/configurator.py#L25">
       
       (source)
     </a>
@@ -716,7 +715,7 @@ $Author: Anders Wiklund
   <div class="functionHeader">
     
     <span class="py-defname">config</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.Union" class="intersphinx-link">Union</a>[<wbr></wbr><a href="async_example_program.tools.configurator.Dev.html" class="internal-link" title="async_example_program.tools.configurator.Dev">Dev</a>, <wbr></wbr><a href="async_example_program.tools.configurator.Prod.html" class="internal-link" title="async_example_program.tools.configurator.Prod">Prod</a>]</code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/d65ff143958415330d7e6b877ff90335af6e51de/tools/configurator.py#L188">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/11ca8b0b0774ce47aa7d04c15118f5750e6b2735/tools/configurator.py#L183">
       
       (source)
     </a>
@@ -743,7 +742,7 @@ $Author: Anders Wiklund
   <div class="functionHeader">
     
     <span class="py-defname">_setup</span> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/d65ff143958415330d7e6b877ff90335af6e51de/tools/configurator.py#L182">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/11ca8b0b0774ce47aa7d04c15118f5750e6b2735/tools/configurator.py#L177">
       
       (source)
     </a>
