@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-11 02:16:09
-       $Rev: 30
+      $Date: 2023-10-14 16:11:09
+       $Rev: 38
 """
 
 # BUILTIN modules
@@ -183,6 +183,27 @@ class AsyncIniFileParser(ConfigParser):
 
     # ----------------------------------------------------------
     #
+    def _update_change_status(self, sections: Optional[list] = None) -> dict:
+        """ Update parameter supervision change status.
+
+        :param sections: List of section names.
+        """
+        items = {}
+        params = self.valid_params.model_dump()
+
+        # The status structure is flat, so section parameters need
+        # an added section head.
+        if sections:
+            for section in sections:
+                items = {f'{section}.{key}': value
+                         for key, value in params[section].items()}
+                del params[section]
+
+        items |= params
+        self._handle_status(items)
+
+    # ----------------------------------------------------------
+    #
     async def _restore_orig_file(self):
         """ Restore original ini file since validation failed.
 
@@ -231,27 +252,6 @@ class AsyncIniFileParser(ConfigParser):
         """
         # noinspection PyProtectedMember
         return self.items()._mapping._sections[section]
-
-    # ----------------------------------------------------------
-    #
-    def _update_change_status(self, sections: Optional[list] = None) -> dict:
-        """ Update parameter supervision change status.
-
-        :param sections: List of section names.
-        """
-        items = {}
-        params = self.valid_params.model_dump()
-
-        # The status structure is flat, so section parameters need
-        # an added section head.
-        if sections:
-            for section in sections:
-                items = {f'{section}.{key}': value
-                         for key, value in params[section].items()}
-                del params[section]
-
-        items |= params
-        self._handle_status(items)
 
     # ----------------------------------------------------------
     #

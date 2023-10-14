@@ -31,7 +31,7 @@ This part dive into the body of the example worker, a genuine code walkthrough.
 #### [4. Common program tools not mentioned elsewhere](https://medium.com/@wilde.consult/async-template-program-using-watchdog-rabbitmq-ini-file-deluxe-part4-dce93af95b16)
 This part talks about some of the tools that are not mentioned elsewhere.
 
-#### 5. Enhanced INI file handling
+#### [5. Enhanced INI file handling](https://medium.com/@wilde.consult/async-template-program-using-watchdog-rabbitmq-ini-file-deluxe-part5-a04968d7ee9e)
 This part is a walkthrough of the enhanced INI file functionality and how it can be utilized in the system.
 
 #### 6. Watchdog (file system supervision) handling
