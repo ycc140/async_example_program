@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-08 16:03:57
-       $Rev: 23
+      $Date: 2023-10-14 22:11:56
+       $Rev: 39
 """
 
 # BUILTIN modules
@@ -152,7 +152,7 @@ class AsyncFileSearcher:
         The duplicate detections only occur for "small" files, mostly within
         a few milliseconds, so a 2-second prune timeout should be ok...
 
-        This method is run by the scheduler every 5 seconds.
+        This method is run by the scheduler every 10 seconds.
         """
 
         if not self.suppress:

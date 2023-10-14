@@ -34,8 +34,8 @@ This part talks about some of the tools that are not mentioned elsewhere.
 #### [5. Enhanced INI file handling](https://medium.com/@wilde.consult/async-template-program-using-watchdog-rabbitmq-ini-file-deluxe-part5-a04968d7ee9e)
 This part is a walkthrough of the enhanced INI file functionality and how it can be utilized in the system.
 
-#### 6. Watchdog (file system supervision) handling
-This part is a walkthrough of the Watchdoc functionality and how it can be utilized in the system.
+#### [6. Watchdog (file system supervision) handling](https://medium.com/@wilde.consult/async-template-program-using-watchdog-rabbitmq-ini-file-deluxe-part6-4992321bc35f)
+This part is a walkthrough of the Watchdog functionality and how it can be utilized in the system.
 
 #### 7. RabbitMQ (message broker) handling
 This part is a walkthrough of the RabbitMQ functionality and how it can be utilized in the system. 
