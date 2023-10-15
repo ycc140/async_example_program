@@ -10,8 +10,7 @@ AsyncIO is a vital part of the building blocks, and it is used as much as possib
 
 I have developed this on Windows, but I also cover Linux and macOS differences where needed.
 
-This repository is described in a number of **Medium** articles (there will be links to the 
-articles once they are published).
+This repository is described in a number of **Medium** articles.
 
 <br><br>
 
@@ -26,7 +25,7 @@ This part talks about why a template program is useful when you are working with
 It covers the overall architecture of the example, and we do a code walkthrough of the example program.
 
 #### [3. Template program worker example](https://medium.com/@wilde.consult/async-template-program-using-watchdog-rabbitmq-ini-file-deluxe-part3-d0d6890ea98)
-This part dive into the body of the example worker, a genuine code walkthrough.
+This part dives into the body of the example worker, a genuine code walkthrough.
 
 #### [4. Common program tools not mentioned elsewhere](https://medium.com/@wilde.consult/async-template-program-using-watchdog-rabbitmq-ini-file-deluxe-part4-dce93af95b16)
 This part talks about some of the tools that are not mentioned elsewhere.
@@ -37,5 +36,5 @@ This part is a walkthrough of the enhanced INI file functionality and how it can
 #### [6. Watchdog (file system supervision) handling](https://medium.com/@wilde.consult/async-template-program-using-watchdog-rabbitmq-ini-file-deluxe-part6-4992321bc35f)
 This part is a walkthrough of the Watchdog functionality and how it can be utilized in the system.
 
-#### 7. RabbitMQ (message broker) handling
+#### [7. RabbitMQ (message broker) handling](https://medium.com/@wilde.consult/async-template-program-using-watchdog-rabbitmq-ini-file-deluxe-part7-83fd142dc60a)
 This part is a walkthrough of the RabbitMQ functionality and how it can be utilized in the system. 
