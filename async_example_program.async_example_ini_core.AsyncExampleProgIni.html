@@ -153,6 +153,16 @@
         
 
         
+            <div class="itemName"><code><a href="#initial_validation" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.initial_validation">initial<wbr></wbr>_validation</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#changed_document_types" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.changed_document_types">changed<wbr></wbr>_document<wbr></wbr>_types</a></code>
             </div>
         
@@ -310,7 +320,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AsyncExampleProgIni</span>(AsyncIniFileParser): <a href="https://github.com/ycc140/async_example_program/tree/3aa676db16475a3ed050d618ed00fe62982c024c/async_example_ini_core.py#L26" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.__init__">AsyncExampleProgIni(name)</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AsyncExampleProgIni</span>(AsyncIniFileParser): <a href="https://github.com/ycc140/async_example_program/tree/3781f1dcdb0386b7a8d5c6844234d670e3084098/async_example_ini_core.py#L27" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.__init__">AsyncExampleProgIni(name)</a></code></p>
           <p><a href="classIndex.html#async_example_program.async_example_ini_core.AsyncExampleProgIni">View In Hierarchy</a></p>
         </div>
 
@@ -337,6 +347,11 @@
     <td>Async Method</td>
     <td><code><a href="#validate_ini_file_parameters" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.validate_ini_file_parameters">validate<wbr></wbr>_ini<wbr></wbr>_file<wbr></wbr>_parameters</a></code></td>
     <td>Extract and validate ini file parameters.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#initial_validation" class="internal-link" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.initial_validation">initial<wbr></wbr>_validation</a></code></td>
+    <td>Need to handle initial validation correctly when post-validation is done.</td>
   </tr><tr class="property">
     
     <td>Property</td>
@@ -378,7 +393,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, name: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3aa676db16475a3ed050d618ed00fe62982c024c/async_example_ini_core.py#L31">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3781f1dcdb0386b7a8d5c6844234d670e3084098/async_example_ini_core.py#L37">
       
       (source)
     </a>
@@ -405,7 +420,7 @@
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">validate_ini_file</span><span class="function-signature">(self, validation_model: <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a></code>, sections: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, read_ini: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3aa676db16475a3ed050d618ed00fe62982c024c/async_example_ini_core.py#L92">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3781f1dcdb0386b7a8d5c6844234d670e3084098/async_example_ini_core.py#L100">
       
       (source)
     </a>
@@ -437,7 +452,7 @@ of all parameters (except special cases for complex types).</p>
     
     
     <span class="py-keyword">async def</span> <span class="py-defname">validate_ini_file_parameters</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3aa676db16475a3ed050d618ed00fe62982c024c/async_example_ini_core.py#L140">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3781f1dcdb0386b7a8d5c6844234d670e3084098/async_example_ini_core.py#L153">
       
       (source)
     </a>
@@ -451,6 +466,33 @@ of all parameters (except special cases for complex types).</p>
     
     <div><p>Extract and validate ini file parameters.</p></div>
   </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="async_example_program.async_example_ini_core.AsyncExampleProgIni.initial_validation">
+    
+  </a>
+  <a name="initial_validation">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">initial_validation</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3781f1dcdb0386b7a8d5c6844234d670e3084098/async_example_ini_core.py#L31">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#initial_validation" title="async_example_program.async_example_ini_core.AsyncExampleProgIni.initial_validation">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Need to handle initial validation correctly when post-validation is done.</p></div>
+    
+  </div>
 </div><div class="baseproperty">
   
   
@@ -463,7 +505,7 @@ of all parameters (except special cases for complex types).</p>
   <div class="functionHeader">
     @<a href="https://docs.python.org/3/library/functions.html#property" class="intersphinx-link">property</a><br />
     <span class="py-defname">changed_document_types</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3aa676db16475a3ed050d618ed00fe62982c024c/async_example_ini_core.py#L159">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3781f1dcdb0386b7a8d5c6844234d670e3084098/async_example_ini_core.py#L172">
       
       (source)
     </a>
@@ -490,7 +532,7 @@ of all parameters (except special cases for complex types).</p>
   <div class="functionHeader">
     @<a href="https://docs.python.org/3/library/functions.html#property" class="intersphinx-link">property</a><br />
     <span class="py-defname">changed_log_level</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3aa676db16475a3ed050d618ed00fe62982c024c/async_example_ini_core.py#L148">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3781f1dcdb0386b7a8d5c6844234d670e3084098/async_example_ini_core.py#L161">
       
       (source)
     </a>
@@ -518,7 +560,7 @@ of all parameters (except special cases for complex types).</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_verify_config_section_parameters</span><span class="function-signature">(self) -&gt; <code><a href="https://docs.python.org/3/library/typing.html#typing.List" class="intersphinx-link">List</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code></span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3aa676db16475a3ed050d618ed00fe62982c024c/async_example_ini_core.py#L72">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3781f1dcdb0386b7a8d5c6844234d670e3084098/async_example_ini_core.py#L80">
       
       (source)
     </a>
@@ -545,7 +587,7 @@ of all parameters (except special cases for complex types).</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_verify_platform_parameters</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3aa676db16475a3ed050d618ed00fe62982c024c/async_example_ini_core.py#L45">
+    <a class="sourceLink" href="https://github.com/ycc140/async_example_program/tree/3781f1dcdb0386b7a8d5c6844234d670e3084098/async_example_ini_core.py#L53">
       
       (source)
     </a>
