@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-08 16:03:57
-       $Rev: 23
+      $Date: 2023-10-17 02:25:21
+       $Rev: 40
 """
 
 # BUILTIN modules
@@ -15,7 +15,8 @@ import os
 from typing import Callable, Optional, List
 
 # Tools modules
-from tools.async_ini_file_parser import PLATFORM, AsyncIniFileParser
+from tools.async_ini_file_parser import (PLATFORM, IniValidationError,
+                                         AsyncIniFileParser)
 
 # Local program modules
 from async_example_ini_models import ConfigModel, Win32Model, LinuxModel
@@ -24,7 +25,12 @@ from async_example_ini_models import ConfigModel, Win32Model, LinuxModel
 # -----------------------------------------------------------------------------
 #
 class AsyncExampleProgIni(AsyncIniFileParser):
-    """ This class handles the ini file parameters for the AsyncExampleProgram. """
+    """ This class handles the ini file parameters for the AsyncExampleProgram.
+
+
+    :ivar initial_validation:
+        Need to handle initial validation correctly when post-validation is done.
+    """
 
     # ---------------------------------------------------------
     #
@@ -38,6 +44,8 @@ class AsyncExampleProgIni(AsyncIniFileParser):
 
         # Initiate the mother object.
         super().__init__(name, default_paths, default_params)
+
+        self.initial_validation = True
 
     # ---------------------------------------------------------
     # Optional, needed when you have platform parameters.
@@ -130,9 +138,14 @@ class AsyncExampleProgIni(AsyncIniFileParser):
             elif not os.path.isdir(path):
                 self.error.append(f"<routines> key [{path}] does not exist")
 
-        # This needs to be the last block (log semantic validation errors).
+        # This needs to be the last block (log semantic post-validation errors).
         if self.error:
-            await self._handle_error_severity()
+            if self.initial_validation:
+                raise IniValidationError()
+            else:
+                await self._handle_error_severity()
+
+        self.initial_validation = False
 
     # ---------------------------------------------------------
     # Required by every program (but content changes).
