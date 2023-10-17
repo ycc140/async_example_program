@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-14 16:11:09
-       $Rev: 38
+      $Date: 2023-10-17 02:36:50
+       $Rev: 41
 """
 
 # BUILTIN modules
@@ -15,6 +15,7 @@ import os
 import sys
 import shutil
 from pathlib import Path
+from abc import abstractmethod
 from typing import Optional, Callable, Any
 from configparser import ConfigParser, ExtendedInterpolation, NoOptionError
 
@@ -214,6 +215,15 @@ class AsyncIniFileParser(ConfigParser):
 
         # Update timestamp so that the error is only detected once.
         self.file_timestamp = os.path.getmtime(self.filename)
+
+    # ---------------------------------------------------------
+    #
+    @abstractmethod
+    def validate_ini_file_parameters(self):
+        """ Extract and validate ini file parameters.
+
+        Abstract method that needs to be overridden.
+        """
 
     # ----------------------------------------------------------
     #
