@@ -6,8 +6,8 @@ VERSION INFO::
 
       $Repo: async_example_program
     $Author: Anders Wiklund
-      $Date: 2023-10-14 12:00:19
-       $Rev: 37
+      $Date: 2024-03-05 20:04:52
+       $Rev: 42
 """
 
 # BUILTIN modules
@@ -159,7 +159,7 @@ class AsyncExampleWorker(AsyncBaseWorker):
         state should only contain files for the current day.
 
         When a program is started, we also have to make sure that all files
-        older than today are reported and pruned from the current day file
+        older than today are reported and pruned from the current-day file
         state.
         """
 
@@ -250,12 +250,10 @@ class AsyncExampleWorker(AsyncBaseWorker):
     # Unique for this program.
     #
     async def _process_report_request(self):
-        """ Process FileReportRequest message..
+        """ Process FileReportRequest message.
 
-        Example msg data:
-
-        .. Python::
-            {"msgType": "FileReportRequest"}
+        Handled sent message types are:
+            - FileReport
         """
 
         try:
