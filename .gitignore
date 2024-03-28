@@ -156,5 +156,5 @@ cython_debug/
 .build
 certs/
 apidocs/
-requirements-compile.in
-requirements-compile.txt
+requirements_dev.*
+.pre-commit-repo.json
